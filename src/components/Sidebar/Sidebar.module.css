@@ -1,0 +1,267 @@
+.sidebar {
+  width: 228px;
+  flex-shrink: 0;
+  min-height: 100vh;
+  background: #081121;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  padding: 22px 12px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 34px;
+  padding: 0 10px;
+}
+
+.logoIcon {
+  width: 32px;
+  font-size: 32px;
+  color: #cbd5e1;
+}
+
+.logo h1 {
+  font-size: 23px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.logo p {
+  margin-top: 4px;
+  font-size: 13px;
+  color: #9aa6bf;
+}
+
+.navigation {
+  flex: 1;
+}
+
+.menu {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.active {
+  background: #19489a;
+  color: #ffffff;
+}
+
+.item {
+  height: 52px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 18px;
+  border-radius: 7px;
+  color: #c4cede;
+  font-size: 15px;
+  font-weight: 400;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.active {
+  background: #19489a;
+  color: #ffffff;
+}
+
+.active:hover {
+  background: #19489a;
+}
+
+.item svg {
+  width: 18px;
+  font-size: 18px;
+}
+
+.bottom {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+}
+
+.store {
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 7px 7px 0 0;
+}
+
+.store > svg {
+  width: 20px;
+  font-size: 18px;
+  color: #d6deeb;
+}
+
+.store h4,
+.user h4 {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.store p,
+.user p {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #a5b0c3;
+}
+
+.profile {
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 12px 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.avatar {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #d9d9d9;
+  color: #64748b;
+}
+
+.avatar svg {
+  width: 17px;
+  height: 17px;
+}
+
+.user {
+  flex: 1;
+}
+
+.profile > svg {
+  width: 12px;
+  font-size: 12px;
+  color: #cbd5e1;
+}
+
+.logout {
+  width: 100%;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 15px;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0 0 7px 7px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #c4cede;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.logout:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.logout svg {
+  width: 18px;
+  font-size: 17px;
+}
+
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 72px;
+    padding: 22px 10px;
+  }
+
+  .logo {
+    justify-content: center;
+    padding: 0;
+  }
+
+  .logoIcon {
+    width: 32px;
+    flex-shrink: 0;
+  }
+
+  .logo div {
+    display: none;
+  }
+
+  .item {
+    justify-content: center;
+    gap: 0;
+    padding: 0;
+  }
+
+  .item span {
+    display: none;
+  }
+
+  .item svg {
+    width: 18px;
+  }
+
+  .store {
+    justify-content: center;
+    min-height: 54px;
+    padding: 0;
+  }
+
+  .store div {
+    display: none;
+  }
+
+  .store > svg {
+    width: 18px;
+  }
+
+  .profile {
+    justify-content: center;
+    min-height: 60px;
+    padding: 0;
+  }
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+  }
+
+  .user {
+    display: none;
+  }
+
+  .profile > svg {
+    display: none;
+  }
+
+  .logout {
+    justify-content: center;
+    height: 50px;
+    gap: 0;
+    padding: 0;
+  }
+
+  .logout span {
+    display: none;
+  }
+
+  .logout svg {
+    width: 18px;
+  }
+}

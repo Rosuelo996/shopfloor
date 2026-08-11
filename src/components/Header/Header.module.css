@@ -1,0 +1,260 @@
+.header {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 25px;
+}
+
+.greeting {
+  min-width: 0;
+}
+
+.greeting h1 {
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #0f172a;
+  white-space: nowrap;
+}
+
+.greeting p {
+  margin-top: 5px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #475569;
+  white-space: nowrap;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-shrink: 0;
+}
+
+.date {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-size: 13px;
+  color: #475569;
+  white-space: nowrap;
+}
+
+.date svg {
+  width: 16px;
+  height: 16px;
+  color: #475569;
+}
+
+.notification {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #334155;
+}
+
+.notification svg {
+  width: 18px;
+  height: 18px;
+}
+
+.notificationCount {
+  position: absolute;
+  top: 2px;
+  right: 3px;
+  width: 17px;
+  height: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #ef4444;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.headerProfile {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.headerAvatar {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #d9d9d9;
+  color: #64748b;
+}
+
+.headerAvatar svg {
+  width: 16px;
+  height: 16px;
+}
+
+.headerUser h4 {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #0f172a;
+}
+
+.headerUser p {
+  margin-top: 3px;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #64748b;
+}
+
+.chevron {
+  width: 10px;
+  height: 10px;
+  margin-left: 8px;
+  color: #475569;
+}
+
+
+@media (max-width: 1024px) {
+  .header {
+    gap: 16px;
+  }
+
+  .greeting h1 {
+    font-size: 19px;
+  }
+
+  .greeting p {
+    font-size: 12px;
+  }
+
+  .headerRight {
+    gap: 18px;
+  }
+
+  .date {
+    gap: 8px;
+    font-size: 12px;
+  }
+
+  .headerProfile {
+    gap: 8px;
+  }
+}
+
+
+
+@media (max-width: 768px) {
+  .greeting {
+    display: none;
+  }
+
+  .header {
+    height: 76px;
+    align-items: center;
+    justify-content: flex-end;
+    padding-top: 0;
+  }
+
+  .headerRight {
+    width: auto;
+    gap: 18px;
+  }
+}
+
+@media (max-width: 564px) {
+  .header {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .headerRight {
+    gap: 12px;
+  }
+
+  .date {
+    gap: 7px;
+    font-size: 11px;
+  }
+
+  .date svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .notification {
+    width: 36px;
+    height: 40px;
+  }
+
+  .notification svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .notificationCount {
+    width: 15px;
+    height: 15px;
+    font-size: 9px;
+    top: 1px;
+    right: 1px;
+  }
+
+  .headerProfile {
+    height: 40px;
+    gap: 7px;
+  }
+
+  .headerUser {
+    display: none;
+  }
+
+  .headerAvatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  .headerAvatar svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .headerUser h4 {
+    font-size: 11px;
+  }
+
+  .headerUser p {
+    font-size: 10px;
+  }
+
+  .chevron {
+    width: 9px;
+    height: 9px;
+    margin-left: 2px;
+  }
+}
+
+@media (max-width: 400px) {
+  .chevron {
+    display: none;
+  }
+
+  .headerRight {
+    gap: 10px;
+  }
+}
