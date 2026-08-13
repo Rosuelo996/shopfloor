@@ -1,6 +1,16 @@
+import type { DashboardData } from "../../../../../types/dashboard";
 import styles from "./DailyTarget.module.css";
 
-export default function DailyTarget() {
+type Props = {
+  dashboard: DashboardData | null;
+};
+
+export default function DailyTarget({ dashboard }: Props) {
+  const targetRemaining = Math.max(
+    (dashboard?.salesTarget ?? 0) - (dashboard?.sales ?? 0),
+    0,
+  );
+
   return (
     <div className={styles.dailyTarget}>
       <div className={styles.header}>
@@ -9,29 +19,28 @@ export default function DailyTarget() {
       </div>
 
       <div className={styles.sales}>
-        <h2>£3,840</h2>
-        <span>/ £5,000</span>
+        <h2>£{dashboard?.sales}</h2>
+        <span>/ £{dashboard?.salesTarget}</span>
       </div>
 
       <div className={styles.progress}>
         <div className={styles.progressBar}>
-          <div className={styles.progressFill}></div>
+          <div
+            className={styles.progressFill}
+            style={{
+              width: `${Math.min(dashboard?.targetCompletion ?? 0, 100)}%`,
+            }}
+          ></div>
         </div>
-        <span>77%</span>
+        <span>{dashboard?.targetCompletion}%</span>
       </div>
 
       <div className={styles.details}>
         <div>
           <p>Target Remaining</p>
-          <strong>£1,160</strong>
-        </div>
-
-        <div>
-          <p>Projected (EOD)</p>
-          <strong>£5,120</strong>
+          <strong>£{targetRemaining}</strong>
         </div>
       </div>
     </div>
   );
 }
-

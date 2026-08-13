@@ -14,7 +14,7 @@ export default function Metrics({dashboard}: MetricsProps) {
 
   return (
     <section className={styles.metrics}>
-      <DailyTarget />
+      <DailyTarget dashboard={dashboard} />
 
       <MetricCard
         label="Conversion"

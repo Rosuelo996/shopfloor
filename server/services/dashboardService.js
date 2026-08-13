@@ -13,8 +13,8 @@ export async function getDashboardData(date) {
     ROUND(dp.items_sold / dp.transactions, 1) AS ipc,
     st.sales_target,
     ROUND(
-    ((dp.sales - st.sales_target) / st.sales_target) 
-    * 100, 1) AS target_difference,
+    (dp.sales / st.sales_target) 
+    * 100, 1) AS target_completion,
     ROUND(
     (dp.transactions::NUMERIC / dp.visitors) 
     * 100, 1) AS conversion,
@@ -47,7 +47,7 @@ export async function getDashboardData(date) {
     date: dashboard.date,
     sales: Number(dashboard.sales),
     salesTarget: Number(dashboard.sales_target),
-    targetDifference: Number(dashboard.target_difference),
+    targetCompletion: Number(dashboard.target_completion),
     transactions: dashboard.transactions,
     visitors: dashboard.visitors,
     itemsSold: dashboard.items_sold,
@@ -63,4 +63,104 @@ export async function getDashboardData(date) {
   };
 
   return formattedDashboard;
+}
+
+export async function getYesterdaySummary(date) {
+  const result = await db.query(
+`WITH comparison AS (
+  SELECT
+    TO_CHAR(yesterday.date, 'YYYY-MM-DD') AS yesterday_date,
+    TO_CHAR(last_week.date, 'YYYY-MM-DD') AS last_week_date,
+	
+    yesterday.sales AS yesterday_sales,
+    last_week.sales AS last_week_sales,
+	
+    yesterday.transactions AS yesterday_transactions,
+    last_week.transactions AS last_week_transactions,
+
+    ROUND((yesterday.transactions::NUMERIC / yesterday.visitors) * 100,1) 
+	  AS yesterday_conversion,
+    ROUND((last_week.transactions::NUMERIC / last_week.visitors) * 100,1) 
+	  AS last_week_conversion,
+
+    ROUND(yesterday.sales / yesterday.transactions)
+    AS yesterday_apc,
+    ROUND(last_week.sales / last_week.transactions)
+    AS last_week_apc,
+
+    ROUND(yesterday.items_sold::NUMERIC / yesterday.transactions,1) 
+	  AS yesterday_ipc,
+    ROUND(last_week.items_sold::NUMERIC / last_week.transactions,1) 
+	  AS last_week_ipc
+
+  FROM daily_performance yesterday
+
+  JOIN daily_performance last_week
+    ON last_week.date = yesterday.date - 7
+
+  WHERE yesterday.date = $1::date - 1
+)
+
+SELECT
+  yesterday_date,
+  last_week_date,
+
+  yesterday_sales,
+  last_week_sales,
+  ROUND((yesterday_sales / last_week_sales * 100)- 100,1)
+  AS sales_difference,
+
+  yesterday_transactions,
+  last_week_transactions,
+  ROUND((yesterday_transactions::NUMERIC / last_week_transactions * 100)-100,1)
+  AS transactions_difference,
+
+  yesterday_conversion,
+  last_week_conversion,
+  ROUND((yesterday_conversion / last_week_conversion * 100)-100,1)
+  AS conversion_difference,
+
+  yesterday_apc,
+  last_week_apc,
+  ROUND((yesterday_apc / last_week_apc * 100)-100,1)
+  AS apc_difference,
+
+  yesterday_ipc,
+  last_week_ipc,
+  ROUND((yesterday_ipc / last_week_ipc * 100)-100,1)
+  AS ipc_difference
+
+  FROM comparison; `,
+  [date]
+  );
+
+  const yesterday = result.rows[0];
+
+  const formattedYesterday = {
+  yesterdayDate: yesterday.yesterday_date,
+  lastWeekDate: yesterday.last_week_date,
+
+  yesterdaySales: Number(yesterday.yesterday_sales),
+  lastWeekSales: Number(yesterday.last_week_sales),
+  salesDifference: Number(yesterday.sales_difference),
+
+  yesterdayTransactions: yesterday.yesterday_transactions,
+  lastWeekTransactions: yesterday.last_week_transactions,
+  transactionsDifference: Number(yesterday.transactions_difference),
+
+  yesterdayConversion: Number(yesterday.yesterday_conversion),
+  lastWeekConversion: Number(yesterday.last_week_conversion),
+  conversionDifference: Number(yesterday.conversion_difference),
+
+  yesterdayApc: Number(yesterday.yesterday_apc),
+  lastWeekApc: Number(yesterday.last_week_apc),
+  apcDifference: Number(yesterday.apc_difference),
+
+  yesterdayIpc: Number(yesterday.yesterday_ipc),
+  lastWeekIpc: Number(yesterday.last_week_ipc),
+  ipcDifference: Number(yesterday.ipc_difference),
+};
+
+return formattedYesterday;
+
 }

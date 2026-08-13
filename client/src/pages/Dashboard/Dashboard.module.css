@@ -5,6 +5,13 @@
   background: #f8fafc;
 }
 
+.overview {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 24px;
+}
+
 @media (max-width: 1024px) {
   .dashboard {
     padding: 0 24px;
