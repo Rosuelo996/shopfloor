@@ -1,0 +1,138 @@
+.dailyTarget {
+  min-width: 0;
+  padding: 24px;
+  background: #ffffff;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header p {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #0f172a;
+}
+
+.header button {
+  padding: 0;
+  border: none;
+  background: none;
+  font-size: 12px;
+  font-weight: 500;
+  color: #2563eb;
+}
+
+.sales {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.sales h2 {
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1;
+  color: #0f172a;
+}
+
+.sales span {
+  font-size: 16px;
+  color: #64748b;
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.progressBar {
+  flex: 1;
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e2e8f0;
+}
+
+.progressFill {
+  width: 77%;
+  height: 100%;
+  border-radius: inherit;
+  background: #16a34a;
+}
+
+.progress > span {
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #16a34a;
+}
+
+.details {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 20px;
+}
+
+.details p {
+  margin-bottom: 5px;
+  font-size: 11px;
+  color: #64748b;
+}
+
+.details strong {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.details > div:last-child {
+  text-align: right;
+}
+
+.details > div:last-child strong {
+  color: #16a34a;
+}
+
+@media (max-width: 768px) {
+  .dailyTarget {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 564px) {
+  .dailyTarget {
+    padding: 20px;
+  }
+
+  .sales h2 {
+    font-size: 26px;
+  }
+
+  .sales span {
+    font-size: 14px;
+  }
+
+  .header p {
+    font-size: 11px;
+  }
+
+  .header button {
+    font-size: 11px;
+  }
+
+  .details p {
+    font-size: 10px;
+  }
+
+  .details strong {
+    font-size: 13px;
+  }
+}

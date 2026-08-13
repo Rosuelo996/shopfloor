@@ -1,0 +1,21 @@
+.metrics {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr repeat(3, 1fr);
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .metrics {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .metrics {
+    grid-template-columns: 1fr;
+  }
+}
