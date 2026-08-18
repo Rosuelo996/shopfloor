@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCalendarDays,
@@ -6,12 +7,14 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "./Header.module.css";
- 
+
 type HeaderProps = {
   date: string;
+  onDateChange: (date: string) => void;
 };
 
-export default function Dashboard({date}: HeaderProps) {
+export default function Header({ date, onDateChange }: HeaderProps) {
+  const dateInputRef = useRef<HTMLInputElement>(null);
   const formattedDate = new Date(`${date}T00:00:00`).toLocaleDateString(
     "en-GB",
     {
@@ -19,7 +22,7 @@ export default function Dashboard({date}: HeaderProps) {
       day: "numeric",
       month: "long",
       year: "numeric",
-    }
+    },
   );
 
   return (
@@ -32,7 +35,23 @@ export default function Dashboard({date}: HeaderProps) {
 
         <div className={styles.headerRight}>
           <div className={styles.date}>
-            <FontAwesomeIcon icon={faCalendarDays} />
+            <button
+              type="button"
+              onClick={() => {
+                dateInputRef.current?.showPicker();
+              }}
+            >
+              <FontAwesomeIcon icon={faCalendarDays} />
+            </button>
+            <input
+              ref={dateInputRef}
+              className={styles.dateInput}
+              type="date"
+              value={date}
+              onChange={(e) => onDateChange(e.target.value)}
+              min="2026-08-01"
+              max="2026-08-31"
+            />
             <p>{formattedDate}</p>
           </div>
 
@@ -43,7 +62,7 @@ export default function Dashboard({date}: HeaderProps) {
 
           <div className={styles.headerProfile}>
             <div className={styles.headerAvatar}>
-                <FontAwesomeIcon icon={faUser} />
+              <FontAwesomeIcon icon={faUser} />
             </div>
 
             <div className={styles.headerUser}>
@@ -51,10 +70,7 @@ export default function Dashboard({date}: HeaderProps) {
               <p>Store Manager</p>
             </div>
 
-            <FontAwesomeIcon
-              icon={faChevronDown}
-              className={styles.chevron}
-            />
+            <FontAwesomeIcon icon={faChevronDown} className={styles.chevron} />
           </div>
         </div>
       </header>

@@ -11,6 +11,15 @@ export default function DailyTarget({ dashboard }: Props) {
     0,
   );
 
+  const completion = dashboard?.targetCompletion ?? 0;
+
+  const statusClass =
+    completion >= 100
+      ? styles.success
+      : completion >= 90
+        ? styles.warning
+        : styles.danger;
+
   return (
     <div className={styles.dailyTarget}>
       <div className={styles.header}>
@@ -26,19 +35,19 @@ export default function DailyTarget({ dashboard }: Props) {
       <div className={styles.progress}>
         <div className={styles.progressBar}>
           <div
-            className={styles.progressFill}
+            className={`${styles.progressFill} ${statusClass}`}
             style={{
               width: `${Math.min(dashboard?.targetCompletion ?? 0, 100)}%`,
             }}
           ></div>
         </div>
-        <span>{dashboard?.targetCompletion}%</span>
+        <span className={statusClass}>{dashboard?.targetCompletion}%</span>
       </div>
 
       <div className={styles.details}>
         <div>
           <p>Target Remaining</p>
-          <strong>£{targetRemaining}</strong>
+          <strong className={statusClass}>£{targetRemaining}</strong>
         </div>
       </div>
     </div>

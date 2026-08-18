@@ -45,10 +45,27 @@
   white-space: nowrap;
 }
 
+.date button {
+  border: none;
+  background: none;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
 .date svg {
   width: 16px;
   height: 16px;
   color: #475569;
+}
+
+.dateInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .notification {
