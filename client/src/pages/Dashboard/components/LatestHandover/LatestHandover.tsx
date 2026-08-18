@@ -1,22 +1,17 @@
 import { useState } from "react";
 import styles from "./LatestHandover.module.css";
-import type { LatestHandoverData } from "../../../../types/dashboard";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import type { LatestHandoverData } from "../../../../types/handover";
 
 type Props = {
   handover: LatestHandoverData | null;
+  onToggleCompleted: (id: number, completed: boolean) => Promise<void>
 };
 
-export default function LatestHandover({ handover }: Props) {
-  const [completedItems, setCompletedItems] = useState<number[]>([]);
+export default function LatestHandover({ handover, onToggleCompleted }: Props) {
   const [acknowledged, setAcknowledged] = useState(false);
 
-  const toggleCompleted = (id: number) => {
-    setCompletedItems((prev) =>
-      prev.includes(id)
-        ? prev.filter((itemId) => itemId !== id)
-        : [...prev, id]
-    );
-  };
 
   return (
     <div className={styles.latestHandover}>
@@ -28,20 +23,16 @@ export default function LatestHandover({ handover }: Props) {
       <div className={styles.content}>
         <div className={styles.items}>
           {handover?.items.map((item) => {
-            const completed =
-              item.completed || completedItems.includes(item.id);
 
             return (
               <div
                 key={item.id}
                 className={styles.item}
-                onClick={() => toggleCompleted(item.id)}
+                onClick={() => onToggleCompleted(item.id, item.completed)}
               >
-                <span className={styles.alert}>
-                  {completed ? "✓" : "!"}
-                </span>
+                <span className={styles.alert}>{item.completed ? "✓" : "!"}</span>
 
-                <p className={completed ? styles.completed : ""}>
+                <p className={item.completed ? styles.completed : ""}>
                   {item.content}
                 </p>
               </div>
@@ -50,7 +41,9 @@ export default function LatestHandover({ handover }: Props) {
         </div>
 
         <div className={styles.meta}>
-          <div className={styles.avatar}></div>
+          <div className={styles.avatar}>
+            <FontAwesomeIcon icon={faUser} />
+          </div>
 
           <div className={styles.author}>
             <span>
@@ -73,9 +66,7 @@ export default function LatestHandover({ handover }: Props) {
           disabled={acknowledged}
         >
           <span>✓</span>
-          {acknowledged
-            ? "Handover Acknowledged"
-            : "Acknowledge Handover"}
+          {acknowledged ? "Handover Acknowledged" : "Acknowledge Handover"}
         </button>
       </div>
 

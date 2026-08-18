@@ -2,7 +2,6 @@ import axios from "axios";
 import type {
   DashboardData,
   YesterdaySummaryData,
-  LatestHandoverData,
 } from "../types/dashboard";
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -25,12 +24,4 @@ export async function getYesterdaySummary(
   return res.data;
 }
 
-export async function getLatestHandover(
-  date?: string,
-): Promise<LatestHandoverData> {
-  const res = await axios.get(`${API_URL}/dashboard/latest`, {
-    params: { date },
-  });
 
-  return res.data;
-}

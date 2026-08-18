@@ -1,4 +1,4 @@
-import { getDashboardData, getYesterdaySummary, fetchLatestHandover } from "../services/dashboardService.js";
+import { getDashboardData, getYesterdaySummary } from "../services/dashboardService.js";
 
 export async function getDashboard(req, res, next) {
   try {
@@ -21,13 +21,4 @@ export async function getYesterday(req, res, next) {
   }
 }
 
-export async function getLatestHandover(req, res, next) {
-  try {
-    const date = req.query.date || "2026-08-31"
-    const handover= await fetchLatestHandover(date);
 
-    res.json(handover)
-  } catch(err) {
-    next(err)
-  }
-}

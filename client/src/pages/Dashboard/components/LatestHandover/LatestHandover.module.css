@@ -103,13 +103,20 @@
 }
 
 .avatar {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background: #e2e8f0;
+  background: #f1f1f1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
 }
 
+.avatar svg {
+  font-size: 16px;
+  color: #777;
+}
 .author {
   display: flex;
   flex-direction: column;
@@ -191,8 +198,18 @@
   transform: translateX(3px);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .latestHandover {
     padding: 18px;
   }
+
+  .header {
+    justify-content: space-between;
+  }
+
+  .item {
+    padding: 8px 4px;
+  }
+
 }
+
