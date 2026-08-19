@@ -42,3 +42,9 @@ export type YesterdaySummaryData = {
   ipcDifference: number;
 };
 
+export type WeeklySalesData = {
+  date: string;
+  day: string;
+  salesTarget: number;
+  sales: number | null;
+};

@@ -7,6 +7,7 @@ import LatestHandover from "./components/LatestHandover/LatestHandover";
 import TodayTasks from "./components/TodayTasks/TodayTasks";
 
 import { useDashboard } from "./hooks/useDashboard";
+import WeeklySales from "./components/WeeklySales/WeeklySales";
 
 export default function Dashboard() {
   const {
@@ -14,17 +15,17 @@ export default function Dashboard() {
     yesterday,
     handover,
     tasks,
+    weeklySales,
     selectedDate,
-    setSelectedDate,  
+    setSelectedDate,
     handleHandoverItemToggle,
     handleTaskStatusToggle,
   } = useDashboard();
 
-
   return (
     <div className={styles.dashboard}>
-      <Header date={selectedDate} onDateChange={setSelectedDate}/>
- 
+      <Header date={selectedDate} onDateChange={setSelectedDate} />
+
       <Metrics dashboard={dashboard} />
 
       <section className={styles.overview}>
@@ -33,16 +34,13 @@ export default function Dashboard() {
           onToggleCompleted={handleHandoverItemToggle}
         />
 
-        <TodayTasks
-          tasks={tasks}
-          onTaskStatusToggle={handleTaskStatusToggle}
-        />
+        <TodayTasks tasks={tasks} onTaskStatusToggle={handleTaskStatusToggle} />
 
         <YesterdaySummary yesterday={yesterday} />
       </section>
 
       <section className={styles.bottomGrid}>
-        {/* weekly sales chart */}
+        <WeeklySales weeklySales={weeklySales} />
         {/* today's team */}
         {/* quick actions */}
       </section>

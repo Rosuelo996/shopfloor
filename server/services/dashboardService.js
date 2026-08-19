@@ -32,7 +32,7 @@ export async function getDashboardData(date) {
     * 100) -100,1) AS ipc_difference
     FROM daily_performance dp
     JOIN sales_targets st
-    ON st.day_of_week = TRIM(TO_CHAR(dp.date, 'Day'))
+    ON st.date = dp.date
     CROSS JOIN kpi_targets kt
     WHERE dp.date = $1
     ORDER BY dp.date DESC
@@ -65,9 +65,9 @@ export async function getDashboardData(date) {
   return formattedDashboard;
 }
 
-export async function getYesterdaySummary(date) {
+export async function getYesterdaySummaryData(date) {
   const result = await db.query(
-`WITH comparison AS (
+    `WITH comparison AS (
   SELECT
     TO_CHAR(yesterday.date, 'YYYY-MM-DD') AS yesterday_date,
     TO_CHAR(last_week.date, 'YYYY-MM-DD') AS last_week_date,
@@ -131,38 +131,70 @@ SELECT
   AS ipc_difference
 
   FROM comparison; `,
-  [date]
+    [date],
   );
 
   const yesterday = result.rows[0];
 
   const formattedYesterday = {
-  yesterdayDate: yesterday.yesterday_date,
-  lastWeekDate: yesterday.last_week_date,
+    yesterdayDate: yesterday.yesterday_date,
+    lastWeekDate: yesterday.last_week_date,
 
-  yesterdaySales: Number(yesterday.yesterday_sales),
-  lastWeekSales: Number(yesterday.last_week_sales),
-  salesDifference: Number(yesterday.sales_difference),
+    yesterdaySales: Number(yesterday.yesterday_sales),
+    lastWeekSales: Number(yesterday.last_week_sales),
+    salesDifference: Number(yesterday.sales_difference),
 
-  yesterdayTransactions: yesterday.yesterday_transactions,
-  lastWeekTransactions: yesterday.last_week_transactions,
-  transactionsDifference: Number(yesterday.transactions_difference),
+    yesterdayTransactions: yesterday.yesterday_transactions,
+    lastWeekTransactions: yesterday.last_week_transactions,
+    transactionsDifference: Number(yesterday.transactions_difference),
 
-  yesterdayConversion: Number(yesterday.yesterday_conversion),
-  lastWeekConversion: Number(yesterday.last_week_conversion),
-  conversionDifference: Number(yesterday.conversion_difference),
+    yesterdayConversion: Number(yesterday.yesterday_conversion),
+    lastWeekConversion: Number(yesterday.last_week_conversion),
+    conversionDifference: Number(yesterday.conversion_difference),
 
-  yesterdayApc: Number(yesterday.yesterday_apc),
-  lastWeekApc: Number(yesterday.last_week_apc),
-  apcDifference: Number(yesterday.apc_difference),
+    yesterdayApc: Number(yesterday.yesterday_apc),
+    lastWeekApc: Number(yesterday.last_week_apc),
+    apcDifference: Number(yesterday.apc_difference),
 
-  yesterdayIpc: Number(yesterday.yesterday_ipc),
-  lastWeekIpc: Number(yesterday.last_week_ipc),
-  ipcDifference: Number(yesterday.ipc_difference),
-};
+    yesterdayIpc: Number(yesterday.yesterday_ipc),
+    lastWeekIpc: Number(yesterday.last_week_ipc),
+    ipcDifference: Number(yesterday.ipc_difference),
+  };
 
-return formattedYesterday;
-
+  return formattedYesterday;
 }
 
- 
+export async function getWeeklySalesData(date) {
+  const result = await db.query(
+    `
+    SELECT
+      TO_CHAR(st.date, 'YYYY-MM-DD') AS date,
+      TO_CHAR(st.date, 'Dy') AS day,
+      st.sales_target,
+      dp.sales
+    FROM sales_targets st
+
+    LEFT JOIN daily_performance dp
+      ON dp.date = st.date
+
+    WHERE st.date BETWEEN
+      $1::date - EXTRACT(DOW FROM $1::date)::INTEGER
+      AND
+      $1::date - EXTRACT(DOW FROM $1::date)::INTEGER + 6
+
+    ORDER BY st.date;
+    `,
+    [date],
+  );
+
+  const weeklySales = result.rows;
+
+  const formattedWeeklySales = weeklySales.map((day) => ({
+    date: day.date,
+    day: day.day,
+    salesTarget: Number(day.sales_target),
+    sales: day.sales === null ? null : Number(day.sales),
+  }));
+
+  return formattedWeeklySales;
+}

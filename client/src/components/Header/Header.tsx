@@ -26,7 +26,6 @@ export default function Header({ date, onDateChange }: HeaderProps) {
   );
 
   return (
-    <div className={styles.dashboard}>
       <header className={styles.header}>
         <div className={styles.greeting}>
           <h1>Good morning, Stefano 👋</h1>
@@ -74,6 +73,5 @@ export default function Header({ date, onDateChange }: HeaderProps) {
           </div>
         </div>
       </header>
-    </div>
   );
 }

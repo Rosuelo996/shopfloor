@@ -1,0 +1,168 @@
+.weeklySales {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 20px 22px;
+
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 18px;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: #0f172a;
+}
+
+.header p {
+  margin-top: 4px;
+  font-size: 11px;
+  font-weight: 400;
+  color: #64748b;
+}
+
+.headerRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.legend span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  font-size: 12px;
+  font-weight: 500;
+  color: #475569;
+  white-space: nowrap;
+}
+
+.legend span:first-child::before {
+  content: "";
+  width: 18px;
+  height: 3px;
+  flex-shrink: 0;
+
+  border-radius: 999px;
+  background: #1d4ed8;
+}
+
+.legend span:last-child::before {
+  content: "";
+  width: 18px;
+  height: 2px;
+  flex-shrink: 0;
+
+  background: repeating-linear-gradient(
+    to right,
+    #94a3b8 0,
+    #94a3b8 5px,
+    transparent 5px,
+    transparent 9px
+  );
+}
+
+.viewAll {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+
+  padding: 0;
+  border: none;
+  background: transparent;
+
+  color: #2563eb;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.viewAll span {
+  transition: transform 0.2s ease;
+}
+
+.viewAll:hover span {
+  transform: translateX(3px);
+}
+
+.chart {
+  width: 100%;
+  height: 280px;
+  min-width: 0;
+}
+
+@media (max-width: 1024px) {
+  .weeklySales {
+    padding: 20px;
+  }
+
+  .header {
+    gap: 18px;
+  }
+
+  .headerRight {
+    gap: 6px;
+  }
+
+  .chart {
+    height: 270px;
+  }
+}
+
+@media (max-width: 768px) {
+  .headerRight {
+    gap: 14px;
+  }
+
+  .legend {
+    gap: 12px;
+  }
+
+  .chart {
+    height: 250px;
+  }
+}
+
+@media (max-width: 564px) {
+  .weeklySales {
+    padding: 18px 16px;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .headerRight {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .chart {
+    height: 230px;
+  }
+}

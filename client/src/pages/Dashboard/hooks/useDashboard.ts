@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import {
   getDashboard,
   getYesterdaySummary,
+  getWeeklySales
 } from "../../../services/dashboardService";
 
 import {
@@ -18,6 +19,7 @@ import {
 import type {
   DashboardData,
   YesterdaySummaryData,
+  WeeklySalesData,
 } from "../../../types/dashboard";
 
 import type { LatestHandoverData } from "../../../types/handover";
@@ -28,7 +30,9 @@ export function useDashboard() {
   const [yesterday, setYesterday] = useState<YesterdaySummaryData | null>(null);
   const [handover, setHandover] = useState<LatestHandoverData | null>(null);
   const [tasks, setTasks] = useState<TaskData[] | null>(null);
+  const [weeklySales, setWeeklySales] = useState<WeeklySalesData[]>([]);
   const [selectedDate, setSelectedDate] = useState("2026-08-31");
+  
 
   useEffect(() => {
     const loadDashboard = async () => {
@@ -36,11 +40,13 @@ export function useDashboard() {
       const yesterdayData = await getYesterdaySummary(selectedDate);
       const handoverData = await getLatestHandover(selectedDate);
       const tasksData = await getTasksByDate(selectedDate);
+      const weeklySalesData = await getWeeklySales(selectedDate)
 
       setDashboard(dashboardData);
       setYesterday(yesterdayData);
       setHandover(handoverData);
       setTasks(tasksData);
+      setWeeklySales(weeklySalesData)
     };
 
     loadDashboard();
@@ -90,6 +96,7 @@ export function useDashboard() {
     yesterday,
     handover,
     tasks,
+    weeklySales,
     selectedDate,
     setSelectedDate,
     handleHandoverItemToggle,
