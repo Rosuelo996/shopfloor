@@ -33,7 +33,7 @@ export default function WeeklySales({ weeklySales }: Props) {
           </div>
 
           <Link to="/trends" className={styles.viewAll}>
-            View all trends 
+            View all trends
             <span>→</span>
           </Link>
         </div>
@@ -74,26 +74,27 @@ export default function WeeklySales({ weeklySales }: Props) {
               }}
             />
 
-            <Tooltip />
+            <Tooltip formatter={(value) => `£${Number(value).toLocaleString()}`} />
 
             <Area
               type="linear"
               dataKey="sales"
               stroke="#1d4ed8"
               strokeWidth={2.5}
-              fill="#3b82f6"
-              fillOpacity={0.1}
+              fill="#3b82f61a"
               dot={{
                 r: 3.5,
-                fill: "#ffffff",
+                fill: "#1d4ed8",
                 stroke: "#1d4ed8",
-                strokeWidth: 2,
+                strokeWidth: 0,
+                fillOpacity: 1,
               }}
               activeDot={{
                 r: 5,
                 fill: "#1d4ed8",
-                stroke: "#ffffff",
-                strokeWidth: 2,
+                stroke: "#1d4ed8",
+                strokeWidth: 0,
+                fillOpacity: 1,
               }}
             />
 

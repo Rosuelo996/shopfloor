@@ -8,6 +8,8 @@ import TodayTasks from "./components/TodayTasks/TodayTasks";
 
 import { useDashboard } from "./hooks/useDashboard";
 import WeeklySales from "./components/WeeklySales/WeeklySales";
+import TodayTeam from "./components/TodayTeam/TodayTeam";
+import WeeklyNewsletter from "./components/WeeklyNewsletter/WeeklyNewsletter";
 
 export default function Dashboard() {
   const {
@@ -17,6 +19,8 @@ export default function Dashboard() {
     tasks,
     weeklySales,
     selectedDate,
+    shifts,
+    newsletter,
     setSelectedDate,
     handleHandoverItemToggle,
     handleTaskStatusToggle,
@@ -41,8 +45,8 @@ export default function Dashboard() {
 
       <section className={styles.bottomGrid}>
         <WeeklySales weeklySales={weeklySales} />
-        {/* today's team */}
-        {/* quick actions */}
+        <TodayTeam shifts={shifts} />
+        <WeeklyNewsletter newsletter={newsletter}/>
       </section>
     </div>
   );

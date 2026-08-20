@@ -14,7 +14,7 @@ export default function TodayTasks({ tasks, onTaskStatusToggle }: Props) {
   return (
     <section className={styles.tasks}>
       <div className={styles.header}>
-        <h3>Today's Tasks</h3>
+        <h2>Today's Tasks</h2>
       </div>
 
       <div className={styles.loading}>
@@ -28,12 +28,12 @@ export default function TodayTasks({ tasks, onTaskStatusToggle }: Props) {
   return (
     <section className={styles.tasks}>
       <div className={styles.header}>
-        <h3>Today's Tasks</h3>
+        <h2>Today's Tasks</h2>
         <span className={styles.openCount}>{openTasks.length} open</span>
       </div>
 
       <div className={styles.taskList}>
-        {tasks.slice(0, 6).map((task) => (
+        {tasks.slice(0, 7).map((task) => (
           <div
             key={task.id}
             className={`${styles.task} ${

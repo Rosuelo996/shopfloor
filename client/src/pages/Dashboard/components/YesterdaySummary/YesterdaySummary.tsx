@@ -1,6 +1,15 @@
 import type { YesterdaySummaryData } from "../../../../types/dashboard";
 import styles from "./YesterdaySummary.module.css";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faSterlingSign,
+  faReceipt,
+  faPercent,
+  faMoneyBillTrendUp,
+  faBoxOpen,
+} from "@fortawesome/free-solid-svg-icons";
+
 type Props = {
   yesterday: YesterdaySummaryData | null;
 };
@@ -18,25 +27,29 @@ export default function YesterdaySummary({ yesterday }: Props) {
   return (
     <div className={styles.yesterdaySummary}>
       <div className={styles.header}>
-        <h3>Yesterday Summary</h3>
+        <h2>Yesterday Summary</h2>
         <span>vs same day last week</span>
       </div>
 
       <div className={styles.row}>
         <div className={styles.label}>
-          <div className={styles.icon}>£</div>
+          <div className={styles.icon}>
+            <FontAwesomeIcon icon={faSterlingSign} />
+          </div>
           <span>Sales</span>
         </div>
 
         <div className={styles.result}>
-          <strong>£{yesterday?.yesterdaySales}</strong>
+          <strong>£{yesterday?.yesterdaySales.toLocaleString("en-GB")}</strong>
           {renderDifference(yesterday?.salesDifference ?? 0)}
         </div>
       </div>
 
       <div className={styles.row}>
         <div className={styles.label}>
-          <div className={styles.icon}>🛒</div>
+          <div className={styles.icon}>
+            <FontAwesomeIcon icon={faReceipt} />
+          </div>
           <span>Transactions</span>
         </div>
 
@@ -48,7 +61,9 @@ export default function YesterdaySummary({ yesterday }: Props) {
 
       <div className={styles.row}>
         <div className={styles.label}>
-          <div className={styles.icon}>▥</div>
+          <div className={styles.icon}>
+            <FontAwesomeIcon icon={faPercent} />
+          </div>
           <span>Conversion</span>
         </div>
 
@@ -60,7 +75,9 @@ export default function YesterdaySummary({ yesterday }: Props) {
 
       <div className={styles.row}>
         <div className={styles.label}>
-          <div className={styles.icon}>◆</div>
+          <div className={styles.icon}>
+            <FontAwesomeIcon icon={faMoneyBillTrendUp} />
+          </div>
           <span>APC</span>
         </div>
 
@@ -72,7 +89,9 @@ export default function YesterdaySummary({ yesterday }: Props) {
 
       <div className={styles.row}>
         <div className={styles.label}>
-          <div className={styles.icon}>♟</div>
+          <div className={styles.icon}>
+            <FontAwesomeIcon icon={faBoxOpen} />
+          </div>
           <span>IPC</span>
         </div>
 

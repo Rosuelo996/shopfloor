@@ -16,7 +16,7 @@ export default function LatestHandover({ handover, onToggleCompleted }: Props) {
   return (
     <div className={styles.latestHandover}>
       <div className={styles.header}>
-        <h3>Latest Handover</h3>
+        <h2>Handover</h2>
         <span className={styles.priority}>Priority</span>
       </div>
 

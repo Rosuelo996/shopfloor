@@ -1,9 +1,13 @@
-import { getDashboardData, getYesterdaySummaryData, getWeeklySalesData } from "../services/dashboardService.js";
+import {
+  fetchDashboard,
+  fetchYesterdaySummary,
+  fetchWeeklySales,
+} from "../services/dashboardService.js";
 
 export async function getDashboard(req, res, next) {
   try {
     const date = req.query.date || "2026-08-31";
-    const dashboard = await getDashboardData(date);
+    const dashboard = await fetchDashboard(date);
     res.json(dashboard);
   } catch (err) {
     next(err);
@@ -13,7 +17,7 @@ export async function getDashboard(req, res, next) {
 export async function getYesterdaySummary(req, res, next) {
   try {
     const date = req.query.date || "2026-08-31";
-    const yesterday = await getYesterdaySummaryData(date);
+    const yesterday = await fetchYesterdaySummary(date);
 
     res.json(yesterday);
   } catch (err) {
@@ -24,12 +28,10 @@ export async function getYesterdaySummary(req, res, next) {
 export async function getWeeklySales(req, res, next) {
   try {
     const date = req.query.date || "2026-08-31";
-    const weeklySales = await getWeeklySalesData(date)
+    const weeklySales = await fetchWeeklySales(date);
 
     res.json(weeklySales);
   } catch (err) {
     next(err);
   }
 }
-
-

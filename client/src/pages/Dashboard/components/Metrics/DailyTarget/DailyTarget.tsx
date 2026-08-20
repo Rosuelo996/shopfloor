@@ -21,15 +21,15 @@ export default function DailyTarget({ dashboard }: Props) {
         : styles.danger;
 
   return (
-    <div className={styles.dailyTarget}>
+    <section className={styles.dailyTarget}>
       <div className={styles.header}>
-        <p>Today's Sales</p>
+        <h2>Today's Sales</h2>
         <button>Edit Target</button>
       </div>
 
       <div className={styles.sales}>
-        <h2>£{dashboard?.sales}</h2>
-        <span>/ £{dashboard?.salesTarget}</span>
+        <h2>£{dashboard?.sales.toLocaleString("en-GB")}</h2>
+        <span>/ £{dashboard?.salesTarget.toLocaleString("en-GB")}</span>
       </div>
 
       <div className={styles.progress}>
@@ -50,6 +50,6 @@ export default function DailyTarget({ dashboard }: Props) {
           <strong className={statusClass}>£{targetRemaining}</strong>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

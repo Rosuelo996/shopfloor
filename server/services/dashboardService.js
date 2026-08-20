@@ -1,6 +1,6 @@
 import db from "../db/db.js";
 
-export async function getDashboardData(date) {
+export async function fetchDashboard(date) {
   const result = await db.query(
     `
     SELECT 
@@ -65,7 +65,7 @@ export async function getDashboardData(date) {
   return formattedDashboard;
 }
 
-export async function getYesterdaySummaryData(date) {
+export async function fetchYesterdaySummary(date) {
   const result = await db.query(
     `WITH comparison AS (
   SELECT
@@ -164,7 +164,7 @@ SELECT
   return formattedYesterday;
 }
 
-export async function getWeeklySalesData(date) {
+export async function fetchWeeklySales(date) {
   const result = await db.query(
     `
     SELECT

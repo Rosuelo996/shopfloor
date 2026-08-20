@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import {
   getDashboard,
   getYesterdaySummary,
-  getWeeklySales
+  getWeeklySales,
 } from "../../../services/dashboardService";
 
 import {
@@ -16,6 +16,10 @@ import {
   updateTaskStatus,
 } from "../../../services/tasksService";
 
+import { getShifts } from "../../../services/teamService";
+
+import { getNewsletter } from "../../../services/newsletterService";
+
 import type {
   DashboardData,
   YesterdaySummaryData,
@@ -24,6 +28,9 @@ import type {
 
 import type { LatestHandoverData } from "../../../types/handover";
 import type { TaskData } from "../../../types/tasks";
+import type { ShiftsData } from "../../../types/team";
+import type { NewsletterData } from "../../../types/newsletter";
+
 
 export function useDashboard() {
   const [dashboard, setDashboard] = useState<DashboardData | null>(null);
@@ -31,8 +38,9 @@ export function useDashboard() {
   const [handover, setHandover] = useState<LatestHandoverData | null>(null);
   const [tasks, setTasks] = useState<TaskData[] | null>(null);
   const [weeklySales, setWeeklySales] = useState<WeeklySalesData[]>([]);
+  const [shifts, setShifts] = useState<ShiftsData[]>([]);
+  const [newsletter, setNewsletter] = useState<NewsletterData | null>(null)
   const [selectedDate, setSelectedDate] = useState("2026-08-31");
-  
 
   useEffect(() => {
     const loadDashboard = async () => {
@@ -40,22 +48,23 @@ export function useDashboard() {
       const yesterdayData = await getYesterdaySummary(selectedDate);
       const handoverData = await getLatestHandover(selectedDate);
       const tasksData = await getTasksByDate(selectedDate);
-      const weeklySalesData = await getWeeklySales(selectedDate)
+      const weeklySalesData = await getWeeklySales(selectedDate);
+      const shiftsData = await getShifts(selectedDate);
+      const newsletterData = await getNewsletter(selectedDate)
 
       setDashboard(dashboardData);
       setYesterday(yesterdayData);
       setHandover(handoverData);
       setTasks(tasksData);
-      setWeeklySales(weeklySalesData)
+      setWeeklySales(weeklySalesData);
+      setShifts(shiftsData);
+      setNewsletter(newsletterData)
     };
 
     loadDashboard();
   }, [selectedDate]);
 
-  async function handleHandoverItemToggle(
-    id: number,
-    completed: boolean,
-  ) {
+  async function handleHandoverItemToggle(id: number, completed: boolean) {
     const updatedItem = await updateHandoverItemCompleted(id, !completed);
 
     setHandover((prev) => {
@@ -64,9 +73,7 @@ export function useDashboard() {
       return {
         ...prev,
         items: prev.items.map((item) =>
-          item.id === id
-            ? { ...item, completed: updatedItem.completed }
-            : item,
+          item.id === id ? { ...item, completed: updatedItem.completed } : item,
         ),
       };
     });
@@ -84,9 +91,7 @@ export function useDashboard() {
       if (!prev) return prev;
 
       return prev.map((task) =>
-        task.id === id
-          ? { ...task, status: updatedTaskStatus.status }
-          : task,
+        task.id === id ? { ...task, status: updatedTaskStatus.status } : task,
       );
     });
   }
@@ -98,6 +103,8 @@ export function useDashboard() {
     tasks,
     weeklySales,
     selectedDate,
+    shifts,
+    newsletter,
     setSelectedDate,
     handleHandoverItemToggle,
     handleTaskStatusToggle,

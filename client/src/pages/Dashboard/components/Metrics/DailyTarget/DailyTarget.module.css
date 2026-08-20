@@ -10,13 +10,26 @@
   justify-content: space-between;
 }
 
-.header p {
-  font-size: 12px;
-  font-weight: 600;
+.header h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
   text-transform: uppercase;
+  letter-spacing: 0.03em;
   color: #0f172a;
 }
 
+.header h2::before {
+  content: "";
+  width: 3px;
+  height: 14px;
+  border-radius: 2px;
+  background: #2563eb;
+}
 .header button {
   padding: 0;
   border: none;
