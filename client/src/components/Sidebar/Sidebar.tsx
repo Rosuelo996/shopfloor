@@ -50,6 +50,7 @@ export default function Sidebar() {
           <li>
             <NavLink
               to="/trade"
+              onClick={(e) => e.preventDefault()}
               className={({ isActive }) =>
                 `${styles.item} ${styles.notReady} ${isActive ? styles.active : ""}`
               }
@@ -62,6 +63,7 @@ export default function Sidebar() {
           <li>
             <NavLink
               to="/handover"
+              onClick={(e) => e.preventDefault()}
               className={({ isActive }) =>
                 `${styles.item} ${styles.notReady} ${isActive ? styles.active : ""}`
               }
@@ -74,6 +76,7 @@ export default function Sidebar() {
           <li>
             <NavLink
               to="/tasks"
+              onClick={(e) => e.preventDefault()}
               className={({ isActive }) =>
                 `${styles.item} ${styles.notReady} ${isActive ? styles.active : ""}`
               }
@@ -86,6 +89,7 @@ export default function Sidebar() {
           <li>
             <NavLink
               to="/trends"
+              onClick={(e) => e.preventDefault()}
               className={({ isActive }) =>
                 `${styles.item} ${styles.notReady} ${isActive ? styles.active : ""}`
               }
@@ -98,6 +102,7 @@ export default function Sidebar() {
           <li>
             <NavLink
               to="/team"
+              onClick={(e) => e.preventDefault()}
               className={({ isActive }) =>
                 `${styles.item} ${styles.notReady} ${isActive ? styles.active : ""}`
               }
@@ -110,6 +115,7 @@ export default function Sidebar() {
           <li>
             <NavLink
               to="/settings"
+              onClick={(e) => e.preventDefault()}
               className={({ isActive }) =>
                 `${styles.item} ${styles.notReady} ${isActive ? styles.active : ""}`
               }
