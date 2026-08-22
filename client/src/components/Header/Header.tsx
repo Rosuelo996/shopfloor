@@ -59,7 +59,7 @@ export default function Header({ date, onDateChange }: HeaderProps) {
           <p>{formattedDate}</p>
         </div>
 
-        <div className={styles.notification}>
+        <div className={`${styles.notification} ${styles.notReady}`}>
           <FontAwesomeIcon icon={faBell} />
           <span className={styles.notificationCount}>3</span>
         </div>

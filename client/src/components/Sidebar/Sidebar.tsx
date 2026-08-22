@@ -152,7 +152,10 @@ export default function Sidebar() {
               <p>{currentUser?.role}</p>
             </div>
 
-            <FontAwesomeIcon icon={faChevronDown} />
+            <FontAwesomeIcon
+              icon={faChevronDown}
+              className={`${styles.chevron} ${isOpen ? styles.chevronOpen : ""}`}
+            />
           </button>
 
           {isOpen && (

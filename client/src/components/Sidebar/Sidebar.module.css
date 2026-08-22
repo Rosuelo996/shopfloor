@@ -166,10 +166,15 @@
   flex: 1;
 }
 
-.profile > svg {
+.chevron {
   width: 12px;
   font-size: 12px;
   color: #cbd5e1;
+  transition: transform 0.2s ease;
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
 }
 
 .logout {

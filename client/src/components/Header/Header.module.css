@@ -324,3 +324,7 @@
     gap: 10px;
   }
 }
+
+.notReady {
+  cursor: not-allowed;
+}
