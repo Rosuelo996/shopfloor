@@ -14,7 +14,6 @@
   display: flex;
   align-items: center;
   gap: 8px;
-
   margin: 0;
   font-size: 14px;
   font-weight: 700;
@@ -30,6 +29,7 @@
   border-radius: 2px;
   background: #2563eb;
 }
+
 .header button {
   padding: 0;
   border: none;
@@ -100,10 +100,6 @@
 .details strong {
   font-size: 14px;
   font-weight: 600;
-}
-
-.details > div:last-child {
-  text-align: right;
 }
 
 .danger {

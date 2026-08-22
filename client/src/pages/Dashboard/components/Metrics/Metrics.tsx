@@ -28,7 +28,7 @@ export default function Metrics({dashboard}: MetricsProps) {
         label="APC"
         value={`£${dashboard?.apc}`}
         change={`${apcDifference > 0 ? "+" : ""}${apcDifference}%`}
-        comparison={`Target ${dashboard?.apcTarget}`}
+        comparison={`Target £${dashboard?.apcTarget}`}
         positive={apcDifference >= 0}
       />
 

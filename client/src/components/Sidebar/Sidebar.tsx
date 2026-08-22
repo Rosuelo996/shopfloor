@@ -12,19 +12,20 @@ import {
   faStore,
   faRightFromBracket,
   faChevronDown,
-  faUser,
 } from "@fortawesome/free-solid-svg-icons";
-
 import styles from "./Sidebar.module.css";
+import { useState } from "react";
+import { useUsers } from "../../hooks/useUsers";
+import UserMenu from "../UsersMenu/UsersMenu";
 
 export default function Sidebar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const { currentUser } = useUsers();
+
   return (
     <div className={styles.sidebar}>
       <div className={styles.logo}>
-        <FontAwesomeIcon
-          icon={faBagShopping}
-          className={styles.logoIcon}
-        />
+        <FontAwesomeIcon icon={faBagShopping} className={styles.logoIcon} />
 
         <div>
           <h1>ShopFloor</h1>
@@ -50,7 +51,7 @@ export default function Sidebar() {
             <NavLink
               to="/trade"
               className={({ isActive }) =>
-                `${styles.item} ${isActive ? styles.active : ""}`
+                `${styles.item} ${styles.notReady} ${isActive ? styles.active : ""}`
               }
             >
               <FontAwesomeIcon icon={faChartColumn} />
@@ -62,7 +63,7 @@ export default function Sidebar() {
             <NavLink
               to="/handover"
               className={({ isActive }) =>
-                `${styles.item} ${isActive ? styles.active : ""}`
+                `${styles.item} ${styles.notReady} ${isActive ? styles.active : ""}`
               }
             >
               <FontAwesomeIcon icon={faHandshake} />
@@ -74,7 +75,7 @@ export default function Sidebar() {
             <NavLink
               to="/tasks"
               className={({ isActive }) =>
-                `${styles.item} ${isActive ? styles.active : ""}`
+                `${styles.item} ${styles.notReady} ${isActive ? styles.active : ""}`
               }
             >
               <FontAwesomeIcon icon={faClipboardCheck} />
@@ -86,7 +87,7 @@ export default function Sidebar() {
             <NavLink
               to="/trends"
               className={({ isActive }) =>
-                `${styles.item} ${isActive ? styles.active : ""}`
+                `${styles.item} ${styles.notReady} ${isActive ? styles.active : ""}`
               }
             >
               <FontAwesomeIcon icon={faChartLine} />
@@ -98,7 +99,7 @@ export default function Sidebar() {
             <NavLink
               to="/team"
               className={({ isActive }) =>
-                `${styles.item} ${isActive ? styles.active : ""}`
+                `${styles.item} ${styles.notReady} ${isActive ? styles.active : ""}`
               }
             >
               <FontAwesomeIcon icon={faUsers} />
@@ -110,7 +111,7 @@ export default function Sidebar() {
             <NavLink
               to="/settings"
               className={({ isActive }) =>
-                `${styles.item} ${isActive ? styles.active : ""}`
+                `${styles.item} ${styles.notReady} ${isActive ? styles.active : ""}`
               }
             >
               <FontAwesomeIcon icon={faGear} />
@@ -126,24 +127,40 @@ export default function Sidebar() {
 
           <div>
             <h4>Suitsupply London</h4>
-            <p>Regent Street</p>
+            <p>Lime Street</p>
           </div>
         </div>
 
-        <div className={styles.profile}>
-          <div className={styles.avatar}>
-            <FontAwesomeIcon icon={faUser} />
-          </div>
+        <div className={styles.profileWrapper}>
+          <button
+            type="button"
+            className={styles.profile}
+            onClick={() => setIsOpen(!isOpen)}
+            aria-expanded={isOpen}
+          >
+            <div className={styles.avatar}>
+              <span>
+                {currentUser?.firstName[0]}
+                {currentUser?.lastName[0]}
+              </span>
+            </div>
 
-          <div className={styles.user}>
-            <h4>Stefano W.</h4>
-            <p>Store Manager</p>
-          </div>
+            <div className={styles.user}>
+              <h4>
+                {currentUser?.firstName} {currentUser?.lastName.slice(0, 1)}.
+              </h4>
+              <p>{currentUser?.role}</p>
+            </div>
 
-          <FontAwesomeIcon icon={faChevronDown} />
+            <FontAwesomeIcon icon={faChevronDown} />
+          </button>
+
+          {isOpen && (
+            <UserMenu onClose={() => setIsOpen(false)} variant="sidebar" />
+          )}
         </div>
 
-        <button className={styles.logout}>
+        <button className={`${styles.logout} ${styles.notReady}`}>
           <FontAwesomeIcon icon={faRightFromBracket} />
           <span>Log out</span>
         </button>

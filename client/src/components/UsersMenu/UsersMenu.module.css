@@ -1,0 +1,158 @@
+.userMenu {
+  position: relative;
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 24px);
+  right: 0;
+  z-index: 20;
+  width: 280px;
+  padding: 8px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+}
+
+.title {
+  padding: 8px 10px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.option:hover {
+  background: #f8fafc;
+}
+
+.optionAvatar {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+.currentAvatar {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+.optionAvatar span {
+  font-size: 11px;
+  font-weight: 700;
+  color: inherit;
+}
+
+.optionDetails {
+  flex: 1;
+  min-width: 0;
+}
+
+.option h4 {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.option p {
+  margin-top: 3px;
+  font-size: 11px;
+  color: #64748b;
+}
+
+/* CURRENT USER */
+
+.currentOption {
+  margin-bottom: 6px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+}
+
+.currentOption:hover {
+  background: #f1f5f9;
+}
+
+.currentAvatar {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+.currentLabel {
+  flex-shrink: 0;
+  padding: 3px 7px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #2563eb;
+  background: #dbeafe;
+  border-radius: 999px;
+}
+
+/* SIDEBAR VARIANT */
+
+.sidebar .dropdown {
+  top: auto;
+  right: auto;
+  bottom: 0;
+  left: calc(100% + 12px);
+  background: #081121;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.sidebar .title {
+  color: #9aa6bf;
+}
+
+.sidebar .option:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.sidebar .optionAvatar {
+  background: rgba(255, 255, 255, 0.08);
+  color: #cbd5e1;
+}
+
+.sidebar .option h4 {
+  color: #ffffff;
+}
+
+.sidebar .option p {
+  color: #a5b0c3;
+}
+
+.sidebar .currentOption {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.sidebar .currentOption:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar .currentAvatar {
+  background: #19489a;
+  color: #ffffff;
+}
+
+.sidebar .currentLabel {
+  color: #ffffff;
+  background: #19489a;
+}

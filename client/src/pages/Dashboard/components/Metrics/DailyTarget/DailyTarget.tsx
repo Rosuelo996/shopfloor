@@ -47,7 +47,7 @@ export default function DailyTarget({ dashboard }: Props) {
       <div className={styles.details}>
         <div>
           <p>Target Remaining</p>
-          <strong className={statusClass}>£{targetRemaining}</strong>
+          <strong className={statusClass}>£{targetRemaining.toLocaleString("en-GB")}</strong>
         </div>
       </div>
     </section>
