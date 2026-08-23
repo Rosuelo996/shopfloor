@@ -223,6 +223,8 @@
   .item {
     padding: 8px 4px;
   }
-
 }
 
+.notAllowed {
+  cursor: not-allowed;
+}

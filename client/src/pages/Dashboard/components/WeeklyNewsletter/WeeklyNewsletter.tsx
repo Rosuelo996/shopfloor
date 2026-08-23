@@ -92,7 +92,10 @@ export default function WeeklyNewsletter({ newsletter }: Props) {
       <div className={styles.footer}>
         <span>{newsletter?.items.length} updates this week</span>
 
-        <Link to="/newsletter" className={styles.link}>
+        <Link 
+        to="/newsletter" 
+        className={`${styles.link} ${styles.notAllowed}`}
+        onClick={(e) => e.preventDefault()}>
           Read full newsletter <span>→</span>
         </Link>
       </div>

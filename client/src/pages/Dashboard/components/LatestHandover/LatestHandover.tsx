@@ -70,7 +70,7 @@ export default function LatestHandover({ handover, onToggleCompleted }: Props) {
         </button>
       </div>
 
-      <button className={styles.viewAll}>
+      <button className={`${styles.viewAll} ${styles.notAllowed}`}>
         View all handovers <span>→</span>
       </button>
     </div>

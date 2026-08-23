@@ -32,7 +32,10 @@ export default function WeeklySales({ weeklySales }: Props) {
             <span>Target</span>
           </div>
 
-          <Link to="/trends" className={styles.viewAll}>
+          <Link 
+          to="/trends" 
+          className={`${styles.viewAll} ${styles.notAllowed}`}
+          onClick={(e) => e.preventDefault()}>
             View all trends
             <span>→</span>
           </Link>

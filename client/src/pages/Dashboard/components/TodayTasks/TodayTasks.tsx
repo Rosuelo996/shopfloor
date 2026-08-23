@@ -55,7 +55,9 @@ export default function TodayTasks({ tasks, onTaskStatusToggle }: Props) {
         ))}
       </div>
 
-      <button className={styles.viewAll}>
+      <button 
+      className={`${styles.viewAll} ${styles.notAllowed}`}
+      >
         View all tasks <span>→</span>
       </button>
     </section>

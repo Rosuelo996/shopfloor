@@ -304,3 +304,7 @@
 .link:hover span {
   transform: translateX(3px);
 }
+
+.notAllowed {
+  cursor: not-allowed;
+}
