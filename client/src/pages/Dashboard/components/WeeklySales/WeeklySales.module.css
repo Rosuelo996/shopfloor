@@ -180,3 +180,7 @@
     height: 230px;
   }
 }
+
+.notAllowed {
+  cursor: not-allowed;
+}
