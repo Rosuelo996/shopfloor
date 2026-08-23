@@ -162,3 +162,7 @@
     font-size: 13px;
   }
 }
+
+.notAllowed {
+  cursor: not-allowed;
+}

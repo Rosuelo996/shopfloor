@@ -24,7 +24,7 @@ export default function DailyTarget({ dashboard }: Props) {
     <section className={styles.dailyTarget}>
       <div className={styles.header}>
         <h2>Today's Sales</h2>
-        <button>Edit Target</button>
+        <button className={styles.notAllowed}>Edit Target</button>
       </div>
 
       <div className={styles.sales}>
