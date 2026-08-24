@@ -1,4 +1,4 @@
-import { fetchLatestHandover, updateHandoverItemCompleted } from "../services/handoverService.js";
+import { fetchLatestHandover, updateHandoverItemCompleted, updateHandoverAcknowledgement } from "../services/handoverService.js";
 
 export async function getLatestHandover(req, res, next) {
   try {
@@ -24,4 +24,17 @@ export async function updateHandoverItem (req, res, next) {
   catch (err) {
     next(err)
   }
+}
+
+export async function handleHandoverAcknowledgement(req, res, next) {
+try {
+  const { handoverId } = req.params
+  const { userId, acknowledged } = req.body
+
+  const acknowledgedHandover = await updateHandoverAcknowledgement(handoverId, userId, acknowledged)
+
+  res.json(acknowledgedHandover)
+} catch(err) {
+  next(err)
+}
 }

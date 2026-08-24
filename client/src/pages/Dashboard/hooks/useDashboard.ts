@@ -9,6 +9,7 @@ import {
 import {
   getLatestHandover,
   updateHandoverItemCompleted,
+  updateHandoverAcknowledgement,
 } from "../../../services/handoverService";
 
 import {
@@ -30,7 +31,7 @@ import type { LatestHandoverData } from "../../../types/handover";
 import type { TaskData } from "../../../types/tasks";
 import type { ShiftsData } from "../../../types/team";
 import type { NewsletterData } from "../../../types/newsletter";
-
+import { useUsers } from "../../../hooks/useUsers";
 
 export function useDashboard() {
   const [dashboard, setDashboard] = useState<DashboardData | null>(null);
@@ -39,8 +40,10 @@ export function useDashboard() {
   const [tasks, setTasks] = useState<TaskData[] | null>(null);
   const [weeklySales, setWeeklySales] = useState<WeeklySalesData[]>([]);
   const [shifts, setShifts] = useState<ShiftsData[]>([]);
-  const [newsletter, setNewsletter] = useState<NewsletterData | null>(null)
+  const [newsletter, setNewsletter] = useState<NewsletterData | null>(null);
   const [selectedDate, setSelectedDate] = useState("2026-08-31");
+
+  const { currentUser } = useUsers();
 
   useEffect(() => {
     const loadDashboard = async () => {
@@ -50,7 +53,7 @@ export function useDashboard() {
       const tasksData = await getTasksByDate(selectedDate);
       const weeklySalesData = await getWeeklySales(selectedDate);
       const shiftsData = await getShifts(selectedDate);
-      const newsletterData = await getNewsletter(selectedDate)
+      const newsletterData = await getNewsletter(selectedDate);
 
       setDashboard(dashboardData);
       setYesterday(yesterdayData);
@@ -58,7 +61,7 @@ export function useDashboard() {
       setTasks(tasksData);
       setWeeklySales(weeklySalesData);
       setShifts(shiftsData);
-      setNewsletter(newsletterData)
+      setNewsletter(newsletterData);
     };
 
     loadDashboard();
@@ -77,6 +80,25 @@ export function useDashboard() {
         ),
       };
     });
+  }
+
+  async function handleHandoverAcknowledgement() {
+    if (!handover || !currentUser) return;
+
+    const acknowledgedHandover = await updateHandoverAcknowledgement(
+      handover.id,
+      currentUser.id,
+      !handover.acknowledged,
+    );
+
+    setHandover((prev) =>
+      prev
+        ? {
+            ...prev,
+            acknowledged: acknowledgedHandover.acknowledged,
+          }
+        : null,
+    );
   }
 
   async function handleTaskStatusToggle(
@@ -107,6 +129,7 @@ export function useDashboard() {
     newsletter,
     setSelectedDate,
     handleHandoverItemToggle,
+    handleHandoverAcknowledgement,
     handleTaskStatusToggle,
   };
 }

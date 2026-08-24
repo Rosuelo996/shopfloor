@@ -23,6 +23,7 @@ export default function Dashboard() {
     newsletter,
     setSelectedDate,
     handleHandoverItemToggle,
+    handleHandoverAcknowledgement,
     handleTaskStatusToggle,
   } = useDashboard();
 
@@ -36,6 +37,7 @@ export default function Dashboard() {
         <LatestHandover
           handover={handover}
           onToggleCompleted={handleHandoverItemToggle}
+          onHandoverAcknowledge={handleHandoverAcknowledgement}
         />
 
         <TodayTasks tasks={tasks} onTaskStatusToggle={handleTaskStatusToggle} />

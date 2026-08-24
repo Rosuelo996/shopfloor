@@ -22,3 +22,16 @@ export async function updateHandoverItemCompleted(
   });
   return res.data;
 }
+
+export async function updateHandoverAcknowledgement(
+  handoverId: number,
+  userId: number,
+  acknowledged: boolean,
+) {
+  const res = await axios.patch(`${API_URL}/handovers/${handoverId}/acknowledge`, {
+    userId,
+    acknowledged,
+  })
+
+  return res.data
+}

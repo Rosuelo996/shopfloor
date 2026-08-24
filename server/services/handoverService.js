@@ -69,3 +69,28 @@ export async function updateHandoverItemCompleted(id, completed) {
  return result.rows[0]
 }
 
+
+export async function updateHandoverAcknowledgement(
+  handoverId,
+  userId,
+  acknowledged,
+) {
+  const result = await db.query(
+    `UPDATE handovers
+     SET
+       acknowledged = $3,
+       acknowledged_at = CASE
+         WHEN $3 = true THEN NOW()
+         ELSE NULL
+       END,
+       acknowledged_by = CASE
+         WHEN $3 = true THEN $2::INTEGER
+         ELSE NULL
+       END
+     WHERE id = $1
+     RETURNING *`,
+    [handoverId, userId, acknowledged],
+  );
+
+  return result.rows[0];
+}

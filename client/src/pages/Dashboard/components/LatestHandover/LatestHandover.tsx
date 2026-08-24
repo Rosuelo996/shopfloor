@@ -1,16 +1,17 @@
-import { useState } from "react";
 import styles from "./LatestHandover.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
 import type { LatestHandoverData } from "../../../../types/handover";
 
 type Props = {
   handover: LatestHandoverData | null;
-  onToggleCompleted: (id: number, completed: boolean) => Promise<void>
+  onToggleCompleted: (id: number, completed: boolean) => Promise<void>;
+  onHandoverAcknowledge: () => Promise<void>;
 };
 
-export default function LatestHandover({ handover, onToggleCompleted }: Props) {
-  const [acknowledged, setAcknowledged] = useState(false);
+export default function LatestHandover({
+  handover,
+  onToggleCompleted,
+  onHandoverAcknowledge,
+}: Props) {
 
 
   return (
@@ -23,14 +24,15 @@ export default function LatestHandover({ handover, onToggleCompleted }: Props) {
       <div className={styles.content}>
         <div className={styles.items}>
           {handover?.items.map((item) => {
-
             return (
               <div
                 key={item.id}
                 className={styles.item}
                 onClick={() => onToggleCompleted(item.id, item.completed)}
               >
-                <span className={styles.alert}>{item.completed ? "✓" : "!"}</span>
+                <span className={styles.alert}>
+                  {item.completed ? "✓" : "!"}
+                </span>
 
                 <p className={item.completed ? styles.completed : ""}>
                   {item.content}
@@ -42,7 +44,10 @@ export default function LatestHandover({ handover, onToggleCompleted }: Props) {
 
         <div className={styles.meta}>
           <div className={styles.avatar}>
-            <FontAwesomeIcon icon={faUser} />
+            <span>
+              {handover?.createdBy.firstName[0]}
+              {handover?.createdBy.lastName[0]}
+            </span>
           </div>
 
           <div className={styles.author}>
@@ -54,19 +59,25 @@ export default function LatestHandover({ handover, onToggleCompleted }: Props) {
               </strong>
             </span>
 
-            <span>Yesterday, 7:54 PM</span>
+            <span>
+              Yesterday,{" "}
+              {handover &&
+                new Date(handover.createdAt).toLocaleTimeString("en-GB", {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+            </span>
           </div>
         </div>
 
         <button
           className={`${styles.acknowledge} ${
-            acknowledged ? styles.acknowledged : ""
+            handover?.acknowledged ? styles.acknowledged : ""
           }`}
-          onClick={() => setAcknowledged(true)}
-          disabled={acknowledged}
+          onClick={onHandoverAcknowledge}
         >
           <span>✓</span>
-          {acknowledged ? "Handover Acknowledged" : "Acknowledge Handover"}
+          {handover?.acknowledged ? "Handover Acknowledged" : "Acknowledge Handover"}
         </button>
       </div>
 
