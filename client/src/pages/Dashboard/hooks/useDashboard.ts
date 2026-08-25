@@ -46,7 +46,7 @@ export function useDashboard() {
   const [shifts, setShifts] = useState<ShiftsData[]>([]);
   const [newsletter, setNewsletter] = useState<NewsletterData | null>(null);
   const [selectedDate, setSelectedDate] = useState("2026-08-31");
-  const [notifications, setNotifications] = useState<Notification[]>([])
+  const [notifications, setNotifications] = useState<Notification[]>([]);
 
   const { currentUser } = useUsers();
 
@@ -59,7 +59,7 @@ export function useDashboard() {
       const weeklySalesData = await getWeeklySales(selectedDate);
       const shiftsData = await getShifts(selectedDate);
       const newsletterData = await getNewsletter(selectedDate);
-      const notificationData = await getNotifications()
+      const notificationData = await getNotifications();
 
       setDashboard(dashboardData);
       setYesterday(yesterdayData);
@@ -68,7 +68,7 @@ export function useDashboard() {
       setWeeklySales(weeklySalesData);
       setShifts(shiftsData);
       setNewsletter(newsletterData);
-      setNotifications(notificationData)
+      setNotifications(notificationData);
     };
 
     loadDashboard();
@@ -106,6 +106,9 @@ export function useDashboard() {
           }
         : null,
     );
+
+    const notificationData = await getNotifications();
+    setNotifications(notificationData);
   }
 
   async function handleTaskStatusToggle(
