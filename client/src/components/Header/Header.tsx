@@ -2,19 +2,22 @@ import { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCalendarDays,
-  faBell,
   faChevronDown,
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "./Header.module.css";
 import { useUsers } from "../../hooks/useUsers";
 import UserMenu from "../UsersMenu/UsersMenu";
+import Notifications from "./Notifications";
+import type { Notification } from "../../types/notification";
 
 type HeaderProps = {
   date: string;
   onDateChange: (date: string) => void;
+  notifications: Notification[];
 };
 
-export default function Header({ date, onDateChange }: HeaderProps) {
+
+export default function Header({ date, onDateChange, notifications }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const dateInputRef = useRef<HTMLInputElement>(null);
@@ -59,10 +62,7 @@ export default function Header({ date, onDateChange }: HeaderProps) {
           <p>{formattedDate}</p>
         </div>
 
-        <div className={`${styles.notification} ${styles.notReady}`}>
-          <FontAwesomeIcon icon={faBell} />
-          <span className={styles.notificationCount}>3</span>
-        </div>
+        <Notifications notifications={notifications}/>
 
         <div className={styles.profileWrapper}>
           <button

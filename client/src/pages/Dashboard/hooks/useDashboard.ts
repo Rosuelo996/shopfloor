@@ -21,6 +21,8 @@ import { getShifts } from "../../../services/teamService";
 
 import { getNewsletter } from "../../../services/newsletterService";
 
+import { getNotifications } from "../../../services/notificationService";
+
 import type {
   DashboardData,
   YesterdaySummaryData,
@@ -31,6 +33,8 @@ import type { LatestHandoverData } from "../../../types/handover";
 import type { TaskData } from "../../../types/tasks";
 import type { ShiftsData } from "../../../types/team";
 import type { NewsletterData } from "../../../types/newsletter";
+import type { Notification } from "../../../types/notification";
+
 import { useUsers } from "../../../hooks/useUsers";
 
 export function useDashboard() {
@@ -42,6 +46,7 @@ export function useDashboard() {
   const [shifts, setShifts] = useState<ShiftsData[]>([]);
   const [newsletter, setNewsletter] = useState<NewsletterData | null>(null);
   const [selectedDate, setSelectedDate] = useState("2026-08-31");
+  const [notifications, setNotifications] = useState<Notification[]>([])
 
   const { currentUser } = useUsers();
 
@@ -54,6 +59,7 @@ export function useDashboard() {
       const weeklySalesData = await getWeeklySales(selectedDate);
       const shiftsData = await getShifts(selectedDate);
       const newsletterData = await getNewsletter(selectedDate);
+      const notificationData = await getNotifications()
 
       setDashboard(dashboardData);
       setYesterday(yesterdayData);
@@ -62,6 +68,7 @@ export function useDashboard() {
       setWeeklySales(weeklySalesData);
       setShifts(shiftsData);
       setNewsletter(newsletterData);
+      setNotifications(notificationData)
     };
 
     loadDashboard();
@@ -127,6 +134,7 @@ export function useDashboard() {
     selectedDate,
     shifts,
     newsletter,
+    notifications,
     setSelectedDate,
     handleHandoverItemToggle,
     handleHandoverAcknowledgement,

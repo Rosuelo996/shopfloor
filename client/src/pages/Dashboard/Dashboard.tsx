@@ -21,6 +21,7 @@ export default function Dashboard() {
     selectedDate,
     shifts,
     newsletter,
+    notifications,
     setSelectedDate,
     handleHandoverItemToggle,
     handleHandoverAcknowledgement,
@@ -29,7 +30,7 @@ export default function Dashboard() {
 
   return (
     <div className={styles.dashboard}>
-      <Header date={selectedDate} onDateChange={setSelectedDate} />
+      <Header date={selectedDate} onDateChange={setSelectedDate} notifications={notifications} />
 
       <Metrics dashboard={dashboard} />
 

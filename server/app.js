@@ -8,6 +8,7 @@ import handoverRouter from "./routes/handover.js";
 import tasksRouter from "./routes/tasks.js";
 import teamRouter from "./routes/team.js";
 import newsletterRouter from "./routes/newsletter.js";
+import notificationRouter from "./routes/notification.js";
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use("/handovers", handoverRouter);
 app.use("/tasks", tasksRouter);
 app.use("/team", teamRouter);
 app.use("/newsletter", newsletterRouter);
+app.use("/notifications", notificationRouter);
 
 app.use(notFound);
 app.use(errorHandler);
