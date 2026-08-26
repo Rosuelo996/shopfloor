@@ -50,7 +50,7 @@ export default function Notifications({ notifications }: NotificationsProps) {
                     <div className={styles.details}>
                       <div className={styles.itemHeader}>
                         <h4>Overdue task</h4>
-                        <span>{notification.startTime}</span>
+                        <span>{notification.startTime.slice(0, 5)}</span>
                       </div>
 
                       <p>{notification.title}</p>
