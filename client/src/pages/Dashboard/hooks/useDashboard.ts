@@ -33,9 +33,9 @@ import type { LatestHandoverData } from "../../../types/handover";
 import type { TaskData } from "../../../types/tasks";
 import type { ShiftsData } from "../../../types/team";
 import type { NewsletterData } from "../../../types/newsletter";
-import type { Notification } from "../../../types/notification";
 
 import { useUsers } from "../../../hooks/useUsers";
+import { useApp } from "../../../hooks/useApp";
 
 export function useDashboard() {
   const [dashboard, setDashboard] = useState<DashboardData | null>(null);
@@ -45,10 +45,9 @@ export function useDashboard() {
   const [weeklySales, setWeeklySales] = useState<WeeklySalesData[]>([]);
   const [shifts, setShifts] = useState<ShiftsData[]>([]);
   const [newsletter, setNewsletter] = useState<NewsletterData | null>(null);
-  const [selectedDate, setSelectedDate] = useState("2026-08-31");
-  const [notifications, setNotifications] = useState<Notification[]>([]);
 
   const { currentUser } = useUsers();
+  const { selectedDate, setNotifications } = useApp();
 
   useEffect(() => {
     const loadDashboard = async () => {
@@ -72,7 +71,7 @@ export function useDashboard() {
     };
 
     loadDashboard();
-  }, [selectedDate]);
+  }, [selectedDate, setNotifications]);
 
   async function handleHandoverItemToggle(id: number, completed: boolean) {
     const updatedItem = await updateHandoverItemCompleted(id, !completed);
@@ -87,7 +86,7 @@ export function useDashboard() {
         ),
       };
     });
-    
+
     const notificationData = await getNotifications();
     setNotifications(notificationData);
   }
@@ -140,11 +139,8 @@ export function useDashboard() {
     handover,
     tasks,
     weeklySales,
-    selectedDate,
     shifts,
     newsletter,
-    notifications,
-    setSelectedDate,
     handleHandoverItemToggle,
     handleHandoverAcknowledgement,
     handleTaskStatusToggle,

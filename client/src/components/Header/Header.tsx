@@ -8,20 +8,17 @@ import styles from "./Header.module.css";
 import { useUsers } from "../../hooks/useUsers";
 import UserMenu from "../UsersMenu/UsersMenu";
 import Notifications from "./Notifications";
-import type { Notification } from "../../types/notification";
+import { useApp } from "../../hooks/useApp";
 
-type HeaderProps = {
-  date: string;
-  onDateChange: (date: string) => void;
-  notifications: Notification[];
-};
-
-
-export default function Header({ date, onDateChange, notifications }: HeaderProps) {
-  const [isOpen, setIsOpen] = useState(false);
+export default function Header() {
+  const { currentUser } = useUsers();
+  const { selectedDate, setSelectedDate, notifications } = useApp();
 
   const dateInputRef = useRef<HTMLInputElement>(null);
-  const formattedDate = new Date(`${date}T00:00:00`).toLocaleDateString(
+
+  const [isOpen, setIsOpen] = useState(false);
+  
+  const formattedDate = new Date(`${selectedDate}T00:00:00`).toLocaleDateString(
     "en-GB",
     {
       weekday: "long",
@@ -30,8 +27,6 @@ export default function Header({ date, onDateChange, notifications }: HeaderProp
       year: "numeric",
     },
   );
-
-  const { currentUser } = useUsers();
 
   return (
     <header className={styles.header}>
@@ -54,15 +49,15 @@ export default function Header({ date, onDateChange, notifications }: HeaderProp
             ref={dateInputRef}
             className={styles.dateInput}
             type="date"
-            value={date}
-            onChange={(e) => onDateChange(e.target.value)}
+            value={selectedDate}
+            onChange={(e) => setSelectedDate(e.target.value)}
             min="2026-08-01"
             max="2026-08-31"
           />
           <p>{formattedDate}</p>
         </div>
 
-        <Notifications notifications={notifications}/>
+        <Notifications notifications={notifications} />
 
         <div className={styles.profileWrapper}>
           <button
@@ -91,9 +86,9 @@ export default function Header({ date, onDateChange, notifications }: HeaderProp
             />
           </button>
 
-          {isOpen && <UserMenu 
-          onClose={() => setIsOpen(false)}
-          variant="header" />}
+          {isOpen && (
+            <UserMenu onClose={() => setIsOpen(false)} variant="header" />
+          )}
         </div>
       </div>
     </header>

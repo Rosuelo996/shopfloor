@@ -18,11 +18,8 @@ export default function Dashboard() {
     handover,
     tasks,
     weeklySales,
-    selectedDate,
     shifts,
     newsletter,
-    notifications,
-    setSelectedDate,
     handleHandoverItemToggle,
     handleHandoverAcknowledgement,
     handleTaskStatusToggle,
@@ -30,7 +27,7 @@ export default function Dashboard() {
 
   return (
     <div className={styles.dashboard}>
-      <Header date={selectedDate} onDateChange={setSelectedDate} notifications={notifications} />
+      <Header />
 
       <Metrics dashboard={dashboard} />
 
@@ -49,7 +46,7 @@ export default function Dashboard() {
       <section className={styles.bottomGrid}>
         <WeeklySales weeklySales={weeklySales} />
         <TodayTeam shifts={shifts} />
-        <WeeklyNewsletter newsletter={newsletter}/>
+        <WeeklyNewsletter newsletter={newsletter} />
       </section>
     </div>
   );

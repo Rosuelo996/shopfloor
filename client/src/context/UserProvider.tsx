@@ -11,7 +11,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     async function loadUsers() {
       const data = await getUsers();
-  
+
       setUsers(data);
       setCurrentUser(data[0] ?? null);
     }
