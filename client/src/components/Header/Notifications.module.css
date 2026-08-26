@@ -167,6 +167,18 @@
   color: #64748b;
 }
 
+@media (max-width: 768px) {
+  .dropdown {
+    position: fixed;
+    top: 68px;
+    left: 84px;
+    right: 12px;
+    width: auto;
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+  }
+}
+
 
 @media (max-width: 564px) {
   .notificationButton {
@@ -185,10 +197,5 @@
     width: 15px;
     height: 15px;
     font-size: 9px;
-  }
-
-  .dropdown {
-    width: min(360px, calc(100vw - 24px));
-    right: -80px;
   }
 }
