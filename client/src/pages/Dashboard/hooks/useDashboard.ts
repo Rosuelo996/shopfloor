@@ -87,6 +87,9 @@ export function useDashboard() {
         ),
       };
     });
+    
+    const notificationData = await getNotifications();
+    setNotifications(notificationData);
   }
 
   async function handleHandoverAcknowledgement() {
@@ -126,6 +129,9 @@ export function useDashboard() {
         task.id === id ? { ...task, status: updatedTaskStatus.status } : task,
       );
     });
+
+    const notificationData = await getNotifications();
+    setNotifications(notificationData);
   }
 
   return {

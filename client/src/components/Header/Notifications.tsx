@@ -35,7 +35,6 @@ export default function Notifications({ notifications }: NotificationsProps) {
               <h3>Notifications</h3>
               <p>{notifications.length} items need your attention</p>
             </div>
-
           </div>
 
           <div className={styles.list}>
@@ -61,7 +60,7 @@ export default function Notifications({ notifications }: NotificationsProps) {
 
               if (notification.type === "follow_up") {
                 return (
-                  <div className={styles.item}>
+                  <div key={notification.followUpId} className={styles.item}>
                     <div className={`${styles.icon} ${styles.priorityIcon}`}>
                       <FontAwesomeIcon icon={faTriangleExclamation} />
                     </div>
@@ -82,7 +81,7 @@ export default function Notifications({ notifications }: NotificationsProps) {
 
               if (notification.type === "acknowledgement") {
                 return (
-                  <div className={styles.item}>
+                  <div key={notification.handoverId} className={styles.item}>
                     <div className={`${styles.icon} ${styles.handoverIcon}`}>
                       <FontAwesomeIcon icon={faArrowRight} />
                     </div>
