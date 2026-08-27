@@ -102,9 +102,8 @@ export default function Sidebar() {
           <li>
             <NavLink
               to="/team"
-              onClick={(e) => e.preventDefault()}
               className={({ isActive }) =>
-                `${styles.item} ${styles.notReady} ${isActive ? styles.active : ""}`
+                `${styles.item} ${isActive ? styles.active : ""}`
               }
             >
               <FontAwesomeIcon icon={faUsers} />

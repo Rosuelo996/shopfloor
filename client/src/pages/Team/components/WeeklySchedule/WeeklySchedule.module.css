@@ -1,0 +1,357 @@
+.weeklySchedule {
+  width: 100%;
+  margin-top: 24px;
+  padding-bottom: 28px;
+}
+
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+
+  margin-bottom: 14px;
+}
+
+.header h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.header p {
+  margin-top: 4px;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.scheduleControls {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+
+  font-size: 11px;
+  font-weight: 500;
+
+  color: #64748b;
+}
+
+.legend span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  white-space: nowrap;
+}
+
+.legend i {
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+}
+
+.managementDot {
+  background: #8b5cf6;
+}
+
+.salesDot {
+  background: #3b82f6;
+}
+
+.stockroomDot {
+  background: #f97316;
+}
+
+.weekSelector {
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+
+  overflow: hidden;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 7px;
+
+  background: #ffffff;
+}
+
+.weekSelector button {
+  width: 34px;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+
+  background: transparent;
+  color: #64748b;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
+}
+
+.weekSelector button:hover {
+  background: #f8fafc;
+  color: #2563eb;
+}
+
+.weekSelector button svg {
+  width: 10px;
+  font-size: 10px;
+}
+
+.weekSelector > span {
+  min-width: 145px;
+  padding: 0 10px;
+
+  font-size: 11px;
+  font-weight: 500;
+  text-align: center;
+
+  color: #334155;
+
+  white-space: nowrap;
+}
+
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+
+  background: #ffffff;
+}
+
+.scheduleTable {
+  min-width: 1050px;
+
+  display: grid;
+  grid-template-columns:
+    minmax(210px, 1.5fr)
+    repeat(7, minmax(112px, 1fr));
+}
+
+.cell {
+  min-width: 0;
+  min-height: 76px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px;
+
+  border-right: 1px solid #f1f5f9;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.cell:nth-child(8n) {
+  border-right: none;
+}
+
+.teamHeader {
+  justify-content: flex-start;
+
+  padding-left: 18px;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  color: #475569;
+  background: #f8fafc;
+}
+
+.dayHeader {
+  min-height: 68px;
+
+  flex-direction: column;
+  gap: 4px;
+
+  background: #f8fafc;
+}
+
+.dayHeader span {
+  font-size: 12px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.dayHeader strong {
+  font-size: 11px;
+  font-weight: 400;
+  color: #64748b;
+}
+
+.employee {
+  justify-content: flex-start;
+  gap: 11px;
+
+  padding-left: 18px;
+}
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.managementAvatar {
+  background: #f5f3ff;
+  color: #7c3aed;
+}
+
+.salesAvatar {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.stockroomAvatar {
+  background: #fff7ed;
+  color: #ea580c;
+}
+
+.employee h3 {
+  overflow: hidden;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  color: #0f172a;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.employee p {
+  margin-top: 3px;
+  font-size: 10px;
+  color: #64748b;
+}
+
+.shift {
+  width: 100%;
+  min-height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 7px;
+
+  border-left: 3px solid;
+  border-radius: 8px;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  white-space: nowrap;
+}
+
+.managementShift {
+  border-left-color: #8b5cf6;
+
+  background: #f5f3ff;
+  color: #6d28d9;
+}
+
+.salesShift {
+  border-left-color: #3b82f6;
+
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.stockroomShift {
+  border-left-color: #f97316;
+
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.off {
+  color: #cbd5e1;
+}
+
+.off span {
+  font-size: 16px;
+}
+
+@media (max-width: 1024px) {
+  .header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .scheduleControls {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .scheduleTable {
+    min-width: 1000px;
+  }
+}
+
+@media (max-width: 768px) {
+  .weeklySchedule {
+    margin-top: 20px;
+  }
+
+  .scheduleControls {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .legend {
+    flex-wrap: wrap;
+    gap: 12px 18px;
+  }
+
+  .scheduleTable {
+    min-width: 920px;
+  }
+}
+
+@media (max-width: 480px) {
+  .weeklySchedule {
+    margin-top: 18px;
+  }
+
+  .weekSelector {
+    width: 100%;
+  }
+
+  .weekSelector > span {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .scheduleTable {
+    min-width: 880px;
+  }
+}

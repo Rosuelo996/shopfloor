@@ -111,10 +111,10 @@ export default function TodayTeam({ shifts }: Props) {
       </div>
 
       <Link 
-      to="/"
+      to="/team"
       className={`${styles.link } ${styles.notAllowed}`}
-      onClick={(e) => e.preventDefault()}>
-        View all team <span>→</span>
+      >
+        View today's team <span>→</span>
       </Link>
     </section>
   );

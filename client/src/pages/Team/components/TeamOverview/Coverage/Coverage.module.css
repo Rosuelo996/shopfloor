@@ -1,0 +1,182 @@
+.coverage {
+  width: 100%;
+  margin-top: 24px;
+}
+
+.header {
+  margin-bottom: 14px;
+}
+
+.header h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.header p {
+  margin-top: 4px;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.cards {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.card {
+  min-width: 0;
+  min-height: 126px;
+
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  padding: 22px 24px;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  border-color: #cbd5e1;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.07);
+}
+
+.icon {
+  width: 58px;
+  height: 58px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid transparent;
+  border-radius: 12px;
+
+  font-size: 22px;
+}
+
+.management {
+  border-color: #dbeafe;
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.sales {
+  border-color: #ede9fe;
+  background: #f5f3ff;
+  color: #7c3aed;
+}
+
+.stockroom {
+  border-color: #dcfce7;
+  background: #f0fdf4;
+  color: #16a34a;
+}
+
+.details {
+  min-width: 0;
+}
+
+.details p {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: #475569;
+}
+
+.details h2 {
+  margin-top: 5px;
+
+  font-size: 30px;
+  font-weight: 650;
+  line-height: 1;
+
+  color: #0f172a;
+}
+
+.details span {
+  display: block;
+
+  margin-top: 7px;
+
+  font-size: 12px;
+  font-weight: 400;
+
+  color: #64748b;
+}
+
+@media (max-width: 1024px) {
+  .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .card:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .card:last-child {
+    grid-column: auto;
+  }
+
+  .card {
+    min-height: 112px;
+    padding: 18px 20px;
+  }
+
+  .icon {
+    width: 52px;
+    height: 52px;
+    font-size: 20px;
+  }
+
+  .details h2 {
+    font-size: 27px;
+  }
+}
+
+@media (max-width: 480px) {
+  .coverage {
+    margin-top: 18px;
+  }
+
+  .header {
+    margin-bottom: 12px;
+  }
+
+  .cards {
+    gap: 12px;
+  }
+
+  .card {
+    min-height: 104px;
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .icon {
+    width: 48px;
+    height: 48px;
+  }
+}

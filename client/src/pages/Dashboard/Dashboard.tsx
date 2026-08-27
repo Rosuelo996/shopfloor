@@ -1,12 +1,15 @@
 import styles from "./Dashboard.module.css";
 
+import { useDashboard } from "./hooks/useDashboard";
+import { useDashboardTasks } from "./hooks/useDashboardTasks";
+import { useDashboardHandover } from "./hooks/useDashboardHandover";
+
 import Header from "../../components/Header/Header";
 import Metrics from "./components/Metrics/Metrics";
 import YesterdaySummary from "./components/YesterdaySummary/YesterdaySummary";
 import LatestHandover from "./components/LatestHandover/LatestHandover";
 import TodayTasks from "./components/TodayTasks/TodayTasks";
 
-import { useDashboard } from "./hooks/useDashboard";
 import WeeklySales from "./components/WeeklySales/WeeklySales";
 import TodayTeam from "./components/TodayTeam/TodayTeam";
 import WeeklyNewsletter from "./components/WeeklyNewsletter/WeeklyNewsletter";
@@ -15,15 +18,31 @@ export default function Dashboard() {
   const {
     dashboard,
     yesterday,
-    handover,
-    tasks,
     weeklySales,
     shifts,
     newsletter,
+    loading,
+    error,
+  } = useDashboard();
+
+  const {
+    tasks,
+    handleTaskStatusToggle,
+  } = useDashboardTasks();
+
+  const {
+    handover,
     handleHandoverItemToggle,
     handleHandoverAcknowledgement,
-    handleTaskStatusToggle,
-  } = useDashboard();
+  } = useDashboardHandover();
+
+  if (loading) {
+    return <p>Loading dashboard...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
 
   return (
     <div className={styles.dashboard}>

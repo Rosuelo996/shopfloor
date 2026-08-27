@@ -3,3 +3,84 @@
   padding: 0 28px 28px;
   background: #f8fafc;
 }
+
+.heading {
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 0 -28px 20px;
+  padding: 20px 28px;
+  border-top: 1px solid #dbe5f1;
+  border-bottom: 1px solid #dbe5f1;
+  background: #f1f6fc;
+}
+
+.headingIcon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  background: #dbeafe;
+  color: #2563eb;
+  font-size: 20px;
+}
+
+.heading h1 {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #0f172a;
+}
+
+.heading p {
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #64748b;
+}
+
+.selector {
+  width: fit-content;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  margin-top: 10px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.selectorButton {
+  position: relative;
+  height: 100%;
+  padding: 0 8px;
+  border: none;
+  background: transparent;
+  color: #475569;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.selectorButton:hover {
+  color: #2563eb;
+}
+
+.selectorButton.active {
+  color: #2563eb;
+}
+
+.selectorButton.active::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  background: #2563eb;
+  border-radius: 2px 2px 0 0;
+}
