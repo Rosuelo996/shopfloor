@@ -2,9 +2,22 @@ import { useState } from "react";
 import styles from "./TeamToday.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import type { DailyShiftsData } from "../../../../../types/team";
 
-export default function TeamToday() {
+type Props = {
+  dailyShifts: DailyShiftsData[];
+};
+
+export default function TeamToday({ dailyShifts }: Props) {
   const [showAll, setShowAll] = useState(false);
+
+  const scheduledShifts = dailyShifts.filter(
+    (employee) => employee.startTime !== null && employee.endTime !== null,
+  );
+
+  const notScheduledShifts = dailyShifts.filter(
+    (employee) => employee.startTime === null || employee.endTime === null,
+  );
 
   return (
     <section className={styles.teamToday}>
@@ -29,117 +42,47 @@ export default function TeamToday() {
       </div>
 
       <div className={styles.teamGrid}>
-        <div className={styles.member}>
-          <div className={styles.avatar}>
-            <span>SW</span>
-          </div>
+        {scheduledShifts.map((employee) => (
+          <div key={employee.id} className={styles.member}>
+            <div className={styles.avatar}>
+              <span>
+                {employee.firstName[0]}
+                {employee.lastName[0]}
+              </span>
+            </div>
 
-          <div className={styles.details}>
-            <h3>Stefano Wijegunaratne</h3>
-            <p>Store Manager</p>
-            <span className={styles.shift}>10:00 – 19:00</span>
+            <div className={styles.details}>
+              <h3>
+                {employee.firstName} {employee.lastName}
+              </h3>
+              <p>{employee.role}</p>
+              <span className={styles.shift}>
+                {employee.startTime?.slice(0, 5)} –{" "}
+                {employee.endTime?.slice(0, 5)}
+              </span>
+            </div>
           </div>
-        </div>
+        ))}
 
-        <div className={styles.member}>
-          <div className={styles.avatar}>
-            <span>SL</span>
-          </div>
-
-          <div className={styles.details}>
-            <h3>Sophie Laurent</h3>
-            <p>Assistant Manager</p>
-            <span className={styles.shift}>10:00 – 19:00</span>
-          </div>
-        </div>
-
-        <div className={styles.member}>
-          <div className={styles.avatar}>
-            <span>JC</span>
-          </div>
-
-          <div className={styles.details}>
-            <h3>Josh Carter</h3>
-            <p>Supervisor</p>
-            <span className={styles.shift}>10:00 – 19:00</span>
-          </div>
-        </div>
-
-        <div className={styles.member}>
-          <div className={styles.avatar}>
-            <span>ET</span>
-          </div>
-
-          <div className={styles.details}>
-            <h3>Emily Thompson</h3>
-            <p>Supervisor</p>
-            <span className={styles.shift}>10:00 – 19:00</span>
-          </div>
-        </div>
-
-        <div className={styles.member}>
-          <div className={styles.avatar}>
-            <span>AM</span>
-          </div>
-
-          <div className={styles.details}>
-            <h3>Alex Morgan</h3>
-            <p>Sales Assistant</p>
-            <span className={styles.shift}>11:00 – 19:00</span>
-          </div>
-        </div>
-
-        <div className={styles.member}>
-          <div className={styles.avatar}>
-            <span>MJ</span>
-          </div>
-
-          <div className={styles.details}>
-            <h3>Marcus Johnson</h3>
-            <p>Stockroom Supervisor</p>
-            <span className={styles.shift}>08:00 – 17:00</span>
-          </div>
-        </div>
-
-        {showAll && (
-          <>
-            <div className={styles.member}>
+        {showAll &&
+          notScheduledShifts.map((employee) => (
+            <div key={employee.id} className={styles.member}>
               <div className={`${styles.avatar} ${styles.notScheduledAvatar}`}>
-                <span>PS</span>
+                <span>
+                  {employee.firstName[0]}
+                  {employee.lastName[0]}
+                </span>
               </div>
 
               <div className={styles.details}>
-                <h3>Priya Shah</h3>
-                <p>Sales Assistant</p>
+                <h3>
+                  {employee.firstName} {employee.lastName}
+                </h3>
+                <p>{employee.role}</p>
                 <span className={styles.notScheduled}>Not scheduled</span>
               </div>
             </div>
-
-            <div className={styles.member}>
-              <div className={`${styles.avatar} ${styles.notScheduledAvatar}`}>
-                <span>DB</span>
-              </div>
-
-              <div className={styles.details}>
-                <h3>Daniel Brown</h3>
-                <p>Sales Assistant</p>
-                <span className={styles.notScheduled}>Not scheduled</span>
-              </div>
-            </div>
-
-            <div className={styles.member}>
-              <div className={`${styles.avatar} ${styles.notScheduledAvatar}`}>
-                <span>OW</span>
-              </div>
-
-              <div className={styles.details}>
-                <h3>Olivia Walker</h3>
-                <p>Sales Assistant</p>
-                <span className={styles.notScheduled}>Not scheduled</span>
-              </div>
-            </div>
-          </>
-        )}
+          ))}
       </div>
     </section>
   );

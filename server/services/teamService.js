@@ -3,16 +3,17 @@ import db from "../db/db.js";
 export async function fetchDailyShifts(date) {
   const result = await db.query(
     `SELECT
-    e.id,
-    e.first_name,
-    e.last_name,
-    e.role,
-    s.start_time,
-    s.end_time
-  FROM shifts s
-  INNER JOIN employees e
-    ON s.employee_id = e.id
-  WHERE s.shift_date = $1`,
+      e.id,
+      e.first_name,
+      e.last_name,
+      e.role,
+      s.start_time,
+      s.end_time
+    FROM employees e
+    LEFT JOIN shifts s
+      ON e.id = s.employee_id
+      AND s.shift_date = $1
+    ORDER BY e.id`,
     [date],
   );
 

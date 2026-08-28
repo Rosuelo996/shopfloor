@@ -15,7 +15,7 @@ type TeamTab = "team" | "schedule" | "availability";
 
 export default function Team() {
   const [activeTab, setActiveTab] = useState<TeamTab>("team");
-  const { weeklyShifts, teamAvailability } = useTeam();
+  const { dailyShifts, weeklyShifts, teamAvailability } = useTeam();
 
   return (
     <div className={styles.team}>
@@ -64,7 +64,7 @@ export default function Team() {
         </button>
       </div>
 
-      {activeTab === "team" && <TeamOverview />}
+      {activeTab === "team" && <TeamOverview dailyShifts={dailyShifts} />}
 
       {activeTab === "schedule" && weeklyShifts && (
         <WeeklySchedule weeklyShifts={weeklyShifts} />

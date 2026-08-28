@@ -2,23 +2,37 @@ import { useState, useEffect } from "react";
 import { useApp } from "../../../hooks/useApp";
 
 import {
+  getDailyShifts,
   getWeeklyShifts,
   getAvailability,
 } from "../../../services/teamService";
-import type { AvailabilityData, WeeklyShiftsData } from "../../../types/team";
+import type {
+  DailyShiftsData,
+  WeeklyShiftsData,
+  AvailabilityData,
+} from "../../../types/team";
 
 export function useTeam() {
   const { selectedDate } = useApp();
+
+  const [dailyShifts, setDailyShifts] = useState<DailyShiftsData[]>([]);
+  const [weeklyShifts, setWeeklyShifts] = useState<WeeklyShiftsData | null>(
+    null,
+  );
   const [teamAvailability, setTeamAvailability] = useState<AvailabilityData[]>(
     [],
   );
-  const [weeklyShifts, setWeeklyShifts] = useState<WeeklyShiftsData | null>(null);
 
   useEffect(() => {
     const loadTeam = async () => {
-      const weeklyShiftsData = await getWeeklyShifts(selectedDate);
-      const availabilityData = await getAvailability();
+      const [dailyShiftsData, weeklyShiftsData, availabilityData] =
+        await Promise.all([
+          getDailyShifts(selectedDate),
+          getWeeklyShifts(selectedDate),
+          getAvailability(),
+        ]);
 
+      setDailyShifts(dailyShiftsData);
       setWeeklyShifts(weeklyShiftsData);
       setTeamAvailability(availabilityData);
     };
@@ -27,6 +41,7 @@ export function useTeam() {
   }, [selectedDate]);
 
   return {
+    dailyShifts,
     weeklyShifts,
     teamAvailability,
   };
