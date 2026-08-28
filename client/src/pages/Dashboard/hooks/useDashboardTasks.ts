@@ -5,8 +5,6 @@ import {
   updateTaskStatus,
 } from "../../../services/tasksService";
 
-import { getNotifications } from "../../../services/notificationService";
-
 import type { TaskData } from "../../../types/tasks";
 
 import { useApp } from "../../../hooks/useApp";
@@ -14,7 +12,7 @@ import { useApp } from "../../../hooks/useApp";
 export function useDashboardTasks() {
   const [tasks, setTasks] = useState<TaskData[] | null>(null);
 
-  const { selectedDate, setNotifications } = useApp();
+  const { selectedDate, refreshNotifications } = useApp();
 
   useEffect(() => {
     const loadTasks = async () => {
@@ -42,8 +40,7 @@ export function useDashboardTasks() {
       );
     });
 
-    const notificationData = await getNotifications();
-    setNotifications(notificationData);
+    await refreshNotifications()
   }
 
   return {

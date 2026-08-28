@@ -19,7 +19,7 @@ export default function Dashboard() {
     dashboard,
     yesterday,
     weeklySales,
-    shifts,
+    dailyShifts,
     newsletter,
     loading,
     error,
@@ -64,7 +64,7 @@ export default function Dashboard() {
 
       <section className={styles.bottomGrid}>
         <WeeklySales weeklySales={weeklySales} />
-        <TodayTeam shifts={shifts} />
+        <TodayTeam dailyShifts={dailyShifts} />
         <WeeklyNewsletter newsletter={newsletter} />
       </section>
     </div>

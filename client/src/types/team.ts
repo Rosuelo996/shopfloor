@@ -1,4 +1,4 @@
-export type ShiftsData = {
+export type DailyShiftsData = {
     id: number;
     firstName: string;
     lastName: string;
@@ -7,6 +7,24 @@ export type ShiftsData = {
     endTime: string;
 }
 
+export type WeeklyShiftsData = {
+  weekStart: string;
+  weekEnd: string;
+  previousWeek: string;
+  nextWeek: string;
+  weekDays: string[];
+  team: {
+    id: number;
+    firstName: string;
+    lastName: string;
+    role: string;
+    shifts: {
+      date: string;
+      startTime: string;
+      endTime: string;
+    }[];
+  }[];
+};
 
 export type AvailabilityData = {
   id: number;

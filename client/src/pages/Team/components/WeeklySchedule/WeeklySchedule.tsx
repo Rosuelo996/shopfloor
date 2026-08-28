@@ -1,12 +1,36 @@
+import styles from "./WeeklySchedule.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 
-import styles from "./WeeklySchedule.module.css";
+import { Fragment } from "react";
 
-export default function WeeklySchedule() {
+import { useApp } from "../../../../hooks/useApp";
+
+import type { WeeklyShiftsData } from "../../../../types/team";
+
+type Props = {
+  weeklyShifts: WeeklyShiftsData;
+};
+
+export default function WeeklySchedule({ weeklyShifts }: Props) {
+  const { setSelectedDate } = useApp();
+
+  const weekStart = formatDate(new Date(weeklyShifts.weekStart), {
+    day: "numeric",
+    month: "short",
+  });
+
+  const weekEnd = formatDate(new Date(weeklyShifts.weekEnd), {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+
+  const weekDays = weeklyShifts.weekDays;
+
   return (
     <section className={styles.weeklySchedule}>
       <div className={styles.header}>
@@ -34,13 +58,23 @@ export default function WeeklySchedule() {
           </div>
 
           <div className={styles.weekSelector}>
-            <button type="button" aria-label="Previous week">
+            <button
+              type="button"
+              aria-label="Previous week"
+              onClick={() => setSelectedDate(weeklyShifts.previousWeek)}
+            >
               <FontAwesomeIcon icon={faChevronLeft} />
             </button>
 
-            <span>31 Aug – 6 Sep 2026</span>
+            <span>
+              {weekStart} – {weekEnd}
+            </span>
 
-            <button type="button" aria-label="Next week">
+            <button
+              type="button"
+              aria-label="Next week"
+              onClick={() => setSelectedDate(weeklyShifts.nextWeek)}
+            >
               <FontAwesomeIcon icon={faChevronRight} />
             </button>
           </div>
@@ -48,192 +82,97 @@ export default function WeeklySchedule() {
       </div>
 
       <div className={styles.tableWrapper}>
-        <div className={styles.scheduleTable}>
-          <div className={`${styles.cell} ${styles.teamHeader}`}>
-            Team
+        {weeklyShifts.team.length === 0 ? (
+          <div className={styles.emptySchedule}>
+            <p>No schedule available for this week</p>
+            <span>Use the arrows above to view another week.</span>
           </div>
+        ) : (
+          <div className={styles.scheduleTable}>
+            <div className={`${styles.cell} ${styles.teamHeader}`}>Team</div>
 
-          <div className={`${styles.cell} ${styles.dayHeader}`}>
-            <span>Mon</span>
-            <strong>31 Aug</strong>
+            {weekDays.map((day, index) => (
+              <div key={index} className={`${styles.cell} ${styles.dayHeader}`}>
+                <span>{formatDate(new Date(day), { weekday: "short" })}</span>
+                <strong>
+                  {formatDate(new Date(day), {
+                    day: "numeric",
+                    month: "short",
+                  })}
+                </strong>
+              </div>
+            ))}
+
+            {weeklyShifts.team.map((employee) => {
+              const shiftType = getShiftType(employee.role);
+
+              const avatarClass =
+                shiftType === "management"
+                  ? styles.managementAvatar
+                  : shiftType === "sales"
+                    ? styles.salesAvatar
+                    : styles.stockroomAvatar;
+
+              return (
+                <Fragment key={employee.id}>
+                  <div className={`${styles.cell} ${styles.employee}`}>
+                    <div className={`${styles.avatar} ${avatarClass}`}>
+                      {employee.firstName[0]}
+                      {employee.lastName[0]}
+                    </div>
+
+                    <div>
+                      <h3>
+                        {employee.firstName} {employee.lastName}
+                      </h3>
+                      <p>{employee.role}</p>
+                    </div>
+                  </div>
+
+                  {weekDays.map((day, index) => {
+                    const shift = employee.shifts.find(
+                      (shift) => shift.date === day,
+                    );
+
+                    return (
+                      <Fragment key={index}>
+                        {shift ? (
+                          <Shift type={shiftType}>
+                            {formatTime(shift.startTime)} –{" "}
+                            {formatTime(shift.endTime)}
+                          </Shift>
+                        ) : (
+                          <Off />
+                        )}
+                      </Fragment>
+                    );
+                  })}
+                </Fragment>
+              );
+            })}
           </div>
-
-          <div className={`${styles.cell} ${styles.dayHeader}`}>
-            <span>Tue</span>
-            <strong>1 Sep</strong>
-          </div>
-
-          <div className={`${styles.cell} ${styles.dayHeader}`}>
-            <span>Wed</span>
-            <strong>2 Sep</strong>
-          </div>
-
-          <div className={`${styles.cell} ${styles.dayHeader}`}>
-            <span>Thu</span>
-            <strong>3 Sep</strong>
-          </div>
-
-          <div className={`${styles.cell} ${styles.dayHeader}`}>
-            <span>Fri</span>
-            <strong>4 Sep</strong>
-          </div>
-
-          <div className={`${styles.cell} ${styles.dayHeader}`}>
-            <span>Sat</span>
-            <strong>5 Sep</strong>
-          </div>
-
-          <div className={`${styles.cell} ${styles.dayHeader}`}>
-            <span>Sun</span>
-            <strong>6 Sep</strong>
-          </div>
-
-          {/* Stefano */}
-
-          <div className={`${styles.cell} ${styles.employee}`}>
-            <div className={`${styles.avatar} ${styles.managementAvatar}`}>
-              SW
-            </div>
-
-            <div>
-              <h3>Stefano Wijegunaratne</h3>
-              <p>Store Manager</p>
-            </div>
-          </div>
-
-          <Shift type="management">10:00 – 19:00</Shift>
-          <Shift type="management">10:00 – 19:00</Shift>
-          <Shift type="management">10:00 – 19:00</Shift>
-          <Shift type="management">10:00 – 19:00</Shift>
-          <Shift type="management">10:00 – 19:00</Shift>
-          <Off />
-          <Off />
-
-          {/* Sophie */}
-
-          <div className={`${styles.cell} ${styles.employee}`}>
-            <div className={`${styles.avatar} ${styles.managementAvatar}`}>
-              SL
-            </div>
-
-            <div>
-              <h3>Sophie Laurent</h3>
-              <p>Assistant Manager</p>
-            </div>
-          </div>
-
-          <Shift type="management">09:00 – 18:00</Shift>
-          <Shift type="management">09:00 – 18:00</Shift>
-          <Shift type="management">09:00 – 18:00</Shift>
-          <Off />
-          <Shift type="management">10:00 – 19:00</Shift>
-          <Shift type="management">10:00 – 18:00</Shift>
-          <Off />
-
-          {/* Josh */}
-
-          <div className={`${styles.cell} ${styles.employee}`}>
-            <div className={`${styles.avatar} ${styles.managementAvatar}`}>
-              JC
-            </div>
-
-            <div>
-              <h3>Josh Carter</h3>
-              <p>Supervisor</p>
-            </div>
-          </div>
-
-          <Shift type="management">11:00 – 19:00</Shift>
-          <Off />
-          <Shift type="management">10:00 – 19:00</Shift>
-          <Shift type="management">10:00 – 19:00</Shift>
-          <Off />
-          <Shift type="management">10:00 – 18:00</Shift>
-          <Shift type="management">12:00 – 18:00</Shift>
-
-          {/* Emily */}
-
-          <div className={`${styles.cell} ${styles.employee}`}>
-            <div className={`${styles.avatar} ${styles.managementAvatar}`}>
-              ET
-            </div>
-
-            <div>
-              <h3>Emily Thompson</h3>
-              <p>Supervisor</p>
-            </div>
-          </div>
-
-          <Off />
-          <Shift type="management">10:00 – 19:00</Shift>
-          <Shift type="management">10:00 – 19:00</Shift>
-          <Off />
-          <Shift type="management">10:00 – 19:00</Shift>
-          <Shift type="management">10:00 – 18:00</Shift>
-          <Shift type="management">12:00 – 18:00</Shift>
-
-          {/* Alex */}
-
-          <div className={`${styles.cell} ${styles.employee}`}>
-            <div className={`${styles.avatar} ${styles.salesAvatar}`}>AM</div>
-
-            <div>
-              <h3>Alex Morgan</h3>
-              <p>Sales Assistant</p>
-            </div>
-          </div>
-
-          <Shift type="sales">11:00 – 19:00</Shift>
-          <Shift type="sales">10:00 – 19:00</Shift>
-          <Off />
-          <Shift type="sales">11:00 – 19:00</Shift>
-          <Shift type="sales">10:00 – 19:00</Shift>
-          <Shift type="sales">10:00 – 18:00</Shift>
-          <Off />
-
-          {/* Maya */}
-
-          <div className={`${styles.cell} ${styles.employee}`}>
-            <div className={`${styles.avatar} ${styles.salesAvatar}`}>MP</div>
-
-            <div>
-              <h3>Maya Patel</h3>
-              <p>Sales Assistant</p>
-            </div>
-          </div>
-
-          <Shift type="sales">10:00 – 18:00</Shift>
-          <Off />
-          <Shift type="sales">11:00 – 19:00</Shift>
-          <Shift type="sales">10:00 – 19:00</Shift>
-          <Shift type="sales">11:00 – 19:00</Shift>
-          <Shift type="sales">10:00 – 18:00</Shift>
-          <Off />
-
-          {/* Marcus */}
-
-          <div className={`${styles.cell} ${styles.employee}`}>
-            <div className={`${styles.avatar} ${styles.stockroomAvatar}`}>
-              MJ
-            </div>
-
-            <div>
-              <h3>Marcus Johnson</h3>
-              <p>Stockroom Supervisor</p>
-            </div>
-          </div>
-
-          <Shift type="stockroom">08:00 – 17:00</Shift>
-          <Shift type="stockroom">08:00 – 17:00</Shift>
-          <Shift type="stockroom">08:00 – 17:00</Shift>
-          <Shift type="stockroom">08:00 – 17:00</Shift>
-          <Shift type="stockroom">08:00 – 17:00</Shift>
-          <Off />
-          <Off />
-        </div>
+        )}
       </div>
     </section>
   );
+}
+
+function formatDate(date: Date, options: Intl.DateTimeFormatOptions) {
+  return date.toLocaleDateString("en-GB", {
+    ...options,
+    timeZone: "Europe/London",
+  });
+}
+
+function formatTime(time: string) {
+  return time.slice(0, 5);
+}
+
+function getShiftType(role: string): "management" | "sales" | "stockroom" {
+  if (role === "sales assistant") return "sales";
+  if (role.includes("stockroom")) return "stockroom";
+
+  return "management";
 }
 
 type ShiftProps = {

@@ -6,8 +6,6 @@ import {
   updateHandoverAcknowledgement,
 } from "../../../services/handoverService";
 
-import { getNotifications } from "../../../services/notificationService";
-
 import type { LatestHandoverData } from "../../../types/handover";
 
 import { useUsers } from "../../../hooks/useUsers";
@@ -17,7 +15,7 @@ export function useDashboardHandover() {
   const [handover, setHandover] = useState<LatestHandoverData | null>(null);
 
   const { currentUser } = useUsers();
-  const { selectedDate, setNotifications } = useApp();
+  const { selectedDate, refreshNotifications } = useApp();
 
   useEffect(() => {
     const loadHandover = async () => {
@@ -43,8 +41,7 @@ export function useDashboardHandover() {
       };
     });
 
-    const notificationData = await getNotifications();
-    setNotifications(notificationData);
+    await refreshNotifications();
   }
 
   async function handleHandoverAcknowledgement() {
@@ -65,8 +62,7 @@ export function useDashboardHandover() {
         : null,
     );
 
-    const notificationData = await getNotifications();
-    setNotifications(notificationData);
+    await refreshNotifications();
   }
 
   return {

@@ -1,9 +1,20 @@
-import { fetchShifts, fetchTeamAvailability } from "../services/teamService.js";
+import { fetchDailyShifts, fetchWeeklyShifts, fetchTeamAvailability } from "../services/teamService.js";
 
-export async function getShifts(req, res, next) {
+export async function getDailyShifts(req, res, next) {
   try {
     const date = req.query.date || "2026-08-31";
-    const shifts = await fetchShifts(date);
+    const shifts = await fetchDailyShifts(date);
+
+    res.json(shifts);
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function getWeeklyShifts(req, res, next) {
+  try {
+    const date = req.query.date || "2026-08-31";
+    const shifts = await fetchWeeklyShifts(date);
 
     res.json(shifts);
   } catch (err) {

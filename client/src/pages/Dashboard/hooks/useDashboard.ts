@@ -7,11 +7,10 @@ import {
 } from "../../../services/dashboardService";
 
 
-import { getShifts } from "../../../services/teamService";
+import { getDailyShifts } from "../../../services/teamService";
 
 import { getNewsletter } from "../../../services/newsletterService";
 
-import { getNotifications } from "../../../services/notificationService";
 
 import type {
   DashboardData,
@@ -19,7 +18,7 @@ import type {
   WeeklySalesData,
 } from "../../../types/dashboard";
 
-import type { ShiftsData } from "../../../types/team";
+import type { DailyShiftsData } from "../../../types/team";
 import type { NewsletterData } from "../../../types/newsletter";
 
 import { useApp } from "../../../hooks/useApp";
@@ -28,10 +27,10 @@ export function useDashboard() {
   const [dashboard, setDashboard] = useState<DashboardData | null>(null);
   const [yesterday, setYesterday] = useState<YesterdaySummaryData | null>(null);
   const [weeklySales, setWeeklySales] = useState<WeeklySalesData[]>([]);
-  const [shifts, setShifts] = useState<ShiftsData[]>([]);
+  const [dailyShifts, setDailyShifts] = useState<DailyShiftsData[]>([]);
   const [newsletter, setNewsletter] = useState<NewsletterData | null>(null);
 
-  const { selectedDate, setNotifications } = useApp();
+  const { selectedDate } = useApp();
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -46,25 +45,22 @@ export function useDashboard() {
           dashboardData,
           yesterdayData,
           weeklySalesData,
-          shiftsData,
+          dailyShiftsData,
           newsletterData,
-          notificationData,
         ] = await Promise.all([
           getDashboard(selectedDate),
           getYesterdaySummary(selectedDate),
 
           getWeeklySales(selectedDate),
-          getShifts(selectedDate),
+          getDailyShifts(selectedDate),
           getNewsletter(selectedDate),
-          getNotifications(),
         ]);
 
         setDashboard(dashboardData);
         setYesterday(yesterdayData);
         setWeeklySales(weeklySalesData);
-        setShifts(shiftsData);
+        setDailyShifts(dailyShiftsData);
         setNewsletter(newsletterData);
-        setNotifications(notificationData);
 
       } catch (err) {
         console.error("Failed to load dashboard:", err);
@@ -75,14 +71,14 @@ export function useDashboard() {
       }
     };
     loadDashboard(); 
-  }, [selectedDate, setNotifications]);
+  }, [selectedDate]);
 
 
   return {
     dashboard,
     yesterday,
     weeklySales,
-    shifts,
+    dailyShifts,
     newsletter,
     loading,
     error

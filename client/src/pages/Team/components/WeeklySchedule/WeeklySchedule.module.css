@@ -299,6 +299,31 @@
   font-size: 16px;
 }
 
+.emptySchedule {
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-align: center;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.emptySchedule p {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.emptySchedule span {
+  font-size: 13px;
+  color: #64748b;
+}
+
 @media (max-width: 1024px) {
   .header {
     align-items: flex-start;

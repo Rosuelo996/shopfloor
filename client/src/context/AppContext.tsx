@@ -5,7 +5,7 @@ type AppContextType = {
   selectedDate: string;
   setSelectedDate: (date: string) => void;
   notifications: Notification[];
-  setNotifications: (notifications: Notification[]) => void;
+  refreshNotifications: () => Promise<void>;
 };
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);

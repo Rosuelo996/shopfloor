@@ -1,14 +1,22 @@
 import axios from "axios";
-import type { ShiftsData, AvailabilityData } from "../types/team";
+import type { DailyShiftsData, WeeklyShiftsData, AvailabilityData } from "../types/team";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-export async function getShifts(date?: string): Promise<ShiftsData[]> {
-    const res = await axios.get(`${API_URL}/team/shifts`, {
+export async function getDailyShifts(date?: string): Promise<DailyShiftsData[]> {
+    const res = await axios.get(`${API_URL}/team/shifts/daily`, {
         params: { date },
     })
-    return res.data
 
+    return res.data
+}
+
+export async function getWeeklyShifts(date?: string): Promise<WeeklyShiftsData> {
+    const res = await axios.get(`${API_URL}/team/shifts/weekly`, {
+        params: { date },
+    })
+
+    return res.data
 }
 
 export async function getAvailability(): Promise <AvailabilityData[]> {

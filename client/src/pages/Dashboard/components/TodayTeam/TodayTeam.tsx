@@ -1,21 +1,21 @@
 import styles from "./TodayTeam.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import type { ShiftsData } from "../../../../types/team";
+import type { DailyShiftsData } from "../../../../types/team";
 import { Link } from "react-router-dom";
 
 type Props = {
-  shifts: ShiftsData[];
+  dailyShifts: DailyShiftsData[];
 };
 
-export default function TodayTeam({ shifts }: Props) {
-  const management = shifts.filter((shift) =>
+export default function TodayTeam({ dailyShifts }: Props) {
+  const management =  dailyShifts.filter((shift) =>
     ["store manager", "assistant manager", "supervisor"].includes(shift.role),
   );
 
-  const sales = shifts.filter((shift) => shift.role === "sales assistant");
+  const sales =  dailyShifts.filter((shift) => shift.role === "sales assistant");
 
-  const stockroom = shifts.filter((shift) =>
+  const stockroom =  dailyShifts.filter((shift) =>
     ["stockroom supervisor", "stockroom assistant"].includes(shift.role),
   );
 
@@ -23,7 +23,7 @@ export default function TodayTeam({ shifts }: Props) {
     <section className={styles.card}>
       <div className={styles.header}>
         <h2>Today's Team</h2>
-        <span className={styles.count}>{shifts.length} working</span>
+        <span className={styles.count}>{dailyShifts.length} working</span>
       </div>
 
       <div className={styles.section}>
