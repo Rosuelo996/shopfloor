@@ -1,21 +1,25 @@
 import styles from "./TodayTeam.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import type { ShiftsData } from "../../../../types/team";
+import type { DailyShiftsData } from "../../../../types/team";
 import { Link } from "react-router-dom";
 
 type Props = {
-  shifts: ShiftsData[];
+  dailyShifts: DailyShiftsData[];
 };
 
-export default function TodayTeam({ shifts }: Props) {
-  const management = shifts.filter((shift) =>
+export default function TodayTeam({ dailyShifts }: Props) {
+  const scheduledShifts = dailyShifts.filter(
+    (shift) => shift.startTime !== null && shift.endTime !== null,
+  );
+
+  const management = scheduledShifts.filter((shift) =>
     ["store manager", "assistant manager", "supervisor"].includes(shift.role),
   );
 
-  const sales = shifts.filter((shift) => shift.role === "sales assistant");
+  const sales = scheduledShifts.filter((shift) => shift.role === "sales assistant");
 
-  const stockroom = shifts.filter((shift) =>
+  const stockroom = scheduledShifts.filter((shift) =>
     ["stockroom supervisor", "stockroom assistant"].includes(shift.role),
   );
 
@@ -23,7 +27,7 @@ export default function TodayTeam({ shifts }: Props) {
     <section className={styles.card}>
       <div className={styles.header}>
         <h2>Today's Team</h2>
-        <span className={styles.count}>{shifts.length} working</span>
+        <span className={styles.count}>{scheduledShifts.length} working</span>
       </div>
 
       <div className={styles.section}>
@@ -44,7 +48,7 @@ export default function TodayTeam({ shifts }: Props) {
             </div>
 
             <span className={styles.time}>
-              {shift.startTime.slice(0, 5)} - {shift.endTime.slice(0, 5)}
+              {shift.startTime?.slice(0, 5)} - {shift.endTime?.slice(0, 5)}
             </span>
           </div>
         ))}
@@ -72,7 +76,7 @@ export default function TodayTeam({ shifts }: Props) {
             </div>
 
             <span className={styles.time}>
-              {shift.startTime.slice(0, 5)} - {shift.endTime.slice(0, 5)}
+              {shift.startTime?.slice(0, 5)} - {shift.endTime?.slice(0, 5)}
             </span>
           </div>
         ))}
@@ -101,7 +105,7 @@ export default function TodayTeam({ shifts }: Props) {
             </div>
 
             <span className={styles.time}>
-              {shift.startTime.slice(0, 5)} - {shift.endTime.slice(0, 5)}
+              {shift.startTime?.slice(0, 5)} - {shift.endTime?.slice(0, 5)}
             </span>
           </div>
         ))}
@@ -110,11 +114,8 @@ export default function TodayTeam({ shifts }: Props) {
         )}
       </div>
 
-      <Link 
-      to="/"
-      className={`${styles.link } ${styles.notAllowed}`}
-      onClick={(e) => e.preventDefault()}>
-        View all team <span>→</span>
+      <Link to="/team" className={`${styles.link} ${styles.notAllowed}`}>
+        View today's team <span>→</span>
       </Link>
     </section>
   );

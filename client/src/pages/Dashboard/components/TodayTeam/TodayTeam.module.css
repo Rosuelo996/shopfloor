@@ -89,9 +89,9 @@
   width: 34px;
   height: 34px;
   flex-shrink: 0;
-  background: #f1f1f1;
+  background: #eff6ff;
   border-radius: 50%;
-  color: #8a8a8a;
+  color: #2563eb;
   font-size: 12px;
 }
 
@@ -135,6 +135,11 @@
   font-weight: 600;
   color: #2563eb;
   text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.link:hover {
+  color: #1d4ed8;
 }
 
 .link span {
@@ -144,8 +149,4 @@
 
 .link:hover span {
   transform: translateX(3px);
-}
-
-.notAllowed {
-  cursor: not-allowed;
 }

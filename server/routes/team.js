@@ -1,8 +1,11 @@
 import express from "express";
-import { getShifts } from "../controllers/teamController.js";
+import { getDailyShifts, getWeeklyShifts, getTeamAvailability } from "../controllers/teamController.js";
 
 const router = express.Router()
 
-router.get("/shifts", getShifts)
+router.get("/shifts/daily", getDailyShifts)
+router.get("/shifts/weekly", getWeeklyShifts)
+
+router.get("/availability", getTeamAvailability)
 
 export default router
