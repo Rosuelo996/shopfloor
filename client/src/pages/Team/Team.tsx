@@ -18,10 +18,6 @@ export default function Team() {
   const { dailyShifts, weeklyShifts, teamAvailability, loading, error } =
     useTeam();
 
-  if (loading) {
-    return <p>Loading team...</p>;
-  }
-
   if (error) {
     return <p>{error}</p>;
   }
