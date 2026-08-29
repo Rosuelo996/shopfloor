@@ -11,6 +11,8 @@ type Props = {
 
 export default function WeeklyNewsletter({ newsletter, loading }: Props) {
 
+  const [isExpanded, setIsExpanded] = useState(false);
+
   if (loading) {
     return <WeeklyNewsletterSkeleton />;
   }
@@ -30,8 +32,6 @@ export default function WeeklyNewsletter({ newsletter, loading }: Props) {
 
     return styles.general;
   }
-
-  const [isExpanded, setIsExpanded] = useState(false);
 
   return (
     <section className={styles.newsletter}>
