@@ -3,15 +3,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserTie, faUsers, faBox } from "@fortawesome/free-solid-svg-icons";
 
 import type { DailyShiftsData } from "../../../../../types/team";
+import CoverageSkeleton from "./Skeleton/CoverageSkeleton";
 
 type Props = {
   dailyShifts: DailyShiftsData[];
+  loading: boolean;
 };
 
-export default function Coverage({ dailyShifts }: Props) {
- const scheduledShifts = dailyShifts.filter(
-  (employee) => employee.startTime !== null && employee.endTime !== null,
-);
+export default function Coverage({ dailyShifts, loading }: Props) {
+  if (loading) {
+    return <CoverageSkeleton />;
+  }
+
+  const scheduledShifts = dailyShifts.filter(
+    (employee) => employee.startTime !== null && employee.endTime !== null,
+  );
 
   const management = scheduledShifts.filter(
     (employee) =>

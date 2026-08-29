@@ -1,5 +1,5 @@
 import styles from "./MetricCard.module.css";
-import MetricCardSkeleton from "./MetricCardSkeleton";
+import MetricCardSkeleton from "./Skeleton/MetricCardSkeleton";
 
 type MetricCardProps = {
   label: string;

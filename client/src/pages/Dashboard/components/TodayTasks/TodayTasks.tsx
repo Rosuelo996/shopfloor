@@ -1,6 +1,6 @@
 import styles from "./TodayTasks.module.css";
 import type { TaskData } from "../../../../types/tasks";
-import TodayTasksSkeleton from "./TodayTasksSkeleton";
+import TodayTasksSkeleton from "./Skeleton/TodayTasksSkeleton";
 
 type Props = {
   tasks: TaskData[] | null;

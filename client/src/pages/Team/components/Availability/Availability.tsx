@@ -1,12 +1,18 @@
 import styles from "./Availability.module.css";
 import type { AvailabilityData } from "../../../../types/team";
+import AvailabilitySkeleton from "./Skeleton/AvailabilitySkeleton";
 
 type Props = {
-    teamAvailability: AvailabilityData[]
+    teamAvailability: AvailabilityData[];
+    loading: boolean;
 }
 
 
-export default function Availability({teamAvailability}: Props) {
+export default function Availability({teamAvailability, loading}: Props) {
+  if (loading) {
+    return <AvailabilitySkeleton />;
+  }
+
   return (
     <section className={styles.availability}>
       <div className={styles.header}>

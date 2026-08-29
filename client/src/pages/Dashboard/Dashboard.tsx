@@ -38,10 +38,6 @@ export default function Dashboard() {
     loading: handoverLoading,
   } = useDashboardHandover();
 
-  // if (loading) {
-  //   return <p>Loading dashboard...</p>;
-  // }
-
   if (error) {
     return <p>{error}</p>;
   }

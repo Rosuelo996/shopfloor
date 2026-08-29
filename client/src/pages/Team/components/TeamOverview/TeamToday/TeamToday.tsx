@@ -3,13 +3,20 @@ import styles from "./TeamToday.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import type { DailyShiftsData } from "../../../../../types/team";
+import TeamTodaySkeleton from "./Skeleton/TeamTodaySkeleton";
 
 type Props = {
   dailyShifts: DailyShiftsData[];
+  loading: boolean;
 };
 
-export default function TeamToday({ dailyShifts }: Props) {
+export default function TeamToday({ dailyShifts, loading }: Props) {
+  
   const [showAll, setShowAll] = useState(false);
+
+  if (loading) {
+    return <TeamTodaySkeleton />;
+  }
 
   const scheduledShifts = dailyShifts.filter(
     (employee) => employee.startTime !== null && employee.endTime !== null,

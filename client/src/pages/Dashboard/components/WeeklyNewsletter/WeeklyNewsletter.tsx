@@ -2,7 +2,7 @@ import styles from "./WeeklyNewsletter.module.css";
 import type { NewsletterData } from "../../../../types/newsletter";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import WeeklyNewsletterSkeleton from "./WeeklyNewsletterSkeleton";
+import WeeklyNewsletterSkeleton from "./Skeleton/WeeklyNewsletterSkeleton";
 
 type Props = {
   newsletter: NewsletterData | null;

@@ -1,0 +1,193 @@
+.weeklySchedule {
+  width: 100%;
+  margin-top: 24px;
+  padding-bottom: 28px;
+}
+
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 14px;
+}
+
+.title {
+  width: 150px;
+  height: 18px;
+}
+
+.subtitle {
+  width: 190px;
+  height: 13px;
+  margin-top: 4px;
+}
+
+.scheduleControls {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.legendItem {
+  width: 78px;
+  height: 11px;
+}
+
+.weekSelector {
+  width: 213px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: 7px;
+}
+
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.scheduleTable {
+  min-width: 1050px;
+  display: grid;
+  grid-template-columns:
+    minmax(210px, 1.5fr)
+    repeat(7, minmax(112px, 1fr));
+}
+
+.cell {
+  min-width: 0;
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-right: 1px solid #f1f5f9;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.cell:nth-child(8n) {
+  border-right: none;
+}
+
+.teamHeader {
+  justify-content: flex-start;
+  padding-left: 18px;
+  background: #f8fafc;
+}
+
+.teamHeaderText {
+  width: 42px;
+  height: 12px;
+}
+
+.dayHeader {
+  min-height: 68px;
+  flex-direction: column;
+  gap: 4px;
+  background: #f8fafc;
+}
+
+.day {
+  width: 32px;
+  height: 12px;
+}
+
+.date {
+  width: 42px;
+  height: 11px;
+}
+
+.employee {
+  justify-content: flex-start;
+  gap: 11px;
+  padding-left: 18px;
+}
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+.employeeDetails {
+  min-width: 0;
+}
+
+.name {
+  width: 95px;
+  height: 12px;
+}
+
+.role {
+  width: 75px;
+  height: 10px;
+  margin-top: 3px;
+}
+
+.shift {
+  width: 100%;
+  height: 44px;
+  border-radius: 8px;
+}
+
+@media (max-width: 1024px) {
+  .header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .scheduleControls {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .scheduleTable {
+    min-width: 1000px;
+  }
+}
+
+@media (max-width: 768px) {
+  .weeklySchedule {
+    margin-top: 20px;
+  }
+
+  .scheduleControls {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .legend {
+    flex-wrap: wrap;
+    gap: 12px 18px;
+  }
+
+  .scheduleTable {
+    min-width: 920px;
+  }
+}
+
+@media (max-width: 480px) {
+  .weeklySchedule {
+    margin-top: 18px;
+  }
+
+  .weekSelector {
+    width: 100%;
+  }
+
+  .scheduleTable {
+    min-width: 880px;
+  }
+}

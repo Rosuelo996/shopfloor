@@ -15,7 +15,16 @@ type TeamTab = "team" | "schedule" | "availability";
 
 export default function Team() {
   const [activeTab, setActiveTab] = useState<TeamTab>("team");
-  const { dailyShifts, weeklyShifts, teamAvailability } = useTeam();
+  const { dailyShifts, weeklyShifts, teamAvailability, loading, error } =
+    useTeam();
+
+  if (loading) {
+    return <p>Loading team...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
 
   return (
     <div className={styles.team}>
@@ -64,14 +73,14 @@ export default function Team() {
         </button>
       </div>
 
-      {activeTab === "team" && <TeamOverview dailyShifts={dailyShifts} />}
+      {activeTab === "team" && <TeamOverview dailyShifts={dailyShifts} loading={loading} />}
 
       {activeTab === "schedule" && weeklyShifts && (
-        <WeeklySchedule weeklyShifts={weeklyShifts} />
+        <WeeklySchedule weeklyShifts={weeklyShifts} loading={loading} />
       )}
 
       {activeTab === "availability" && (
-        <Availability teamAvailability={teamAvailability} />
+        <Availability teamAvailability={teamAvailability} loading={loading}/>
       )}
     </div>
   );

@@ -1,4 +1,4 @@
-import Skeleton from "../../../../components/Skeleton/Skeleton";
+import Skeleton from "../../../../../components/Skeleton/Skeleton";
 import styles from "./WeeklySalesSkeleton.module.css";
 
 export default function WeeklySalesSkeleton() {

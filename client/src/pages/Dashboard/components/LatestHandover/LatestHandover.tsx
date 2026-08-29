@@ -1,6 +1,6 @@
 import styles from "./LatestHandover.module.css";
 import type { LatestHandoverData } from "../../../../types/handover";
-import LatestHandoverSkeleton from "./LatestHandoverSkeleton";
+import LatestHandoverSkeleton from "./Skeleton/LatestHandoverSkeleton";
 
 type Props = {
   handover: LatestHandoverData | null;

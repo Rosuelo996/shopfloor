@@ -10,13 +10,19 @@ import { Fragment } from "react";
 import { useApp } from "../../../../hooks/useApp";
 
 import type { WeeklyShiftsData } from "../../../../types/team";
+import WeeklyScheduleSkeleton from "./Skeleton/WeeklyScheduleSkeleton";
 
 type Props = {
   weeklyShifts: WeeklyShiftsData;
+  loading: boolean;
 };
 
-export default function WeeklySchedule({ weeklyShifts }: Props) {
+export default function WeeklySchedule({ weeklyShifts, loading }: Props) {
   const { setSelectedDate } = useApp();
+
+  if (loading) {
+    return <WeeklyScheduleSkeleton />;
+  }
 
   const weekStart = formatDate(new Date(weeklyShifts.weekStart), {
     day: "numeric",

@@ -1,4 +1,4 @@
-import Skeleton from "../../../../components/Skeleton/Skeleton";
+import Skeleton from "../../../../../components/Skeleton/Skeleton";
 import styles from "./TodayTeamSkeleton.module.css";
 
 export default function TodayTeamSkeleton() {

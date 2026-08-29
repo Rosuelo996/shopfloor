@@ -9,7 +9,7 @@ import {
   faMoneyBillTrendUp,
   faBoxOpen,
 } from "@fortawesome/free-solid-svg-icons";
-import YesterdaySummarySkeleton from "./YesterdaySummarySkeleton";
+import YesterdaySummarySkeleton from "./Skeleton/YesterdaySummarySkeleton";
 
 type Props = {
   yesterday: YesterdaySummaryData | null;

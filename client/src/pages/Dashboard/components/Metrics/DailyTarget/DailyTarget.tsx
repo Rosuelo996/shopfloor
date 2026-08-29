@@ -1,6 +1,6 @@
 import type { DashboardData } from "../../../../../types/dashboard";
 import styles from "./DailyTarget.module.css";
-import DailyTargetSkeleton from "./DailyTargetSkeleton";
+import DailyTargetSkeleton from "./Skeleton/DailyTargetSkeleton";
 
 type Props = {
   dashboard: DashboardData | null;

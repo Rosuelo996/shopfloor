@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import type { DailyShiftsData } from "../../../../types/team";
 import { Link } from "react-router-dom";
-import TodayTeamSkeleton from "./TodayTeamSkeleton";
+import TodayTeamSkeleton from "./Skeleton/TodayTeamSkeleton";
 
 type Props = {
   dailyShifts: DailyShiftsData[];

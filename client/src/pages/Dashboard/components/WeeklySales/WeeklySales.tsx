@@ -12,7 +12,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Link } from "react-router-dom";
-import WeeklySalesSkeleton from "./WeeklySalesSkeleton";
+import WeeklySalesSkeleton from "./Skeleton/WeeklySalesSkeleton";
 
 type Props = {
   weeklySales: WeeklySalesData[];

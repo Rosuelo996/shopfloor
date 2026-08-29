@@ -5,15 +5,16 @@ import type { DailyShiftsData } from "../../../../types/team";
 
 type Props = {
   dailyShifts: DailyShiftsData[];
+  loading: boolean;
 };
 
-export default function TeamOverview({ dailyShifts }: Props) {
+export default function TeamOverview({ dailyShifts, loading }: Props) {
   return (
     <div className={styles.overview}>
 
-      <Coverage dailyShifts={dailyShifts} />
+      <Coverage dailyShifts={dailyShifts} loading={loading}/>
 
-      <TeamToday dailyShifts={dailyShifts} />
+      <TeamToday dailyShifts={dailyShifts} loading={loading} />
       
     </div>
   );

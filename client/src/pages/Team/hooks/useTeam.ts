@@ -6,6 +6,7 @@ import {
   getWeeklyShifts,
   getAvailability,
 } from "../../../services/teamService";
+
 import type {
   DailyShiftsData,
   WeeklyShiftsData,
@@ -23,18 +24,31 @@ export function useTeam() {
     [],
   );
 
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
     const loadTeam = async () => {
-      const [dailyShiftsData, weeklyShiftsData, availabilityData] =
-        await Promise.all([
-          getDailyShifts(selectedDate),
-          getWeeklyShifts(selectedDate),
-          getAvailability(),
-        ]);
+      try {
+        setLoading(true);
+        setError(null);
 
-      setDailyShifts(dailyShiftsData);
-      setWeeklyShifts(weeklyShiftsData);
-      setTeamAvailability(availabilityData);
+        const [dailyShiftsData, weeklyShiftsData, availabilityData] =
+          await Promise.all([
+            getDailyShifts(selectedDate),
+            getWeeklyShifts(selectedDate),
+            getAvailability(),
+          ]);
+
+        setDailyShifts(dailyShiftsData);
+        setWeeklyShifts(weeklyShiftsData);
+        setTeamAvailability(availabilityData);
+      } catch (error) {
+        console.error("Failed to load team data:", error);
+        setError("Unable to load team data.");
+      } finally {
+        setLoading(false);
+      }
     };
 
     loadTeam();
@@ -44,5 +58,7 @@ export function useTeam() {
     dailyShifts,
     weeklyShifts,
     teamAvailability,
+    loading,
+    error,
   };
 }
