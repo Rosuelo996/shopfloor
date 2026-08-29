@@ -1,0 +1,35 @@
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: #e8edf3;
+  border-radius: 4px;
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: -100% -50%;
+
+  background: linear-gradient(
+    110deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.65) 45%,
+    rgba(255, 255, 255, 0.65) 55%,
+    transparent 65%
+  );
+
+  transform: translateX(-60%);
+  animation: shimmer 1.7s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(60%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton::after {
+    animation: none;
+  }
+}

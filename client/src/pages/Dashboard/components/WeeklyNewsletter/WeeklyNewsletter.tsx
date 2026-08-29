@@ -2,12 +2,19 @@ import styles from "./WeeklyNewsletter.module.css";
 import type { NewsletterData } from "../../../../types/newsletter";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import WeeklyNewsletterSkeleton from "./WeeklyNewsletterSkeleton";
 
 type Props = {
   newsletter: NewsletterData | null;
+  loading: boolean;
 };
 
-export default function WeeklyNewsletter({ newsletter }: Props) {
+export default function WeeklyNewsletter({ newsletter, loading }: Props) {
+
+  if (loading) {
+    return <WeeklyNewsletterSkeleton />;
+  }
+
   const formatPublishedAt = (date: string) => {
     return new Date(date)
       .toLocaleString("en-GB", {

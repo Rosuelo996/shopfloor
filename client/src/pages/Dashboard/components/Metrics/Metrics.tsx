@@ -5,16 +5,17 @@ import type { DashboardData } from "../../../../types/dashboard";
 
 type MetricsProps = {
   dashboard: DashboardData | null;
+  loading: boolean;
 };
 
-export default function Metrics({dashboard}: MetricsProps) {
+export default function Metrics({dashboard, loading}: MetricsProps) {
   const conversionDifference = dashboard?.conversionDifference ?? 0;
   const apcDifference = dashboard?.apcDifference ?? 0
   const ipcDifference = dashboard?.ipcDifference ?? 0
 
   return (
     <section className={styles.metrics}>
-      <DailyTarget dashboard={dashboard} />
+      <DailyTarget dashboard={dashboard} loading={loading} />
 
       <MetricCard
         label="Conversion"
@@ -22,6 +23,7 @@ export default function Metrics({dashboard}: MetricsProps) {
         change={`${conversionDifference > 0 ? "+" : ""}${conversionDifference}%`}
         comparison={`Target ${dashboard?.conversionTarget}%`}
         positive={(conversionDifference ?? 0) >= 0}
+        loading={loading}
       />
 
       <MetricCard
@@ -30,6 +32,7 @@ export default function Metrics({dashboard}: MetricsProps) {
         change={`${apcDifference > 0 ? "+" : ""}${apcDifference}%`}
         comparison={`Target £${dashboard?.apcTarget}`}
         positive={apcDifference >= 0}
+        loading={loading}
       />
 
       <MetricCard
@@ -38,6 +41,7 @@ export default function Metrics({dashboard}: MetricsProps) {
         change={`${ipcDifference > 0 ? "+" : ""}${ipcDifference}%`}
         comparison={`Target ${dashboard?.ipcTarget}`}
         positive={ipcDifference >= 0}
+        loading={loading}
       />
     </section>
   );

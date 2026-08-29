@@ -1,18 +1,24 @@
 import styles from "./LatestHandover.module.css";
 import type { LatestHandoverData } from "../../../../types/handover";
+import LatestHandoverSkeleton from "./LatestHandoverSkeleton";
 
 type Props = {
   handover: LatestHandoverData | null;
   onToggleCompleted: (id: number, completed: boolean) => Promise<void>;
   onHandoverAcknowledge: () => Promise<void>;
+  loading: boolean;
 };
 
 export default function LatestHandover({
   handover,
   onToggleCompleted,
   onHandoverAcknowledge,
+  loading
 }: Props) {
 
+  if (loading) {
+  return <LatestHandoverSkeleton />;
+}
 
   return (
     <div className={styles.latestHandover}>

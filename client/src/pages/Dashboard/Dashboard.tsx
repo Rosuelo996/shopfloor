@@ -21,24 +21,26 @@ export default function Dashboard() {
     weeklySales,
     dailyShifts,
     newsletter,
-    loading,
+    loading: dashboardLoading,
     error,
   } = useDashboard();
 
   const {
     tasks,
     handleTaskStatusToggle,
+    loading: tasksLoading,
   } = useDashboardTasks();
 
   const {
     handover,
     handleHandoverItemToggle,
     handleHandoverAcknowledgement,
+    loading: handoverLoading,
   } = useDashboardHandover();
 
-  if (loading) {
-    return <p>Loading dashboard...</p>;
-  }
+  // if (loading) {
+  //   return <p>Loading dashboard...</p>;
+  // }
 
   if (error) {
     return <p>{error}</p>;
@@ -48,24 +50,25 @@ export default function Dashboard() {
     <div className={styles.dashboard}>
       <Header />
 
-      <Metrics dashboard={dashboard} />
+      <Metrics dashboard={dashboard} loading={dashboardLoading} />
 
       <section className={styles.overview}>
         <LatestHandover
           handover={handover}
           onToggleCompleted={handleHandoverItemToggle}
           onHandoverAcknowledge={handleHandoverAcknowledgement}
+          loading={handoverLoading}
         />
 
-        <TodayTasks tasks={tasks} onTaskStatusToggle={handleTaskStatusToggle} />
+        <TodayTasks tasks={tasks} onTaskStatusToggle={handleTaskStatusToggle} loading={tasksLoading}/>
 
-        <YesterdaySummary yesterday={yesterday} />
+        <YesterdaySummary yesterday={yesterday} loading={dashboardLoading} />
       </section>
 
       <section className={styles.bottomGrid}>
-        <WeeklySales weeklySales={weeklySales} />
-        <TodayTeam dailyShifts={dailyShifts} />
-        <WeeklyNewsletter newsletter={newsletter} />
+        <WeeklySales weeklySales={weeklySales} loading={dashboardLoading} />
+        <TodayTeam dailyShifts={dailyShifts} loading={dashboardLoading}/>
+        <WeeklyNewsletter newsletter={newsletter} loading={dashboardLoading} />
       </section>
     </div>
   );

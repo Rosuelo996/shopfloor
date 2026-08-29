@@ -12,12 +12,19 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Link } from "react-router-dom";
+import WeeklySalesSkeleton from "./WeeklySalesSkeleton";
 
 type Props = {
   weeklySales: WeeklySalesData[];
+  loading: boolean;
 };
 
-export default function WeeklySales({ weeklySales }: Props) {
+export default function WeeklySales({ weeklySales, loading }: Props) {
+
+  if (loading) {
+    return <WeeklySalesSkeleton />;
+  }
+
   return (
     <section className={styles.weeklySales}>
       <div className={styles.header}>

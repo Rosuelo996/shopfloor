@@ -9,12 +9,18 @@ import {
   faMoneyBillTrendUp,
   faBoxOpen,
 } from "@fortawesome/free-solid-svg-icons";
+import YesterdaySummarySkeleton from "./YesterdaySummarySkeleton";
 
 type Props = {
   yesterday: YesterdaySummaryData | null;
+  loading: boolean;
 };
 
-export default function YesterdaySummary({ yesterday }: Props) {
+export default function YesterdaySummary({ yesterday, loading }: Props) {
+  if (loading) {
+  return <YesterdaySummarySkeleton />;
+}
+
   const renderDifference = (difference: number) => {
     return (
       <span className={difference >= 0 ? styles.positive : styles.negative}>

@@ -3,12 +3,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import type { DailyShiftsData } from "../../../../types/team";
 import { Link } from "react-router-dom";
+import TodayTeamSkeleton from "./TodayTeamSkeleton";
 
 type Props = {
   dailyShifts: DailyShiftsData[];
+  loading: boolean,
 };
 
-export default function TodayTeam({ dailyShifts }: Props) {
+export default function TodayTeam({ dailyShifts, loading }: Props) {
+
+  if (loading) {
+    return <TodayTeamSkeleton />;
+  }
+
   const scheduledShifts = dailyShifts.filter(
     (shift) => shift.startTime !== null && shift.endTime !== null,
   );

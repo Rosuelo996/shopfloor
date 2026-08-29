@@ -1,0 +1,89 @@
+.tasks {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 24px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.titleGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.accent {
+  width: 3px;
+  height: 14px;
+  flex-shrink: 0;
+  border-radius: 2px;
+  background: #16a34a;
+}
+
+
+.sectionTitle {
+  width: 125px;
+  height: 16px;
+}
+
+.openCount {
+  width: 44px;
+  height: 12px;
+}
+
+.taskList {
+  display: flex;
+  flex-direction: column;
+}
+
+.task {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+
+  min-height: 46px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+}
+
+.taskTitle {
+  width: 72%;
+  height: 12px;
+}
+
+.taskTitleLong {
+  width: 90%;
+  height: 12px;
+}
+
+.time {
+  width: 36px;
+  height: 11px;
+}
+
+.viewAll {
+  width: 100px;
+  height: 12px;
+  margin-top: 14px;
+}
+
+@media (max-width: 768px) {
+  .tasks {
+    padding: 18px;
+  }
+}

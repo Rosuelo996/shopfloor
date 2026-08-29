@@ -1,0 +1,50 @@
+.metricCard {
+  min-width: 0;
+  padding: 24px;
+  background: #ffffff;
+}
+
+.label {
+  width: 78px;
+  height: 13px;
+}
+
+.value {
+  width: 96px;
+  height: 30px;
+  margin-top: 16px;
+}
+
+.change {
+  width: 72px;
+  height: 12px;
+  margin-top: 14px;
+}
+
+.comparison {
+  width: 88px;
+  height: 12px;
+  margin-top: 10px;
+}
+
+@media (max-width: 564px) {
+  .metricCard {
+    padding: 20px;
+  }
+
+  .label {
+    height: 12px;
+  }
+
+  .value {
+    height: 26px;
+  }
+
+  .change {
+    height: 11px;
+  }
+
+  .comparison {
+    height: 11px;
+  }
+}

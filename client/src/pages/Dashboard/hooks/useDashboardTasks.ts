@@ -11,14 +11,21 @@ import { useApp } from "../../../hooks/useApp";
 
 export function useDashboardTasks() {
   const [tasks, setTasks] = useState<TaskData[] | null>(null);
+  const [loading, setLoading] = useState(true);
 
   const { selectedDate, refreshNotifications } = useApp();
 
   useEffect(() => {
     const loadTasks = async () => {
-      const tasksData = await getTasksByDate(selectedDate);
+      try {
+        setLoading(true);
 
-      setTasks(tasksData);
+        const tasksData = await getTasksByDate(selectedDate);
+
+        setTasks(tasksData);
+      } finally {
+        setLoading(false);
+      }
     };
 
     loadTasks();
@@ -40,11 +47,12 @@ export function useDashboardTasks() {
       );
     });
 
-    await refreshNotifications()
+    await refreshNotifications();
   }
 
   return {
     tasks,
+    loading,
     handleTaskStatusToggle,
   };
 }

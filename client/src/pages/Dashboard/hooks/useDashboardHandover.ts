@@ -13,15 +13,22 @@ import { useApp } from "../../../hooks/useApp";
 
 export function useDashboardHandover() {
   const [handover, setHandover] = useState<LatestHandoverData | null>(null);
+  const [loading, setLoading] = useState(true);
 
   const { currentUser } = useUsers();
   const { selectedDate, refreshNotifications } = useApp();
 
   useEffect(() => {
     const loadHandover = async () => {
-      const handoverData = await getLatestHandover(selectedDate);
+      try {
+        setLoading(true);
 
-      setHandover(handoverData);
+        const handoverData = await getLatestHandover(selectedDate);
+
+        setHandover(handoverData);
+      } finally {
+        setLoading(false);
+      }
     };
 
     loadHandover();
@@ -67,6 +74,7 @@ export function useDashboardHandover() {
 
   return {
     handover,
+    loading,
     handleHandoverItemToggle,
     handleHandoverAcknowledgement,
   };

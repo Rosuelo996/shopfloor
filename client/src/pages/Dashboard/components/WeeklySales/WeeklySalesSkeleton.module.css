@@ -1,0 +1,121 @@
+.weeklySales {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 20px 22px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 18px;
+}
+
+.titleGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.accent {
+  width: 3px;
+  height: 14px;
+  flex-shrink: 0;
+  border-radius: 2px;
+  background: #2563eb;
+}
+
+.sectionTitle {
+  width: 125px;
+  height: 16px;
+}
+
+.subtitle {
+  width: 140px;
+  height: 11px;
+  margin-top: 4px;
+  margin-left: 11px;
+}
+
+.headerRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.legendItem {
+  width: 62px;
+  height: 12px;
+}
+
+.viewAll {
+  width: 92px;
+  height: 12px;
+}
+
+.chart {
+  width: 100%;
+  height: 280px;
+  border-radius: 8px;
+}
+
+@media (max-width: 1024px) {
+  .weeklySales {
+    padding: 20px;
+  }
+
+  .header {
+    gap: 18px;
+  }
+
+  .chart {
+    height: 270px;
+  }
+}
+
+@media (max-width: 768px) {
+  .headerRight {
+    gap: 14px;
+  }
+
+  .legend {
+    gap: 12px;
+  }
+
+  .chart {
+    height: 250px;
+  }
+}
+
+@media (max-width: 564px) {
+  .weeklySales {
+    padding: 18px 16px;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .headerRight {
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .chart {
+    height: 230px;
+  }
+}

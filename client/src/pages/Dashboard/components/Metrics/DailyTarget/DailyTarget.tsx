@@ -1,11 +1,18 @@
 import type { DashboardData } from "../../../../../types/dashboard";
 import styles from "./DailyTarget.module.css";
+import DailyTargetSkeleton from "./DailyTargetSkeleton";
 
 type Props = {
   dashboard: DashboardData | null;
+  loading: boolean;
 };
 
-export default function DailyTarget({ dashboard }: Props) {
+export default function DailyTarget({ dashboard, loading}: Props) {
+
+  if (loading) {
+    return <DailyTargetSkeleton />;
+  }
+
   const targetRemaining = Math.max(
     (dashboard?.salesTarget ?? 0) - (dashboard?.sales ?? 0),
     0,

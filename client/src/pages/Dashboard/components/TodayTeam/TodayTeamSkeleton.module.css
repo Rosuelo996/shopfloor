@@ -1,0 +1,110 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.titleGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.accent {
+  width: 3px;
+  height: 14px;
+  flex-shrink: 0;
+  border-radius: 2px;
+  background: #8b5cf6;
+}
+
+.sectionTitle {
+  width: 125px;
+  height: 16px;
+}
+
+.count {
+  width: 64px;
+  height: 21px;
+  flex-shrink: 0;
+  border-radius: 6px;
+}
+
+.group {
+  padding: 14px 0;
+  border-top: 1px solid #eef2f7;
+}
+
+.groupTitle {
+  width: 82px;
+  height: 10px;
+  margin-bottom: 12px;
+}
+
+.employee {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 5px 0;
+  margin-bottom: 6px;
+}
+
+.employee:last-child {
+  margin-bottom: 0;
+}
+
+.employeeInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.avatar {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+.employeeText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.name {
+  width: 88px;
+  height: 13px;
+}
+
+.role {
+  width: 72px;
+  height: 11px;
+}
+
+.time {
+  width: 82px;
+  height: 23px;
+  flex-shrink: 0;
+  border-radius: 6px;
+}
+
+.link {
+  width: 112px;
+  height: 12px;
+  margin-top: auto;
+}

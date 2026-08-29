@@ -1,4 +1,5 @@
 import styles from "./MetricCard.module.css";
+import MetricCardSkeleton from "./MetricCardSkeleton";
 
 type MetricCardProps = {
   label: string;
@@ -6,6 +7,7 @@ type MetricCardProps = {
   change: string;
   comparison: string;
   positive?: boolean;
+  loading: boolean;
 };
 
 export default function MetricCard({
@@ -14,7 +16,12 @@ export default function MetricCard({
   change,
   comparison,
   positive = true,
+  loading,
 }: MetricCardProps) {
+  if (loading) {
+    return <MetricCardSkeleton />;
+  }
+
   return (
     <div className={styles.metricCard}>
       <p className={styles.label}>{label}</p>

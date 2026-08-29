@@ -1,5 +1,6 @@
 import styles from "./TodayTasks.module.css";
 import type { TaskData } from "../../../../types/tasks";
+import TodayTasksSkeleton from "./TodayTasksSkeleton";
 
 type Props = {
   tasks: TaskData[] | null;
@@ -7,9 +8,19 @@ type Props = {
     id: number,
     status: "pending" | "completed",
   ) => Promise<void>;
+  loading: boolean;
 };
 
-export default function TodayTasks({ tasks, onTaskStatusToggle }: Props) {
+export default function TodayTasks({
+  tasks,
+  onTaskStatusToggle,
+  loading,
+}: Props) {
+
+  if (loading) {
+    return <TodayTasksSkeleton />;
+  }
+
   if (tasks === null) {
   return (
     <section className={styles.tasks}>
@@ -17,12 +28,18 @@ export default function TodayTasks({ tasks, onTaskStatusToggle }: Props) {
         <h2>Today's Tasks</h2>
       </div>
 
-      <div className={styles.loading}>
-        Loading tasks...
+      <div className={styles.unavailable}>
+        <span className={styles.unavailableIcon}>!</span>
+
+        <div>
+          <strong>Tasks unavailable</strong>
+          <p>Today's tasks couldn't be loaded.</p>
+        </div>
       </div>
     </section>
   );
 }
+
   const openTasks = tasks.filter((task) => task.status === "pending");
 
   return (
@@ -55,9 +72,7 @@ export default function TodayTasks({ tasks, onTaskStatusToggle }: Props) {
         ))}
       </div>
 
-      <button 
-      className={`${styles.viewAll} ${styles.notAllowed}`}
-      >
+      <button className={`${styles.viewAll} ${styles.notAllowed}`}>
         View all tasks <span>→</span>
       </button>
     </section>
