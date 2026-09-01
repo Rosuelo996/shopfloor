@@ -37,7 +37,7 @@ export default function Metrics({dashboard, loading}: MetricsProps) {
 
       <MetricCard
         label="IPC"
-        value={`${dashboard?.ipc}`}
+        value={dashboard?.ipc.toFixed(1) ?? "0.0"}
         change={`${ipcDifference > 0 ? "+" : ""}${ipcDifference}%`}
         comparison={`Target ${dashboard?.ipcTarget}`}
         positive={ipcDifference >= 0}

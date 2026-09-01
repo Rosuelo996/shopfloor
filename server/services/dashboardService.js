@@ -28,8 +28,9 @@ export async function fetchDashboard(date) {
     (((dp.sales / dp.transactions)/ kt.apc_target)
     * 100) - 100,1) AS apc_difference,
     ROUND(
-    (((dp.items_sold::NUMERIC / dp.transactions)/ kt.ipc_target)
-    * 100) -100,1) AS ipc_difference
+    ((ROUND(dp.items_sold::NUMERIC / dp.transactions, 1) / kt.ipc_target)
+    * 100) - 100, 1
+    ) AS ipc_difference
     FROM daily_performance dp
     JOIN sales_targets st
     ON st.date = dp.date
