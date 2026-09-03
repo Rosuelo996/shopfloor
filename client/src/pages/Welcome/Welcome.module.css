@@ -117,6 +117,7 @@
   display: inline-block;
 }
 
+
 @media (max-width: 480px) {
   .content {
     width: 92%;

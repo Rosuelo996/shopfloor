@@ -7,7 +7,7 @@ import {
   faArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import type { Notification } from "../../types/notification";
+import type { Notification } from "../../../types/notification";
 import { formatNotificationDate } from "./formatNotificatiions";
 
 type NotificationsProps = {

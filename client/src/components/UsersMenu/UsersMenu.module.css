@@ -156,3 +156,22 @@
   color: #ffffff;
   background: #19489a;
 }
+
+/* ERROR */
+
+.switchError {
+  margin: 0 10px 8px;
+  padding: 8px 10px;
+  font-size: 11px;
+  line-height: 1.4;
+  color: #b91c1c;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+}
+
+.switching {
+  opacity: 0.6;
+  pointer-events: none;
+  cursor: wait;
+}

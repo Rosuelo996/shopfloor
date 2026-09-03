@@ -7,7 +7,7 @@ import {
 import styles from "./Header.module.css";
 import { useUsers } from "../../hooks/useUsers";
 import UserMenu from "../UsersMenu/UsersMenu";
-import Notifications from "./Notifications";
+import Notifications from "./Notifications/Notifications";
 import { useApp } from "../../hooks/useApp";
 
 export default function Header() {
@@ -17,7 +17,7 @@ export default function Header() {
   const dateInputRef = useRef<HTMLInputElement>(null);
 
   const [isOpen, setIsOpen] = useState(false);
-  
+
   const formattedDate = new Date(`${selectedDate}T00:00:00`).toLocaleDateString(
     "en-GB",
     {

@@ -5,11 +5,10 @@ const clerkClient = createClerkClient({
 });
 
 
-export async function createDemoSignInToken() {
-    const demoUserId = process.env.DEMO_CLERK_USER_ID;
+export async function createDemoSignInToken(clerkUserId) {
 
     const sigInToken = await clerkClient.signInTokens.createSignInToken({
-        userId: demoUserId,
+        userId: clerkUserId,
         expiresInSeconds: 60,
     })
 
