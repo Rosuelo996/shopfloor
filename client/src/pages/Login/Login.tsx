@@ -1,26 +1,25 @@
 import styles from "./Login.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBagShopping, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faBagShopping } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { useSignIn } from "@clerk/react";
 import { useState } from "react";
-import { createDemoSignInToken } from "../../services/authService";
 
-type FormErrors = {
-  email?: string;
-  password?: string;
-  demo?: string;
-};
+import { createDemoSignInToken } from "../../services/authService";
+import DemoLogin from "./DemoLogin/DemoLogin";
+import LoginForm from "./LoginForm/LoginForm";
+import CreateAccount from "./CreateAccount/CreateAccount";
 
 export default function Login() {
   const navigate = useNavigate();
-  const { signIn, fetchStatus } = useSignIn();
+  const { signIn } = useSignIn();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [formErrors, setFormErrors] = useState<FormErrors>({});
+  const [demoError, setDemoError] = useState("");
+  const [showCreateAccount, setShowCreateAccount] = useState(false);
 
   async function handleDemoLogin() {
+    setDemoError("");
+
     const demoToken = await createDemoSignInToken();
 
     const { error } = await signIn.ticket({
@@ -28,54 +27,7 @@ export default function Login() {
     });
 
     if (error) {
-      setFormErrors({
-        demo: "Unable to start demo. Please try again later",
-      });
-      return;
-    }
-    if (signIn.status === "complete") {
-      const { error: finalizeError } = await signIn.finalize();
-
-      if (finalizeError) {
-        setFormErrors({
-          demo: "Unable to start demo. Please try again.",
-        });
-        return;
-      }
-
-      navigate("/dashboard");
-    }
-  }
-
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-
-    const newErrors: FormErrors = {};
-
-    if (!email.trim()) {
-      newErrors.email = "Enter your email.";
-    }
-
-    if (!password) {
-      newErrors.password = "Enter your password.";
-    }
-
-    if (Object.keys(newErrors).length > 0) {
-      setFormErrors(newErrors);
-      return;
-    }
-
-    setFormErrors({});
-
-    const { error } = await signIn.password({
-      emailAddress: email.trim().toLowerCase(),
-      password,
-    });
-
-    if (error) {
-      setFormErrors({
-        password: "Email or password is incorrect.",
-      });
+      setDemoError("Unable to start demo. Please try again later");
       return;
     }
 
@@ -83,9 +35,7 @@ export default function Login() {
       const { error: finalizeError } = await signIn.finalize();
 
       if (finalizeError) {
-        setFormErrors({
-          password: "Unable to complete sign in.",
-        });
+        setDemoError("Unable to start demo. Please try again.");
         return;
       }
 
@@ -148,95 +98,24 @@ export default function Login() {
               <p>Experience the store management workspace with demo data.</p>
             </div>
 
-            <button
-              type="button"
-              className={styles.demo}
-              onClick={handleDemoLogin}
-            >
-              Explore Demo
-              <FontAwesomeIcon icon={faArrowRight} />
-            </button>
-
-            {formErrors.demo && (
-              <span className={styles.fieldError}>{formErrors.demo}</span>
-            )}
-
-            <p className={styles.demoNote}>No account required.</p>
+            <DemoLogin
+              onDemoLogin={handleDemoLogin}
+              error={demoError}
+            />
 
             <div className={styles.divider}>
               <span>or sign in to your account</span>
             </div>
 
-            <form className={styles.form} onSubmit={handleSubmit}>
-              <div className={styles.field}>
-                <label htmlFor="email">Email</label>
-
-                <input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                    setFormErrors((current) => ({
-                      ...current,
-                      email: undefined,
-                    }));
-                  }}
-                  placeholder="you@company.com"
-                />
-
-                {formErrors.email && (
-                  <span className={styles.fieldError}>{formErrors.email}</span>
-                )}
-              </div>
-
-              <div className={styles.field}>
-                <div className={styles.passwordLabel}>
-                  <label htmlFor="password">Password</label>
-                  <button type="button">Forgot password?</button>
-                </div>
-
-                <input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                    setFormErrors((current) => ({
-                      ...current,
-                      password: undefined,
-                    }));
-                  }}
-                  placeholder="Enter your password"
-                />
-
-                {formErrors.password && (
-                  <span className={styles.fieldError}>
-                    {formErrors.password}
-                  </span>
-                )}
-              </div>
-
-              <button
-                type="submit"
-                className={styles.signIn}
-                disabled={fetchStatus === "fetching"}
-              >
-                {fetchStatus === "fetching" ? (
-                  "Signing in..."
-                ) : (
-                  <>
-                    Sign in
-                    <FontAwesomeIcon icon={faArrowRight} />
-                  </>
-                )}
-              </button>
-
-              <p className={styles.createAccount}>
-                New to ShopFloor?{" "}
-                <button type="button">Create an account</button>
-              </p>
-            </form>
+            {showCreateAccount ? (
+              <CreateAccount
+                onSignIn={() => setShowCreateAccount(false)}
+              />
+            ) : (
+              <LoginForm
+                onCreateAccount={() => setShowCreateAccount(true)}
+              />
+            )}
           </div>
         </div>
       </div>
