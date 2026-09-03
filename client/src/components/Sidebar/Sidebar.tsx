@@ -1,4 +1,6 @@
 import { NavLink } from "react-router-dom";
+import { useClerk } from "@clerk/react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBagShopping,
@@ -14,6 +16,7 @@ import {
   faChevronDown,
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "./Sidebar.module.css";
+
 import { useState } from "react";
 import { useUsers } from "../../hooks/useUsers";
 import UserMenu from "../UsersMenu/UsersMenu";
@@ -21,6 +24,13 @@ import UserMenu from "../UsersMenu/UsersMenu";
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const { currentUser } = useUsers();
+  const { signOut } = useClerk();
+
+  async function handleLogout() {
+  await signOut({
+    redirectUrl: "/login",
+  });
+}
 
   return (
     <div className={styles.sidebar}>
@@ -168,7 +178,7 @@ export default function Sidebar() {
           )}
         </div>
 
-        <button className={`${styles.logout} ${styles.notReady}`}>
+        <button type="button" className={styles.logout} onClick={handleLogout}>
           <FontAwesomeIcon icon={faRightFromBracket} />
           <span>Log out</span>
         </button>

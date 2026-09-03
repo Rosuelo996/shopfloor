@@ -4,10 +4,12 @@ import { faBagShopping, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { useSignIn } from "@clerk/react";
 import { useState } from "react";
+import { createDemoSignInToken } from "../../services/authService";
 
 type FormErrors = {
   email?: string;
   password?: string;
+  demo?: string;
 };
 
 export default function Login() {
@@ -17,6 +19,33 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [formErrors, setFormErrors] = useState<FormErrors>({});
+
+  async function handleDemoLogin() {
+    const demoToken = await createDemoSignInToken();
+
+    const { error } = await signIn.ticket({
+      ticket: demoToken,
+    });
+
+    if (error) {
+      setFormErrors({
+        demo: "Unable to start demo. Please try again later",
+      });
+      return;
+    }
+    if (signIn.status === "complete") {
+      const { error: finalizeError } = await signIn.finalize();
+
+      if (finalizeError) {
+        setFormErrors({
+          demo: "Unable to start demo. Please try again.",
+        });
+        return;
+      }
+
+      navigate("/dashboard");
+    }
+  }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -39,13 +68,9 @@ export default function Login() {
     setFormErrors({});
 
     const { error } = await signIn.password({
-      emailAddress: email.trim(),
+      emailAddress: email.trim().toLowerCase(),
       password,
     });
-
-    console.log("error:", error);
-console.log("status:", signIn.status);
-console.log("supported second factors:", signIn.supportedSecondFactors);
 
     if (error) {
       setFormErrors({
@@ -126,11 +151,15 @@ console.log("supported second factors:", signIn.supportedSecondFactors);
             <button
               type="button"
               className={styles.demo}
-              onClick={() => navigate("/dashboard")}
+              onClick={handleDemoLogin}
             >
               Explore Demo
               <FontAwesomeIcon icon={faArrowRight} />
             </button>
+
+            {formErrors.demo && (
+              <span className={styles.fieldError}>{formErrors.demo}</span>
+            )}
 
             <p className={styles.demoNote}>No account required.</p>
 

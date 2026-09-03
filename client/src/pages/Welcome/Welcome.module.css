@@ -3,3 +3,157 @@
   width: 100%;
   min-height: 100vh;
 }
+
+.intro {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      circle at 50% 42%,
+      rgba(25, 72, 154, 0.18) 0%,
+      rgba(8, 17, 33, 0) 38%
+    ),
+    #081121;
+  color: #ffffff;
+}
+
+.glow {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: rgba(25, 72, 154, 0.08);
+  filter: blur(90px);
+  pointer-events: none;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  width: min(90%, 700px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  width: 96px;
+  height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  background: #19489a;
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.3),
+    0 0 40px rgba(25, 72, 154, 0.16);
+  color: #ffffff;
+  z-index: 2;
+}
+
+.logo svg {
+  width: 50px;
+  height: 50px;
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: clamp(3rem, 4vw, 4rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.brand p {
+  margin: 16px 0 0;
+  color: #94a3b8;
+  font-size: 1.05rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+.loading {
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  color: #cbd5e1;
+  font-size: 36px;
+}
+
+.message {
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #f1f5f9;
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.word {
+  display: inline-block;
+}
+
+@media (max-width: 480px) {
+  .content {
+    width: 92%;
+  }
+
+  .logo {
+    width: 72px;
+    height: 72px;
+    margin-bottom: 20px;
+    border-radius: 16px;
+  }
+
+  .logo svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  .brand h1 {
+    font-size: 2.5rem;
+  }
+
+  .brand p {
+    margin-top: 12px;
+    font-size: 0.9rem;
+  }
+
+  .loading {
+    margin-top: 48px;
+  }
+
+  .gear {
+    margin-bottom: 22px;
+    font-size: 30px;
+  }
+
+  .message {
+    gap: 5px;
+    font-size: 0.95rem;
+  }
+}
