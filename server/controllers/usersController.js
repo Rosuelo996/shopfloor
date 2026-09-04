@@ -2,7 +2,9 @@ import { getAuth } from "@clerk/express";
 import {
   fetchDemoUsers,
   fetchUserByClerkId,
+  createUser,
 } from "../services/usersService.js";
+import { createClerkUser } from "../services/authService.js";
 
 export async function getDemoUsers(req, res, next) {
   try {
@@ -38,3 +40,39 @@ export async function getCurrentUser(req, res, next) {
     next(err);
   }
 }
+
+
+export async function createNewUser(req, res, next) {
+  try {
+    const { firstName, lastName, email, password } = req.body;
+
+    if (
+      !firstName?.trim() ||
+      !lastName?.trim() ||
+      !email?.trim() ||
+      !password
+    ) {
+      return res.status(400).json({
+        message: "First name, last name, email and password are required",
+      });
+    }
+
+    const clerkUserId = await createClerkUser(
+      firstName.trim(),
+      lastName.trim(),
+      email.trim().toLowerCase(),
+      password
+    );
+
+    const user = await createUser(
+      firstName.trim(),
+      lastName.trim(),
+      clerkUserId
+    );
+
+    res.status(201).json(user);
+  } catch (err) {
+    next(err);
+  }
+}
+

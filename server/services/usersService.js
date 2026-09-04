@@ -84,3 +84,22 @@ export async function fetchDemoUserById(userId) {
 
   return formattedUser
 }
+
+
+export async function createUser(firstName, lastName, clerkUserId) {
+  const result = await db.query(
+    `
+    INSERT INTO users (
+      first_name,
+      last_name,
+      role,
+      clerk_user_id
+    )
+    VALUES ($1, $2, $3, $4)
+    RETURNING *
+    `,
+    [firstName, lastName, "Sales Assistant", clerkUserId]
+  );
+
+  return result.rows[0];
+}

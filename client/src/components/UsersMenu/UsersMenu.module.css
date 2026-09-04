@@ -157,6 +157,48 @@
   background: #19489a;
 }
 
+/* LOG OUT */
+
+.logoutButton {
+  width: 100%;
+  margin-top: 8px;
+  padding: 9px 10px;
+
+  border: 0;
+  border-top: 1px solid #e2e8f0;
+  border-radius: 0 0 8px 8px;
+
+  background: transparent;
+  color: #64748b;
+
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: left;
+
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.logoutButton:hover {
+  background: #f8fafc;
+  color: #dc2626;
+}
+
+/* SIDEBAR LOG OUT */
+
+.sidebar .logoutButton {
+  border-top-color: rgba(255, 255, 255, 0.08);
+  color: #a5b0c3;
+}
+
+.sidebar .logoutButton:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #f87171;
+}
+
 /* ERROR */
 
 .switchError {

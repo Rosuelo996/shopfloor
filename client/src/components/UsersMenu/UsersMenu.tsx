@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default function UserMenu({ onClose, variant }: Props) {
-  const { demoUsers, currentUser, handleUserSwitch } = useUsers();
+  const { demoUsers, currentUser, handleUserSwitch, handleLogout } = useUsers();
 
   const [isSwitching, setIsSwitching] = useState(false);
   const [switchError, setSwitchError] = useState<string | null>(null);
@@ -40,11 +40,11 @@ export default function UserMenu({ onClose, variant }: Props) {
       }`}
     >
       <div className={styles.dropdown}>
-        <p className={styles.title}>Switch user</p>
+        <p className={styles.title}>
+          {currentUser?.isDemo ? "Switch user" : "Account"}
+        </p>
 
-        {switchError && (
-          <p className={styles.switchError}>{switchError}</p>
-        )}
+        {switchError && <p className={styles.switchError}>{switchError}</p>}
 
         <div
           className={`${styles.option} ${styles.currentOption}`}
@@ -67,31 +67,40 @@ export default function UserMenu({ onClose, variant }: Props) {
           <span className={styles.currentLabel}>Current</span>
         </div>
 
-        {demoUsers
-          .filter((user) => user.id !== currentUser?.id)
-          .map((user) => (
-            <div
-              key={user.id}
-              className={`${styles.option} ${
-                isSwitching ? styles.switching : ""
-              }`}
-              onClick={() => handleSwitch(user.id)}
-            >
-              <div className={styles.optionAvatar}>
-                <span>
-                  {user.firstName[0]}
-                  {user.lastName[0]}
-                </span>
-              </div>
+        {currentUser?.isDemo &&
+          demoUsers
+            .filter((user) => user.id !== currentUser?.id)
+            .map((user) => (
+              <div
+                key={user.id}
+                className={`${styles.option} ${
+                  isSwitching ? styles.switching : ""
+                }`}
+                onClick={() => handleSwitch(user.id)}
+              >
+                <div className={styles.optionAvatar}>
+                  <span>
+                    {user.firstName[0]}
+                    {user.lastName[0]}
+                  </span>
+                </div>
 
-              <div>
-                <h4>
-                  {user.firstName} {user.lastName.slice(0, 1)}.
-                </h4>
-                <p>{user.role}</p>
+                <div>
+                  <h4>
+                    {user.firstName} {user.lastName.slice(0, 1)}.
+                  </h4>
+                  <p>{user.role}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+
+        <button
+          type="button"
+          className={styles.logoutButton}
+          onClick={handleLogout}
+        >
+          Log out
+        </button>
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ type UserContextType = {
   demoUsers: DemoUserData[];
   currentUser: CurrentUserData | null;
   handleUserSwitch: (userId: number) => Promise<void>;
+  handleLogout: () => Promise<void>;
 };
 
 export const UserContext =

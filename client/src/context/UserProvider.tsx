@@ -80,8 +80,16 @@ export function UserProvider({ children }: { children: ReactNode }) {
     }
   }
 
+  async function handleLogout() {
+    await clerk.signOut({
+      redirectUrl: "/login",
+    });
+  }
+
   return (
-    <UserContext.Provider value={{ demoUsers, currentUser, handleUserSwitch }}>
+    <UserContext.Provider
+      value={{ demoUsers, currentUser, handleUserSwitch, handleLogout }}
+    >
       {children}
     </UserContext.Provider>
   );

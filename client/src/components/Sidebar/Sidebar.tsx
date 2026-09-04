@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom";
-import { useClerk } from "@clerk/react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -23,14 +22,8 @@ import UserMenu from "../UsersMenu/UsersMenu";
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
-  const { currentUser } = useUsers();
-  const { signOut } = useClerk();
+  const { currentUser, handleLogout } = useUsers();
 
-  async function handleLogout() {
-  await signOut({
-    redirectUrl: "/login",
-  });
-}
 
   return (
     <div className={styles.sidebar}>

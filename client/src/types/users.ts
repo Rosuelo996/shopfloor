@@ -14,3 +14,12 @@ export type CurrentUserData = {
   clerkUserId: string;
   isDemo: boolean;
 };
+
+export type CreateUserData = {
+  id: number;
+  firstName: string;
+  lastName: string;
+  role: string;
+  clerkUserId: string;
+  isDemo: boolean;
+};

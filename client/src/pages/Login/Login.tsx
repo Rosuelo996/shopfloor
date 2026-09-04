@@ -62,13 +62,11 @@ export default function Login() {
         <div className={styles.content}>
           <div className={styles.introduction}>
             <span className={styles.eyebrow}>Welcome to ShopFloor</span>
-
             <h1>
               Your store.
               <br />
               Simplified.
             </h1>
-
             <p>
               Monitor performance, stay on top of daily priorities and keep your
               team aligned from one clear workspace.
@@ -94,17 +92,17 @@ export default function Login() {
 
           <div className={styles.card}>
             <div className={styles.cardHeader}>
-              <h2>Explore ShopFloor</h2>
-              <p>Experience the store management workspace with demo data.</p>
-            </div>
+              <h2>
+                {showCreateAccount
+                  ? "Create your account"
+                  : "Explore ShopFloor"}
+              </h2>
 
-            <DemoLogin
-              onDemoLogin={handleDemoLogin}
-              error={demoError}
-            />
-
-            <div className={styles.divider}>
-              <span>or sign in to your account</span>
+              <p>
+                {showCreateAccount
+                  ? "Set up your ShopFloor workspace."
+                  : "Experience the store management workspace with demo data."}
+              </p>
             </div>
 
             {showCreateAccount ? (
@@ -112,9 +110,20 @@ export default function Login() {
                 onSignIn={() => setShowCreateAccount(false)}
               />
             ) : (
-              <LoginForm
-                onCreateAccount={() => setShowCreateAccount(true)}
-              />
+              <>
+                <DemoLogin
+                  onDemoLogin={handleDemoLogin}
+                  error={demoError}
+                />
+
+                <div className={styles.divider}>
+                  <span>or sign in to your account</span>
+                </div>
+
+                <LoginForm
+                  onCreateAccount={() => setShowCreateAccount(true)}
+                />
+              </>
             )}
           </div>
         </div>

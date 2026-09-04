@@ -9,13 +9,15 @@
   gap: 18px;
 }
 
-.nameFields {
+.nameFields,
+.passwordFields {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
 }
 
 .field {
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -61,6 +63,24 @@
     0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
+.field input:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.fieldError {
+  margin-top: -2px;
+  color: #fca5a5;
+  font-size: 0.72rem;
+}
+
+.submitError {
+  margin: -4px 0 0;
+  color: #fca5a5;
+  font-size: 0.76rem;
+  text-align: center;
+}
+
 .createButton {
   width: 100%;
   height: 49px;
@@ -89,15 +109,29 @@
   transition: transform 0.2s ease;
 }
 
-.createButton:hover {
+.createButton:hover:not(:disabled) {
   border-color: rgba(148, 163, 184, 0.52);
   background: rgba(148, 163, 184, 0.1);
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
   transform: translateY(-1px);
 }
 
-.createButton:hover svg {
+.createButton:hover:not(:disabled) svg {
   transform: translateX(3px);
+}
+
+.createButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.spinner {
+  width: 15px;
+  height: 15px;
+  border: 2px solid rgba(241, 245, 249, 0.25);
+  border-top-color: #f1f5f9;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
 }
 
 .signIn {
@@ -117,12 +151,95 @@
   cursor: pointer;
 }
 
-.signIn button:hover {
+.signIn button:hover:not(:disabled) {
   color: #93c5fd;
 }
 
+.signIn button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.success {
+  min-height: 285px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.successIcon {
+  width: 44px;
+  height: 44px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(96, 165, 250, 0.3);
+  border-radius: 50%;
+  background: rgba(59, 130, 246, 0.1);
+  color: #60a5fa;
+}
+
+.success h3 {
+  margin: 0;
+  color: #f8fafc;
+  font-size: 1rem;
+}
+
+.success p {
+  max-width: 330px;
+  margin: 8px 0 20px;
+  color: #94a3b8;
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.passwordInput {
+  position: relative;
+}
+
+.passwordInput input {
+  padding-right: 44px;
+}
+
+.passwordToggle {
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #718096;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.passwordToggle:hover:not(:disabled) {
+  color: #cbd5e1;
+}
+
+.passwordToggle:focus-visible {
+  outline: 2px solid #4b8bea;
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+.passwordToggle:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @media (max-width: 480px) {
-  .nameFields {
+  .nameFields,
+  .passwordFields {
     grid-template-columns: 1fr;
   }
 }

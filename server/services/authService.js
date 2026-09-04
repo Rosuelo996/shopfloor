@@ -14,3 +14,15 @@ export async function createDemoSignInToken(clerkUserId) {
 
     return sigInToken.token
 }
+
+
+export async function createClerkUser(firstName, lastName, email, password) {
+  const user = await clerkClient.users.createUser({
+    firstName,
+    lastName,
+    emailAddress: [email],
+    password,
+  });
+
+  return user.id;
+}
