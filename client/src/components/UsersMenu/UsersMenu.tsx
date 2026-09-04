@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styles from "./UsersMenu.module.css";
 import { useUsers } from "../../hooks/useUsers";
 
@@ -7,7 +8,30 @@ type Props = {
 };
 
 export default function UserMenu({ onClose, variant }: Props) {
-  const { users, currentUser, setCurrentUser } = useUsers();
+  const { demoUsers, currentUser, handleUserSwitch, handleLogout } = useUsers();
+
+  const [isSwitching, setIsSwitching] = useState(false);
+  const [switchError, setSwitchError] = useState<string | null>(null);
+
+  async function handleSwitch(userId: number) {
+    if (isSwitching) {
+      return;
+    }
+
+    try {
+      setIsSwitching(true);
+      setSwitchError(null);
+
+      await handleUserSwitch(userId);
+
+      onClose();
+    } catch (err) {
+      console.error("Failed to switch user:", err);
+      setSwitchError("Unable to switch user. Please try again.");
+    } finally {
+      setIsSwitching(false);
+    }
+  }
 
   return (
     <div
@@ -16,9 +40,16 @@ export default function UserMenu({ onClose, variant }: Props) {
       }`}
     >
       <div className={styles.dropdown}>
-        <p className={styles.title}>Switch user</p>
+        <p className={styles.title}>
+          {currentUser?.isDemo ? "Switch user" : "Account"}
+        </p>
 
-        <div className={`${styles.option} ${styles.currentOption}`} onClick={onClose}>
+        {switchError && <p className={styles.switchError}>{switchError}</p>}
+
+        <div
+          className={`${styles.option} ${styles.currentOption}`}
+          onClick={onClose}
+        >
           <div className={`${styles.optionAvatar} ${styles.currentAvatar}`}>
             <span>
               {currentUser?.firstName[0]}
@@ -36,32 +67,40 @@ export default function UserMenu({ onClose, variant }: Props) {
           <span className={styles.currentLabel}>Current</span>
         </div>
 
-        {users
-          .filter((user) => user.id !== currentUser?.id)
-          .map((user) => (
-            <div
-              key={user.id}
-              className={styles.option}
-              onClick={() => {
-                setCurrentUser(user);
-                onClose();
-              }}
-            >
-              <div className={styles.optionAvatar}>
-                <span>
-                  {user.firstName[0]}
-                  {user.lastName[0]}
-                </span>
-              </div>
+        {currentUser?.isDemo &&
+          demoUsers
+            .filter((user) => user.id !== currentUser?.id)
+            .map((user) => (
+              <div
+                key={user.id}
+                className={`${styles.option} ${
+                  isSwitching ? styles.switching : ""
+                }`}
+                onClick={() => handleSwitch(user.id)}
+              >
+                <div className={styles.optionAvatar}>
+                  <span>
+                    {user.firstName[0]}
+                    {user.lastName[0]}
+                  </span>
+                </div>
 
-              <div>
-                <h4>
-                  {user.firstName} {user.lastName.slice(0, 1)}.
-                </h4>
-                <p>{user.role}</p>
+                <div>
+                  <h4>
+                    {user.firstName} {user.lastName.slice(0, 1)}.
+                  </h4>
+                  <p>{user.role}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+
+        <button
+          type="button"
+          className={styles.logoutButton}
+          onClick={handleLogout}
+        >
+          Log out
+        </button>
       </div>
     </div>
   );

@@ -1,0 +1,162 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field label {
+  color: #dbe4f0;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.field input {
+  width: 100%;
+  height: 49px;
+  padding: 0 15px;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 10px;
+  outline: none;
+  background: rgba(5, 14, 27, 0.58);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.02) inset;
+  color: #f8fafc;
+  font: inherit;
+  font-size: 0.88rem;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.field input::placeholder {
+  color: #718096;
+}
+
+.field input:hover {
+  border-color: rgba(148, 163, 184, 0.4);
+}
+
+.field input:focus {
+  border-color: #4b8bea;
+  background: rgba(5, 14, 27, 0.78);
+  box-shadow:
+    0 0 0 3px rgba(59, 130, 246, 0.1),
+    0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.passwordLabel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.passwordLabel button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #60a5fa;
+  font: inherit;
+  font-size: 0.74rem;
+  font-weight: 550;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.passwordLabel button:hover {
+  color: #93c5fd;
+}
+
+.signIn {
+  width: 100%;
+  height: 49px;
+  margin-top: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border: 1px solid rgba(148, 163, 184, 0.32);
+  border-radius: 10px;
+  background: rgba(148, 163, 184, 0.055);
+  color: #f1f5f9;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.signIn svg {
+  font-size: 0.76rem;
+  transition: transform 0.2s ease;
+}
+
+.signIn:hover {
+  border-color: rgba(148, 163, 184, 0.52);
+  background: rgba(148, 163, 184, 0.1);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+  transform: translateY(-1px);
+}
+
+.signIn:hover svg {
+  transform: translateX(3px);
+}
+
+.signIn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+  transform: none;
+}
+
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.createAccount {
+  margin: 2px 0 0;
+  color: #94a3b8;
+  font-size: 0.76rem;
+  text-align: center;
+}
+
+.createAccount button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #60a5fa;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.createAccount button:hover {
+  color: #93c5fd;
+}
+
+.fieldError {
+  margin-top: -2px;
+  color: #f87171;
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1.4;
+}

@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import clerkMiddleware from "./middleware/clerk.js";
 import errorHandler from "./middleware/error.js";
 import notFound from "./middleware/notFound.js";
 import usersRouter from "./routes/users.js";
@@ -9,11 +10,15 @@ import tasksRouter from "./routes/tasks.js";
 import teamRouter from "./routes/team.js";
 import newsletterRouter from "./routes/newsletter.js";
 import notificationRouter from "./routes/notification.js";
+import authRouter from "./routes/auth.js"
 
 const app = express();
 
 app.use(cors());
+app.use(clerkMiddleware)
 app.use(express.json());
+
+app.use("/auth", authRouter);
 
 app.use("/users", usersRouter);
 app.use("/dashboard", dashboardRouter);

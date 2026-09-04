@@ -1,0 +1,363 @@
+.login {
+  position: absolute;
+  inset: 0;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #081121;
+  color: #ffffff;
+}
+
+.glow {
+  position: absolute;
+  top: 8%;
+  left: 20%;
+  width: 560px;
+  height: 560px;
+  border-radius: 50%;
+  background: rgba(25, 72, 154, 0.13);
+  filter: blur(140px);
+  pointer-events: none;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  width: min(1180px, calc(100% - 80px));
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 42px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 11px;
+  background: #19489a;
+  box-shadow: 0 10px 28px rgba(25, 72, 154, 0.22);
+  color: #ffffff;
+}
+
+.logo svg {
+  width: 22px;
+  height: 22px;
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.brandText span {
+  color: #f8fafc;
+  font-size: 1.12rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.brandText small {
+  color: #8291a8;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.content {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 430px;
+  align-items: center;
+  gap: 120px;
+  padding: 38px 0 55px;
+}
+
+.introduction {
+  max-width: 620px;
+}
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #60a5fa;
+  font-size: 0.78rem;
+  font-weight: 650;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.introduction h1 {
+  max-width: 600px;
+  margin: 0;
+  color: #f8fafc;
+  font-size: clamp(3.7rem, 5vw, 4.8rem);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+}
+
+.introduction > p {
+  max-width: 540px;
+  margin: 28px 0 0;
+  color: #a6b3c6;
+  font-size: 1.02rem;
+  font-weight: 400;
+  line-height: 1.75;
+}
+
+.features {
+  max-width: 580px;
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.features div {
+  padding-top: 17px;
+  border-top: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.features strong {
+  display: block;
+  margin-bottom: 8px;
+  color: #f1f5f9;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.features span {
+  display: block;
+  max-width: 145px;
+  color: #8291a8;
+  font-size: 0.76rem;
+  line-height: 1.55;
+}
+
+.card {
+  position: relative;
+  padding: 36px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 22px;
+  background: linear-gradient(
+    145deg,
+    rgba(16, 32, 55, 0.96),
+    rgba(11, 24, 42, 0.94)
+  );
+  box-shadow:
+    0 32px 80px rgba(0, 0, 0, 0.3),
+    0 1px 0 rgba(255, 255, 255, 0.035) inset;
+  backdrop-filter: blur(18px);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 28px;
+  right: 28px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(96, 165, 250, 0.32),
+    transparent
+  );
+}
+
+.cardHeader {
+  margin-bottom: 26px;
+}
+
+.cardHeader h2 {
+  margin: 0;
+  color: #f8fafc;
+  font-size: 1.55rem;
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+}
+
+.cardHeader p {
+  max-width: 330px;
+  margin: 9px 0 0;
+  color: #a6b3c6;
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+
+.cardHeader::before {
+  content: "DEMO WORKSPACE";
+  display: block;
+  margin-bottom: 10px;
+  color: #60a5fa;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.divider {
+  position: relative;
+  margin: 27px 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.divider::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background: rgba(148, 163, 184, 0.18);
+}
+
+.divider span {
+  position: relative;
+  padding: 0 14px;
+  background: #0d1a2e;
+  color: #8d9bb0;
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    width: min(900px, calc(100% - 48px));
+    padding: 36px 0;
+  }
+
+  .content {
+    grid-template-columns: minmax(0, 1fr) 390px;
+    gap: 60px;
+  }
+
+  .introduction h1 {
+    font-size: clamp(3.2rem, 6vw, 4rem);
+  }
+
+  .features {
+    gap: 18px;
+  }
+
+  .card {
+    padding: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .login {
+    overflow-y: auto;
+  }
+
+  .container {
+    width: min(560px, calc(100% - 40px));
+    padding: 30px 0 48px;
+  }
+
+  .content {
+    grid-template-columns: 1fr;
+    gap: 44px;
+    padding: 60px 0 0;
+  }
+
+  .introduction {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .introduction h1 {
+    margin: 0 auto;
+    font-size: clamp(3rem, 10vw, 3.8rem);
+  }
+
+  .introduction > p {
+    margin: 22px auto 0;
+  }
+
+  .features {
+    margin: 40px auto 0;
+    text-align: left;
+  }
+
+  .card {
+    width: 100%;
+    padding: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: calc(100% - 32px);
+    padding-top: 24px;
+  }
+
+  .brand {
+    gap: 10px;
+  }
+
+  .logo {
+    width: 40px;
+    height: 40px;
+  }
+
+  .logo svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .content {
+    gap: 38px;
+    padding-top: 48px;
+  }
+
+  .eyebrow {
+    margin-bottom: 16px;
+    font-size: 0.7rem;
+  }
+
+  .introduction h1 {
+    font-size: 2.8rem;
+  }
+
+  .introduction > p {
+    font-size: 0.93rem;
+    line-height: 1.65;
+  }
+
+  .features {
+    margin-top: 34px;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .features div {
+    padding-top: 13px;
+  }
+
+  .features span {
+    max-width: none;
+  }
+
+  .card {
+    padding: 27px 22px;
+    border-radius: 18px;
+  }
+
+  .cardHeader h2 {
+    font-size: 1.4rem;
+  }
+}

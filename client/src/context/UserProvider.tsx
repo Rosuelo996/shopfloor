@@ -1,26 +1,95 @@
 import { useEffect, useState, type ReactNode } from "react";
-
-import { getUsers } from "../services/usersService";
-import type { UserData } from "../types/users";
 import { UserContext } from "./UserContext";
+import { useAuth, useClerk, useSignIn } from "@clerk/react";
+
+import { switchDemoUser } from "../services/authService";
+import { getDemoUsers, getCurrentUser } from "../services/usersService";
+import type { DemoUserData, CurrentUserData } from "../types/users";
 
 export function UserProvider({ children }: { children: ReactNode }) {
-  const [users, setUsers] = useState<UserData[]>([]);
-  const [currentUser, setCurrentUser] = useState<UserData | null>(null);
+  const { getToken, isLoaded, isSignedIn } = useAuth();
+  const clerk = useClerk();
+  const { signIn } = useSignIn();
+
+  const [demoUsers, setDemoUsers] = useState<DemoUserData[]>([]);
+  const [currentUser, setCurrentUser] = useState<CurrentUserData | null>(null);
 
   useEffect(() => {
-    async function loadUsers() {
-      const data = await getUsers();
+    async function loadDemoUsers() {
+      const data = await getDemoUsers();
 
-      setUsers(data);
-      setCurrentUser(data[0] ?? null);
+      setDemoUsers(data);
     }
 
-    loadUsers();
+    loadDemoUsers();
   }, []);
 
+  useEffect(() => {
+    async function loadCurrentUser() {
+      if (!isLoaded) {
+        return;
+      }
+
+      if (!isSignedIn) {
+        setCurrentUser(null);
+        return;
+      }
+
+      const token = await getToken();
+
+      if (!token) {
+        return;
+      }
+
+      const user = await getCurrentUser(token);
+
+      setCurrentUser(user);
+    }
+
+    loadCurrentUser();
+  }, [getToken, isLoaded, isSignedIn]);
+
+  async function handleUserSwitch(userId: number) {
+    const token = await getToken();
+
+    if (!token) {
+      return;
+    }
+
+    const demoSignInToken = await switchDemoUser(userId, token);
+
+    await clerk.signOut({
+      redirectUrl: window.location.pathname,
+    });
+    const { error } = await signIn.ticket({
+      ticket: demoSignInToken,
+    });
+
+    if (error) {
+      throw error;
+    }
+
+    if (signIn.status !== "complete") {
+      throw new Error("Demo user switch could not be completed");
+    }
+
+    const { error: finalizeError } = await signIn.finalize();
+
+    if (finalizeError) {
+      throw finalizeError;
+    }
+  }
+
+  async function handleLogout() {
+    await clerk.signOut({
+      redirectUrl: "/login",
+    });
+  }
+
   return (
-    <UserContext.Provider value={{ users, currentUser, setCurrentUser }}>
+    <UserContext.Provider
+      value={{ demoUsers, currentUser, handleUserSwitch, handleLogout }}
+    >
       {children}
     </UserContext.Provider>
   );

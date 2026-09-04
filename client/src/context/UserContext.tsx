@@ -1,10 +1,11 @@
 import { createContext } from "react";
-import type { UserData } from "../types/users";
+import type { DemoUserData, CurrentUserData } from "../types/users";
 
 type UserContextType = {
-  users: UserData[];
-  currentUser: UserData | null;
-  setCurrentUser: (user: UserData) => void;
+  demoUsers: DemoUserData[];
+  currentUser: CurrentUserData | null;
+  handleUserSwitch: (userId: number) => Promise<void>;
+  handleLogout: () => Promise<void>;
 };
 
 export const UserContext =
