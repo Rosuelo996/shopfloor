@@ -2,6 +2,8 @@ import { useEffect, useState, type ReactNode } from "react";
 import { UserContext } from "./UserContext";
 import { useAuth, useClerk, useSignIn } from "@clerk/react";
 
+import { ROLE_PERMISSIONS, type Permission } from "../auth/Permissions";
+
 import { switchDemoUser } from "../services/authService";
 import { getDemoUsers, getCurrentUser } from "../services/usersService";
 import type { DemoUserData, CurrentUserData } from "../types/users";
@@ -13,6 +15,12 @@ export function UserProvider({ children }: { children: ReactNode }) {
 
   const [demoUsers, setDemoUsers] = useState<DemoUserData[]>([]);
   const [currentUser, setCurrentUser] = useState<CurrentUserData | null>(null);
+
+  const can = (permission: Permission): boolean => {
+    if (!currentUser) return false;
+
+    return ROLE_PERMISSIONS[currentUser.role]?.includes(permission) ?? false;
+  };
 
   useEffect(() => {
     async function loadDemoUsers() {
@@ -88,7 +96,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
 
   return (
     <UserContext.Provider
-      value={{ demoUsers, currentUser, handleUserSwitch, handleLogout }}
+      value={{ demoUsers, currentUser, handleUserSwitch, handleLogout, can }}
     >
       {children}
     </UserContext.Provider>

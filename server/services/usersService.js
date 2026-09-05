@@ -36,7 +36,8 @@ export async function fetchUserByClerkId(clerkUserId) {
     last_name,
     role,
     clerk_user_id,
-    is_demo
+    is_demo,
+    employee_id
   FROM users
   WHERE clerk_user_id = $1;
   `,
@@ -56,6 +57,7 @@ export async function fetchUserByClerkId(clerkUserId) {
     role: user.role,
     clerkUserId: user.clerk_user_id,
     isDemo: user.is_demo,
+    employeeId: user.employee_id,
   };
 
   return formattedUser;

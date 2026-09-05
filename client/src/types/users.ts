@@ -13,6 +13,7 @@ export type CurrentUserData = {
   role: string;
   clerkUserId: string;
   isDemo: boolean;
+  employeeId: number | null;
 };
 
 export type CreateUserData = {

@@ -11,6 +11,11 @@
   margin-top: 24px;
 }
 
+.overview > :only-child {
+  grid-column: 1 / -1;
+}
+
+
 .bottomGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -18,7 +23,11 @@
   margin-top: 24px;
 }
 
-.bottomGrid > :first-child {
+.bottomGrid > :first-child:nth-last-child(3) {
+  grid-column: 1 / -1;
+}
+
+.bottomGrid > :only-child {
   grid-column: 1 / -1;
 }
 

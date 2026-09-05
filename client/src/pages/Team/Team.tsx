@@ -10,10 +10,14 @@ import Header from "../../components/Header/Header";
 import TeamOverview from "./components/TeamOverview/TeamOverview";
 import WeeklySchedule from "./components/WeeklySchedule/WeeklySchedule";
 import Availability from "./components/Availability/Availability";
+import { useUsers } from "../../hooks/useUsers";
 
 type TeamTab = "team" | "schedule" | "availability";
 
 export default function Team() {
+  const { currentUser } = useUsers();
+  const hasEmployeeProfile = currentUser?.employeeId != null;
+
   const [activeTab, setActiveTab] = useState<TeamTab>("team");
   const { dailyShifts, weeklyShifts, teamAvailability, loading, error } =
     useTeam();
@@ -58,25 +62,29 @@ export default function Team() {
           Schedule
         </button>
 
-        <button
-          type="button"
-          className={`${styles.selectorButton} ${
-            activeTab === "availability" ? styles.active : ""
-          }`}
-          onClick={() => setActiveTab("availability")}
-        >
-          Availability
-        </button>
+        {hasEmployeeProfile && (
+          <button
+            type="button"
+            className={`${styles.selectorButton} ${
+              activeTab === "availability" ? styles.active : ""
+            }`}
+            onClick={() => setActiveTab("availability")}
+          >
+            Availability
+          </button>
+        )}
       </div>
 
-      {activeTab === "team" && <TeamOverview dailyShifts={dailyShifts} loading={loading} />}
+      {activeTab === "team" && (
+        <TeamOverview dailyShifts={dailyShifts} loading={loading} />
+      )}
 
       {activeTab === "schedule" && weeklyShifts && (
         <WeeklySchedule weeklyShifts={weeklyShifts} loading={loading} />
       )}
 
-      {activeTab === "availability" && (
-        <Availability teamAvailability={teamAvailability} loading={loading}/>
+      {activeTab === "availability" && hasEmployeeProfile && (
+        <Availability teamAvailability={teamAvailability} loading={loading} />
       )}
     </div>
   );

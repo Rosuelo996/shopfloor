@@ -109,7 +109,14 @@ export async function fetchWeeklyShifts(date) {
 }
 
 
-export async function fetchTeamAvailability() {
+export async function fetchTeamAvailability(role, employeeId) {
+  const canViewAll =
+    role === "Store Manager" || role === "Assistant Store Manager";
+
+  if (!canViewAll && !employeeId) {
+    return [];
+  }
+
   const result = await db.query(
     `
     SELECT
@@ -118,26 +125,28 @@ export async function fetchTeamAvailability() {
       e.last_name,
       e.role,
       e.employment_type,
-    JSON_AGG(
-    ea ORDER BY
-    CASE ea.day_of_week
-      WHEN 'monday' THEN 1
-      WHEN 'tuesday' THEN 2
-      WHEN 'wednesday' THEN 3
-      WHEN 'thursday' THEN 4
-      WHEN 'friday' THEN 5
-      WHEN 'saturday' THEN 6
-      WHEN 'sunday' THEN 7
-    END
-    ) AS availability
+      JSON_AGG(
+        ea ORDER BY
+        CASE ea.day_of_week
+          WHEN 'monday' THEN 1
+          WHEN 'tuesday' THEN 2
+          WHEN 'wednesday' THEN 3
+          WHEN 'thursday' THEN 4
+          WHEN 'friday' THEN 5
+          WHEN 'saturday' THEN 6
+          WHEN 'sunday' THEN 7
+        END
+      ) AS availability
     FROM employees e
     JOIN employee_availability ea
       ON e.id = ea.employee_id
-    GROUP BY 
+    WHERE ($1::boolean = TRUE OR e.id = $2)
+    GROUP BY
       e.id
     ORDER BY
       e.id
-  `,
+    `,
+    [canViewAll, employeeId],
   );
 
   const availability = result.rows;

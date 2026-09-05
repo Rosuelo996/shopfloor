@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
+import { useAuth } from "@clerk/react";
 import { useApp } from "../../../hooks/useApp";
+import { useUsers } from "../../../hooks/useUsers";
 
 import {
   getDailyShifts,
@@ -15,6 +17,8 @@ import type {
 
 export function useTeam() {
   const { selectedDate } = useApp();
+  const { getToken, isLoaded, isSignedIn } = useAuth();
+  const { currentUser } = useUsers();
 
   const [dailyShifts, setDailyShifts] = useState<DailyShiftsData[]>([]);
   const [weeklyShifts, setWeeklyShifts] = useState<WeeklyShiftsData | null>(
@@ -28,16 +32,29 @@ export function useTeam() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!isLoaded || !isSignedIn || !currentUser) return;
+
     const loadTeam = async () => {
       try {
         setLoading(true);
         setError(null);
 
+        const token = await getToken();
+
+        if (!token) {
+          throw new Error("Authentication token unavailable");
+        }
+
+        const availabilityPromise =
+          currentUser.employeeId != null
+            ? getAvailability(token)
+            : Promise.resolve<AvailabilityData[]>([]);
+
         const [dailyShiftsData, weeklyShiftsData, availabilityData] =
           await Promise.all([
             getDailyShifts(selectedDate),
             getWeeklyShifts(selectedDate),
-            getAvailability(),
+            availabilityPromise,
           ]);
 
         setDailyShifts(dailyShiftsData);
@@ -52,7 +69,13 @@ export function useTeam() {
     };
 
     loadTeam();
-  }, [selectedDate]);
+  }, [
+    selectedDate,
+    isLoaded,
+    isSignedIn,
+    getToken,
+    currentUser,
+  ]);
 
   return {
     dailyShifts,

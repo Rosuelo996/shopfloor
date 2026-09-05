@@ -19,8 +19,14 @@ export async function getWeeklyShifts(date?: string): Promise<WeeklyShiftsData> 
     return res.data
 }
 
-export async function getAvailability(): Promise <AvailabilityData[]> {
-    const res = await axios.get(`${API_URL}/team/availability`)
+export async function getAvailability(
+  token: string,
+): Promise<AvailabilityData[]> {
+  const res = await axios.get(`${API_URL}/team/availability`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
-    return res.data
+  return res.data;
 }
