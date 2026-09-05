@@ -97,5 +97,8 @@
 }
 
 .demo:disabled {
+  opacity: 0.65;
   cursor: wait;
+  transform: none;
+  box-shadow: none;
 }
