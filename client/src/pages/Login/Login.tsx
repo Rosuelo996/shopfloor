@@ -15,11 +15,14 @@ export default function Login() {
   const { signIn } = useSignIn();
 
   const [demoError, setDemoError] = useState("");
+  const [demoLoading, setDemoLoading] = useState(false);
   const [showCreateAccount, setShowCreateAccount] = useState(false);
 
-  async function handleDemoLogin() {
-    setDemoError("");
+async function handleDemoLogin() {
+  setDemoError("");
+  setDemoLoading(true);
 
+  try {
     const demoToken = await createDemoSignInToken();
 
     const { error } = await signIn.ticket({
@@ -41,7 +44,10 @@ export default function Login() {
 
       navigate("/dashboard");
     }
+  } finally {
+    setDemoLoading(false);
   }
+}
 
   return (
     <div className={styles.login}>
@@ -114,6 +120,7 @@ export default function Login() {
                 <DemoLogin
                   onDemoLogin={handleDemoLogin}
                   error={demoError}
+                  loading={demoLoading} 
                 />
 
                 <div className={styles.divider}>
