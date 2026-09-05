@@ -10,7 +10,7 @@ export const ROLE_PERMISSIONS: Record<string, Permission[]> = {
     "tasks.view",
   ],
 
-  "assistant manager": [
+  "assistant store manager": [
     "weeklySales.view",
     "handover.view",
     "tasks.view",

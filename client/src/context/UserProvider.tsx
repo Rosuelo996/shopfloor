@@ -17,10 +17,13 @@ export function UserProvider({ children }: { children: ReactNode }) {
   const [currentUser, setCurrentUser] = useState<CurrentUserData | null>(null);
 
   const can = (permission: Permission): boolean => {
-    if (!currentUser) return false;
+  if (!currentUser) return false;
 
-    return ROLE_PERMISSIONS[currentUser.role]?.includes(permission) ?? false;
-  };
+  return (
+    ROLE_PERMISSIONS[currentUser.role.toLowerCase()]?.includes(permission) ??
+    false
+  );
+};
 
   useEffect(() => {
     async function loadDemoUsers() {
